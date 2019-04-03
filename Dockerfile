@@ -31,7 +31,9 @@ ENV NB_UID 1000
 RUN useradd -m -s /bin/bash -N -u $NB_UID $NB_USER && \
     chown $NB_USER $CONDA_DIR -R && \
     mkdir -p /src && \
-    chown $NB_USER /src
+    chown $NB_USER /src && \
+    mkdir -p /logs && \
+    chown $NB_USER /logs
 
 USER $NB_USER
 
@@ -60,6 +62,7 @@ RUN conda install -y python=${python_version} && \
       six \
       theano \
       mkdocs \
+      tensorboard \
       && \
     git clone git://github.com/keras-team/keras.git /src && pip install -e /src[tests] && \
     pip install git+git://github.com/keras-team/keras.git && \
@@ -75,5 +78,6 @@ ENV PYTHONPATH='/src/:$PYTHONPATH'
 WORKDIR /data
 
 EXPOSE 8888
+EXPOSE 6006
 
 CMD jupyter notebook --port=8888 --ip=0.0.0.0
