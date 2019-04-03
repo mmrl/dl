@@ -40,13 +40,13 @@ USER $NB_USER
 ARG python_version=3.6
 
 RUN conda config --append channels conda-forge
-RUN conda install -y python=${python_version} && \
-    pip install --upgrade pip && \
+RUN conda install -y python=${python_version}
+RUN pip install --upgrade pip && \
     pip install \
       sklearn_pandas \
       tensorflow-gpu \
-      cntk-gpu && \
-    conda install \
+      cntk-gpu
+RUN conda install \
       bcolz \
       h5py \
       matplotlib \
@@ -62,9 +62,9 @@ RUN conda install -y python=${python_version} && \
       six \
       theano \
       mkdocs \
-      tensorboard \
-      && \
-    git clone git://github.com/keras-team/keras.git /src && pip install -e /src[tests] && \
+      tensorboard
+#      && \
+RUN git clone git://github.com/keras-team/keras.git /src && pip install -e /src[tests] && \
     pip install git+git://github.com/keras-team/keras.git && \
     conda clean -yt
 
