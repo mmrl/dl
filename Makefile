@@ -11,6 +11,7 @@ CUDA_VERSION?=10.1
 CUDNN_VERSION?=7
 TEST=tests/
 SRC?=$(shell dirname `pwd`)
+LOGS?="${HOME}/logs"
 
 build:
 	docker build -t keras --build-arg python_version=$(PYTHON_VERSION) --build-arg cuda_version=$(CUDA_VERSION) --build-arg cudnn_version=$(CUDNN_VERSION) -f $(DOCKER_FILE) .
@@ -27,3 +28,5 @@ notebook: build
 test: build
 	$(DOCKER) run -it -v $(SRC):/src/workspace -v $(DATA):/data --env KERAS_BACKEND=$(BACKEND) keras py.test $(TEST)
 
+tensorboard: build
+	$(DOCKER) run -it -v $(SRC):/src/workspace -v $(DATA):/data -v $(LOGS):/logs -p 6006 --env KERAS_BACKEND=$(BACKEND) keras tensorboard --logdir=/logs
