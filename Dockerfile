@@ -79,7 +79,7 @@ COPY environment.yml /tmp/environment.yml
 # RUN [ "conda", "update", "conda", "-y" ]
 # RUN [ "conda", "update", "--all", "-y" ]
 
-RUN [ -s /tmp/environment.yml ] && conda env update -n root -f /tmp/environment.yml
+# RUN [ -s /tmp/environment.yml ] && conda env update -n root -f /tmp/environment.yml
 
 COPY theanorc /home/thedude/.theanorc
 
