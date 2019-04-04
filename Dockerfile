@@ -70,7 +70,7 @@ RUN git clone git://github.com/keras-team/keras.git /src && pip install -e /src[
     pip install git+git://github.com/keras-team/keras.git && \
     conda clean -yt
 
-ADD theanorc /home/thedude/.theanorc
+COPY theanorc /home/thedude/.theanorc
 
 ENV LC_ALL=C.UTF-8
 ENV LANG=C.UTF-8
