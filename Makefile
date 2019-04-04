@@ -15,19 +15,19 @@ SRC?=$(shell dirname `pwd`)
 LOGS?="${HOME}/logs"
 
 build:
-	docker build -t keras --build-arg python_version=$(PYTHON_VERSION) --build-arg cuda_version=$(CUDA_VERSION) --build-arg cudnn_version=$(CUDNN_VERSION) --build-arg NB_UID=$(UID) -f $(DOCKER_FILE) .
+	docker build -t mmrl/dl --build-arg python_version=$(PYTHON_VERSION) --build-arg cuda_version=$(CUDA_VERSION) --build-arg cudnn_version=$(CUDNN_VERSION) --build-arg NB_UID=$(UID) -f $(DOCKER_FILE) .
 
 bash: build
-	$(DOCKER) run -it -v $(SRC):/src/workspace -v $(DATA):/data --env KERAS_BACKEND=$(BACKEND) keras bash
+	$(DOCKER) run -it -v $(SRC):/src/workspace -v $(DATA):/data --env KERAS_BACKEND=$(BACKEND) mmrl/dl bash
 
 ipython: build
-	$(DOCKER) run -it -v $(SRC):/src/workspace -v $(DATA):/data --env KERAS_BACKEND=$(BACKEND) keras ipython
+	$(DOCKER) run -it -v $(SRC):/src/workspace -v $(DATA):/data --env KERAS_BACKEND=$(BACKEND) mmrl/dl ipython
 
 notebook: build
-	$(DOCKER) run -it -v $(SRC):/src/workspace -v $(DATA):/data --net=host --env KERAS_BACKEND=$(BACKEND) keras
+	$(DOCKER) run -it -v $(SRC):/src/workspace -v $(DATA):/data --net=host --env KERAS_BACKEND=$(BACKEND) mmrl/dl
 
 test: build
-	$(DOCKER) run -it -v $(SRC):/src/workspace -v $(DATA):/data --env KERAS_BACKEND=$(BACKEND) keras py.test $(TEST)
+	$(DOCKER) run -it -v $(SRC):/src/workspace -v $(DATA):/data --env KERAS_BACKEND=$(BACKEND) mmrl/dl py.test $(TEST)
 
 tensorboard: build
-	$(DOCKER) run -it -v $(SRC):/src/workspace -v $(DATA):/data -v $(LOGS):/logs -p 6006 --env KERAS_BACKEND=$(BACKEND) keras tensorboard --logdir=/logs
+	$(DOCKER) run -it -v $(SRC):/src/workspace -v $(DATA):/data -v $(LOGS):/logs -p 6006 --env KERAS_BACKEND=$(BACKEND) mmrl/dl tensorboard --logdir=/logs
