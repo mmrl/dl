@@ -25,8 +25,8 @@ RUN wget --quiet --no-check-certificate https://repo.continuum.io/miniconda/Mini
     echo export PATH=$CONDA_DIR/bin:'$PATH' > /etc/profile.d/conda.sh
 
 # Install Python packages and keras
-ENV NB_USER keras
 ENV NB_UID 1000
+ENV NB_USER thedude
 
 RUN useradd -m -s /bin/bash -N -u $NB_UID $NB_USER && \
     chown $NB_USER $CONDA_DIR -R && \
@@ -68,7 +68,7 @@ RUN git clone git://github.com/keras-team/keras.git /src && pip install -e /src[
     pip install git+git://github.com/keras-team/keras.git && \
     conda clean -yt
 
-ADD theanorc /home/keras/.theanorc
+ADD theanorc /home/thedude/.theanorc
 
 ENV LC_ALL=C.UTF-8
 ENV LANG=C.UTF-8
