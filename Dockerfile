@@ -90,8 +90,7 @@ ENV PYTHONPATH='/src/:$PYTHONPATH'
 
 WORKDIR /data
 
-EXPOSE 8888
-EXPOSE 6006
+EXPOSE 6006 8888
 
 # We set ENTRYPOINT, so while we still use exec mode, we don’t
 # explicitly call /bin/bash
