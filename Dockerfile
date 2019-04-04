@@ -2,9 +2,12 @@ ARG cuda_version=10.0
 ARG cudnn_version=7
 FROM nvidia/cuda:${cuda_version}-cudnn${cudnn_version}-devel
 
+# ENTRYPOINT [ "/bin/bash", "-c" ]
+
 # Install system packages
 RUN apt-get update && apt-get install -y --no-install-recommends \
       bzip2 \
+      # build-essential \
       g++ \
       git \
       graphviz \
@@ -70,6 +73,14 @@ RUN git clone git://github.com/keras-team/keras.git /src && pip install -e /src[
     pip install git+git://github.com/keras-team/keras.git && \
     conda clean -yt
 
+# Use the environment.yml to create the conda environment.
+# https://fmgdata.kinja.com/using-docker-with-conda-environments-1790901398
+COPY environment.yml /tmp/environment.yml
+# RUN [ "conda", "update", "conda", "-y" ]
+# RUN [ "conda", "update", "--all", "-y" ]
+
+RUN conda env update -n root -f /tmp/environment.yml
+
 COPY theanorc /home/thedude/.theanorc
 
 ENV LC_ALL=C.UTF-8
@@ -82,4 +93,7 @@ WORKDIR /data
 EXPOSE 8888
 EXPOSE 6006
 
+# We set ENTRYPOINT, so while we still use exec mode, we don’t
+# explicitly call /bin/bash
+# CMD [ "exec python run.py" ]
 CMD jupyter notebook --port=8888 --ip=0.0.0.0
