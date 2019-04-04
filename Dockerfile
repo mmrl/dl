@@ -25,8 +25,10 @@ RUN wget --quiet --no-check-certificate https://repo.continuum.io/miniconda/Mini
     echo export PATH=$CONDA_DIR/bin:'$PATH' > /etc/profile.d/conda.sh
 
 # Install Python packages and keras
-ENV NB_UID 1000
+ARG NB_UID=1000
+# ARG NB_GID
 ENV NB_USER thedude
+ENV NB_UID=$NB_UID
 
 RUN useradd -m -s /bin/bash -N -u $NB_UID $NB_USER && \
     chown $NB_USER $CONDA_DIR -R && \
