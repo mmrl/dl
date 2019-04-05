@@ -29,11 +29,11 @@ RUN wget --quiet --no-check-certificate https://repo.continuum.io/miniconda/Mini
 
 # Install Python packages and keras
 ARG NB_UID=1000
-# ARG NB_GID
+ARG NB_GID=100
 ENV NB_USER thedude
 ENV NB_UID=$NB_UID
 
-RUN useradd -m -s /bin/bash -N -u $NB_UID $NB_USER && \
+RUN useradd -m -s /bin/bash -N -u $NB_UID -g $NB_GID $NB_USER && \
     chown $NB_USER $CONDA_DIR -R && \
     mkdir -p /src && \
     chown $NB_USER /src && \
