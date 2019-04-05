@@ -75,7 +75,7 @@ RUN git clone git://github.com/keras-team/keras.git /src && pip install -e /src[
 
 # Use the environment.yml to create the conda environment.
 # https://fmgdata.kinja.com/using-docker-with-conda-environments-1790901398
-COPY environment.yml /tmp/environment.yml
+# COPY environment.yml /tmp/environment.yml
 # RUN [ "conda", "update", "conda", "-y" ]
 # RUN [ "conda", "update", "--all", "-y" ]
 
