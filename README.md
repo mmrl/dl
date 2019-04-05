@@ -1,7 +1,7 @@
-# Using Keras via Docker
+# Using the MMRL Docker image for deep learning
 
 This directory contains `Dockerfile` to make it easy to get up and running with
-Keras via [Docker](http://www.docker.com/).
+deep learning via [Docker](http://www.docker.com/).
 
 ## Installing Docker
 
