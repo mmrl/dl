@@ -12,7 +12,24 @@ quick links here:
 * [OSX](https://docs.docker.com/installation/mac/): [docker toolbox](https://www.docker.com/toolbox)
 * [ubuntu](https://docs.docker.com/installation/ubuntulinux/)
 
-## Running the container
+## Quick start - Running the container
+
+To launch the image with GPU support and mounting the present working directory in the container type:
+
+    $ docker run --runtime=nvidia -it --rm -v $(pwd):/data mmrl/dl
+
+Then open a browser and enter the following URL if your running the container locally:
+
+    $ http://127.0.0.1:8888
+
+(If you're running the container on a remote server, replace 127.0.0.1 with the name or IP address of the server.)
+You will then be asked for a token which you can copy and paste from the terminal output that looks something like this:
+
+```
+http://(kraken or 127.0.0.1):8888/?token=5233b03f99e38bf5c5fc045abd65fbe154ef8ae1a48afd2a
+```
+
+## Advanced - Building and running your own container
 
 We are using `Makefile` to simplify docker commands within make commands.
 
