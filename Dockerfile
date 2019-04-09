@@ -67,6 +67,7 @@ RUN conda install \
       six \
       theano \
       mkdocs \
+      tqdm \
       tensorboard
 #      && \
 RUN git clone git://github.com/keras-team/keras.git /src && pip install -e /src[tests] && \
