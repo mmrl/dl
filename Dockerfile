@@ -83,7 +83,7 @@ RUN conda install \
       pytorch \
       ignite \
       torchvision \
-      'cudatoolkit>=${cuda_version}' \
+      'cudatoolkit==${cuda_version}' \
       # mamgma-cuda100 \
       tensorboard \
       nodejs \
