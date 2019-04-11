@@ -1,7 +1,7 @@
 help:
 	@cat Makefile
 
-DATA?="${HOME}/Data"
+DATA?="${HOME}/data"
 UID?=1000
 GPU?=0
 DOCKER_FILE=Dockerfile
