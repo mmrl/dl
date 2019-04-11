@@ -47,12 +47,12 @@ RUN useradd -m -s /bin/bash -N -u $NB_UID -g $NB_GID $NB_USER && \
     chown $NB_USER $CONDA_DIR -R && \
     mkdir -p /src && \
     chown $NB_USER /src && \
-    mkdir -p $HOME/src && \
-    chown $NB_USER $HOME/src && \
-    mkdir -p $HOME/data && \
-    chown $NB_USER $HOME/data && \
-    mkdir -p $HOME/logs && \
-    chown $NB_USER $HOME/logs
+    mkdir -p /workspace/src && \
+    chown $NB_USER /workspace/src && \
+    mkdir -p /workspace/data && \
+    chown $NB_USER /workspace/data && \
+    mkdir -p /workspace/logs && \
+    chown $NB_USER /workspace/logs
 
 USER $NB_USER
 
@@ -131,11 +131,12 @@ COPY theanorc /home/thedude/.theanorc
 ENV LC_ALL=C.UTF-8
 ENV LANG=C.UTF-8
 
-ENV PYTHONPATH='/src/:$PYTHONPATH'
+ENV PYTHONPATH='/src/:/workspace/src/:$PYTHONPATH'
 
 # WORKDIR /data
-WORKDIR $HOME
-VOLUME $HOME
+# WORKDIR $HOME
+WORKDIR /workspace
+# VOLUME $HOME
 
 EXPOSE 6006 8888
 

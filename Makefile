@@ -18,19 +18,19 @@ build:
 	docker build -t mmrl/dl --build-arg python_version=$(PYTHON_VERSION) --build-arg cuda_version=$(CUDA_VERSION) --build-arg cudnn_version=$(CUDNN_VERSION) --build-arg NB_UID=$(UID) -f $(DOCKER_FILE) .
 
 bash: build
-	$(DOCKER) run -it -v $(SRC):/src/workspace -v $(DATA):/data --env KERAS_BACKEND=$(BACKEND) mmrl/dl bash
+	$(DOCKER) run -it -v $(SRC):/workspace/src -v $(DATA):/workspace/data --env KERAS_BACKEND=$(BACKEND) mmrl/dl bash
 
 ipython: build
-	$(DOCKER) run -it -v $(SRC):/src/workspace -v $(DATA):/data --env KERAS_BACKEND=$(BACKEND) mmrl/dl ipython
+	$(DOCKER) run -it -v $(SRC):/workspace/src -v $(DATA):/workspace/data --env KERAS_BACKEND=$(BACKEND) mmrl/dl ipython
 
 lab: build
-	$(DOCKER) run -it -v $(SRC):/src/workspace -v $(DATA):/data --net=host --env KERAS_BACKEND=$(BACKEND) mmrl/dl
+	$(DOCKER) run -it -v $(SRC):/workspace/src -v $(DATA):/workspace/data --net=host --env KERAS_BACKEND=$(BACKEND) mmrl/dl
 
 notebook: build
-	$(DOCKER) run -it -v $(SRC):/src/workspace -v $(DATA):/data --net=host --env KERAS_BACKEND=$(BACKEND) mmrl/dl jupyter notebook --port=8888 --ip=0.0.0.0
+	$(DOCKER) run -it -v $(SRC):/workspace/src -v $(DATA):/workspace/data --net=host --env KERAS_BACKEND=$(BACKEND) mmrl/dl jupyter notebook --port=8888 --ip=0.0.0.0
 
 test: build
-	$(DOCKER) run -it -v $(SRC):/src/workspace -v $(DATA):/data --env KERAS_BACKEND=$(BACKEND) mmrl/dl py.test $(TEST)
+	$(DOCKER) run -it -v $(SRC):/workspace/src -v $(DATA):/workspace/data --env KERAS_BACKEND=$(BACKEND) mmrl/dl py.test $(TEST)
 
 tensorboard: build
-	$(DOCKER) run -it -v $(SRC):/src/workspace -v $(DATA):/data -v $(LOGS):/logs -p 6006 --env KERAS_BACKEND=$(BACKEND) mmrl/dl tensorboard --logdir=/logs
+	$(DOCKER) run -it -v $(SRC):/workspace/src -v $(DATA):/workspace/data -v $(LOGS):/workspace/logs -p 6006 --env KERAS_BACKEND=$(BACKEND) mmrl/dl tensorboard --logdir=/logs
