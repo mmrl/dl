@@ -55,11 +55,12 @@ ARG python_version=3.6
 RUN conda config --append channels conda-forge
 RUN conda config --append channels pytorch
 RUN conda install -y python=${python_version}
-RUN pip install --upgrade pip && \
-    pip install \
-      sklearn_pandas \
-      tensorflow-gpu \
-      cntk-gpu
+# RUN pip install --upgrade pip
+# RUN pip install --upgrade pip && \
+#     pip install \
+#       sklearn_pandas \
+#       tensorflow-gpu \
+#       cntk-gpu
 RUN conda install \
       bcolz \
       h5py \
@@ -77,6 +78,8 @@ RUN conda install \
       theano \
       mkdocs \
       tqdm \
+      tensorflow-gpu \
+      cntk-gpu \
       # git \
       # setuptools \
       cmake \
@@ -101,6 +104,9 @@ RUN conda install \
       rm -rf $CONDA_DIR/share/jupyter/lab/staging && \
       rm -rf /home/$NB_USER/.cache/yarn
 #      && \
+RUN pip install --upgrade pip && \
+    pip install \
+      sklearn_pandas
 RUN git clone git://github.com/keras-team/keras.git /src && pip install -e /src[tests] && \
     pip install git+git://github.com/keras-team/keras.git && \
     conda clean -yt
