@@ -33,6 +33,9 @@ ARG NB_GID=100
 ENV NB_USER thedude
 ENV NB_UID=$NB_UID
 
+# Enable prompt color in the skeleton .bashrc before creating the default NB_USER
+RUN sed -i 's/^#force_color_prompt=yes/force_color_prompt=yes/' /etc/skel/.bashrc
+
 RUN useradd -m -s /bin/bash -N -u $NB_UID -g $NB_GID $NB_USER && \
     chown $NB_USER $CONDA_DIR -R && \
     mkdir -p /src && \
