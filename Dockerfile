@@ -47,7 +47,7 @@ USER $NB_USER
 
 ARG python_version=3.6
 
-RUN conda config --append channels conda-forge
+RUN conda config --append channels conda-forge pytorch
 RUN conda install -y python=${python_version}
 RUN pip install --upgrade pip && \
     pip install \
@@ -71,6 +71,15 @@ RUN conda install \
       theano \
       mkdocs \
       tqdm \
+      # git \
+      setuptools \
+      cmake \
+      cffi \
+      typing \
+      pytorch \
+      torchvision \
+      cudatoolkit=${cuda_version} \
+      # mamgma-cuda100 \
       tensorboard \
       nodejs \
       'jupyterhub=0.9.6' \
