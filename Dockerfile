@@ -32,16 +32,19 @@ ARG NB_UID=1000
 ARG NB_GID=100
 ENV NB_USER thedude
 ENV NB_UID=$NB_UID
+ENV HOME=/home/$NB_USER
 
 # Enable prompt color in the skeleton .bashrc before creating the default NB_USER
 RUN sed -i 's/^#force_color_prompt=yes/force_color_prompt=yes/' /etc/skel/.bashrc
 
 RUN useradd -m -s /bin/bash -N -u $NB_UID -g $NB_GID $NB_USER && \
     chown $NB_USER $CONDA_DIR -R && \
-    mkdir -p /src && \
-    chown $NB_USER /src && \
-    mkdir -p /logs && \
-    chown $NB_USER /logs
+    mkdir -p $HOME/src && \
+    chown $NB_USER $HOME/src && \
+    mkdir -p $HOME/data && \
+    chown $NB_USER $HOME/data
+    mkdir -p $HOME/logs && \
+    chown $NB_USER $HOME/logs
 
 USER $NB_USER
 
@@ -115,6 +118,7 @@ ENV LANG=C.UTF-8
 ENV PYTHONPATH='/src/:$PYTHONPATH'
 
 # WORKDIR /data
+WORKDIR $HOME
 
 EXPOSE 6006 8888
 
