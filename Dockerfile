@@ -74,9 +74,11 @@ RUN conda install \
       tensorboard \
       nodejs \
       'jupyterhub=0.9.6' \
-      'jupyterlab=0.35.4' && \
+      'jupyterlab=0.35.4' \
+      jupyterlab-git && \
       conda clean -tipsy && \
       jupyter labextension install @jupyterlab/hub-extension@^0.12.0 && \
+      jupyter labextension install @jupyterlab/github && \
       npm cache clean --force && \
       jupyter notebook --generate-config && \
       rm -rf $CONDA_DIR/share/jupyter/lab/staging && \
