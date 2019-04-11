@@ -78,9 +78,9 @@ RUN conda install \
       mkdocs \
       tqdm \
       # git \
-      setuptools \
+      # setuptools \
       cmake \
-      cffi \
+      # cffi \
       typing \
       pytorch \
       ignite \
