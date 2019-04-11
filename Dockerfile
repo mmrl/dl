@@ -42,7 +42,7 @@ RUN useradd -m -s /bin/bash -N -u $NB_UID -g $NB_GID $NB_USER && \
     mkdir -p $HOME/src && \
     chown $NB_USER $HOME/src && \
     mkdir -p $HOME/data && \
-    chown $NB_USER $HOME/data
+    chown $NB_USER $HOME/data && \
     mkdir -p $HOME/logs && \
     chown $NB_USER $HOME/logs
 
