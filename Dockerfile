@@ -71,7 +71,16 @@ RUN conda install \
       theano \
       mkdocs \
       tqdm \
-      tensorboard
+      tensorboard \
+      nodejs \
+      'jupyterhub=0.9.6' \
+      'jupyterlab=0.35.4' && \
+      conda clean -tipsy && \
+      jupyter labextension install @jupyterlab/hub-extension@^0.12.0 && \
+      npm cache clean --force && \
+      jupyter notebook --generate-config && \
+      rm -rf $CONDA_DIR/share/jupyter/lab/staging && \
+      rm -rf /home/$NB_USER/.cache/yarn
 #      && \
 RUN git clone git://github.com/keras-team/keras.git /src && pip install -e /src[tests] && \
     pip install git+git://github.com/keras-team/keras.git && \
@@ -99,4 +108,4 @@ EXPOSE 6006 8888
 # We set ENTRYPOINT, so while we still use exec mode, we don’t
 # explicitly call /bin/bash
 # CMD [ "exec python run.py" ]
-CMD ["jupyter", "notebook", "--port=8888", "--ip=0.0.0.0"]
+CMD ["jupyter", "lab", "--port=8888", "--ip=0.0.0.0"]
