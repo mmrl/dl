@@ -65,6 +65,11 @@ RUN conda install \
       bcolz \
       h5py \
       matplotlib \
+      bokeh \
+      selenium \
+      phantomjs \
+      networkx \
+      sphinx \
       mkl \
       nose \
       notebook \
