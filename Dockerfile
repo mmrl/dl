@@ -39,6 +39,8 @@ RUN sed -i 's/^#force_color_prompt=yes/force_color_prompt=yes/' /etc/skel/.bashr
 
 RUN useradd -m -s /bin/bash -N -u $NB_UID -g $NB_GID $NB_USER && \
     chown $NB_USER $CONDA_DIR -R && \
+    mkdir -p /src && \
+    chown $NB_USER /src && \
     mkdir -p $HOME/src && \
     chown $NB_USER $HOME/src && \
     mkdir -p $HOME/data && \
