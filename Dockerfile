@@ -78,6 +78,7 @@ RUN conda install \
       cffi \
       typing \
       pytorch \
+      ignite \
       torchvision \
       cudatoolkit=${cuda_version} \
       # mamgma-cuda100 \
