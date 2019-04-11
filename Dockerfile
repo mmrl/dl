@@ -79,7 +79,6 @@ RUN conda install \
       mkdocs \
       tqdm \
       tensorflow-gpu \
-      cntk-gpu \
       # git \
       # setuptools \
       cmake \
