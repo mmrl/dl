@@ -106,10 +106,13 @@ RUN conda install \
       nodejs \
       'jupyterhub=0.9.6' \
       'jupyterlab=0.35.4' \
+      ipywidgets \
+      widgetsnbextension \
       jupyterlab-git && \
       conda clean --all && \
       jupyter labextension install @jupyterlab/hub-extension@^0.12.0 && \
       jupyter labextension install @jupyterlab/github && \
+      jupyter labextension install @jupyter-widgets/jupyterlab-manager && \
       npm cache clean --force && \
       jupyter notebook --generate-config && \
       rm -rf $CONDA_DIR/share/jupyter/lab/staging && \
