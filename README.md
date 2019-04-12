@@ -6,11 +6,11 @@ deep learning via [Docker](http://www.docker.com/).
 ## Installing Docker
 
 General installation instructions are
-[on the Docker site](https://docs.docker.com/installation/), but we give some
+[on the Docker site](https://docs.docker.com/install/), but we give some
 quick links here:
 
-* [OSX](https://docs.docker.com/installation/mac/): [docker toolbox](https://www.docker.com/toolbox)
-* [ubuntu](https://docs.docker.com/installation/ubuntulinux/)
+* [macOS](https://docs.docker.com/docker-for-mac/install/)
+* [Ubuntu](https://docs.docker.com/install/linux/docker-ce/ubuntu/)
 * [Windows](https://docs.docker.com/docker-for-windows/install/)
 
 ## Quick start - Running the container
