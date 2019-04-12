@@ -68,6 +68,10 @@ Build the container and start a Jupyter Notebook
 
     $ make notebook
 
+Alternatively, run the container with the new Jupyter lab interface
+
+    $ make lab
+
 Build the container and start an iPython shell
 
     $ make ipython
