@@ -18,6 +18,31 @@ quick links here:
 * [macOS](https://docs.docker.com/docker-for-mac/install/)
 * [Windows](https://docs.docker.com/docker-for-windows/install/)
 
+### Installing nvidia-docker
+
+* [Add the nvidia repository](https://nvidia.github.io/nvidia-docker/)
+These instructions are for Ubuntu. For other distributions, see [here](https://nvidia.github.io/nvidia-docker/).
+
+```
+curl -s -L https://nvidia.github.io/nvidia-docker/gpgkey | \
+  sudo apt-key add -
+distribution=$(. /etc/os-release;echo $ID$VERSION_ID)
+curl -s -L https://nvidia.github.io/nvidia-docker/$distribution/nvidia-docker.list | \
+  sudo tee /etc/apt/sources.list.d/nvidia-docker.list
+sudo apt-get update
+```
+
+* Install the nvidia-docker2 package
+
+```
+sudo apt-get install nvidia-docker2
+sudo pkill -SIGHUP dockerd
+```
+
+* Verify the installation
+
+`docker run --runtime=nvidia --rm nvidia/cuda nvidia-smi`
+
 ## Quick start - Running the container
 
 To launch the image with GPU support and mounting the present working directory in the container type:
