@@ -8,7 +8,7 @@ deep learning via [Docker](http://www.docker.com/).
 ## Installation
 
 Install the latest nvidia drivers
-* [Ubunutu](https://docs.nvidia.com/cuda/cuda-installation-guide-linux/index.html#ubuntu-installation)
+* [Ubuntu](https://docs.nvidia.com/cuda/cuda-installation-guide-linux/index.html#ubuntu-installation)
 
 ### Installing Docker
 
