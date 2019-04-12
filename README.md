@@ -3,12 +3,12 @@
 This directory contains `Dockerfile` to make it easy to get up and running with
 deep learning via [Docker](http://www.docker.com/).
 
-## Installing Docker
 ## Installation
 
 Install the latest nvidia drivers
 * [Ubunutu](https://docs.nvidia.com/cuda/cuda-installation-guide-linux/index.html#ubuntu-installation)
 
+### Installing Docker
 
 General installation instructions are
 [on the Docker site](https://docs.docker.com/install/), but we give some
