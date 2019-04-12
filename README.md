@@ -14,8 +14,8 @@ General installation instructions are
 [on the Docker site](https://docs.docker.com/install/), but we give some
 quick links here:
 
-* [macOS](https://docs.docker.com/docker-for-mac/install/)
 * [Ubuntu](https://docs.docker.com/install/linux/docker-ce/ubuntu/)
+* [macOS](https://docs.docker.com/docker-for-mac/install/)
 * [Windows](https://docs.docker.com/docker-for-windows/install/)
 
 ## Quick start - Running the container
