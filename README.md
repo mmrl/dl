@@ -45,6 +45,31 @@ sudo pkill -SIGHUP dockerd
 
 `docker run --runtime=nvidia --rm nvidia/cuda nvidia-smi`
 
+You should see something like this showing the GPUs available:
+
+```
+Fri Apr 12 16:51:39 2019       
++-----------------------------------------------------------------------------+
+| NVIDIA-SMI 418.56       Driver Version: 418.56       CUDA Version: 10.1     |
+|-------------------------------+----------------------+----------------------+
+| GPU  Name        Persistence-M| Bus-Id        Disp.A | Volatile Uncorr. ECC |
+| Fan  Temp  Perf  Pwr:Usage/Cap|         Memory-Usage | GPU-Util  Compute M. |
+|===============================+======================+======================|
+|   0  TITAN Xp            Off  | 00000000:05:00.0  On |                  N/A |
+| 23%   30C    P8    10W / 250W |     72MiB / 12192MiB |      0%      Default |
++-------------------------------+----------------------+----------------------+
+|   1  TITAN Xp            Off  | 00000000:09:00.0 Off |                  N/A |
+| 23%   27C    P8     9W / 250W |      2MiB / 12196MiB |      0%      Default |
++-------------------------------+----------------------+----------------------+
+
++-----------------------------------------------------------------------------+
+| Processes:                                                       GPU Memory |
+|  GPU       PID   Type   Process name                             Usage      |
+|=============================================================================|
+|    0      1361      G   /usr/lib/xorg/Xorg                            69MiB |
++-----------------------------------------------------------------------------+
+```
+
 ## Quick start - Running the container
 
 To launch the image with GPU support and mount the present working directory in the container type:
