@@ -45,7 +45,7 @@ sudo pkill -SIGHUP dockerd
 
 ## Quick start - Running the container
 
-To launch the image with GPU support and mounting the present working directory in the container type:
+To launch the image with GPU support and mount the present working directory in the container type:
 
     $ docker run --runtime=nvidia -it --rm -v $(pwd):/data mmrl/dl
 
