@@ -47,7 +47,7 @@ sudo pkill -SIGHUP dockerd
 
 To launch the image with GPU support and mount the present working directory in the container type:
 
-    $ docker run --runtime=nvidia -it --rm -v $(pwd):/data mmrl/dl
+    $ docker run --runtime=nvidia -it --rm -v $(pwd):/workspace/src mmrl/dl
 
 Then open a browser and enter the following URL if your running the container locally:
 
