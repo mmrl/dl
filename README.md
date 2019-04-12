@@ -11,6 +11,7 @@ quick links here:
 
 * [OSX](https://docs.docker.com/installation/mac/): [docker toolbox](https://www.docker.com/toolbox)
 * [ubuntu](https://docs.docker.com/installation/ubuntulinux/)
+* [Windows](https://docs.docker.com/docker-for-windows/install/)
 
 ## Quick start - Running the container
 
