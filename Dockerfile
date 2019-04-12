@@ -76,6 +76,7 @@ RUN conda install \
       phantomjs \
       networkx \
       sphinx \
+      seaborn \
       mkl \
       nose \
       notebook \
