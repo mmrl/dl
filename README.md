@@ -1,5 +1,7 @@
 # Using the MMRL Docker image for deep learning
 
+![Docker Pulls](https://img.shields.io/docker/pulls/mmrl/dl.svg?style=popout)
+
 This directory contains `Dockerfile` to make it easy to get up and running with
 deep learning via [Docker](http://www.docker.com/).
 
