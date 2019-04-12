@@ -100,6 +100,15 @@ Prints all make tasks
 
 You can change Theano parameters by editing `/docker/theanorc`.
 
+## Advanced - Customising your own container
+
+The above `docker run` command will pull the [ready-made Docker image for deep learning](https://hub.docker.com/r/mmrl/dl) from the [MMRL repository on Docker Hub](https://hub.docker.com/u/mmrl), however you can use it as a base image and customise it to your needs.
+
+Create your own Dockerfile and start with the following line to inherit all the features of the mmrl/dl container:
+
+```
+FROM mmrl/dl
+```
 
 Note: If you would have a problem running nvidia-docker you may try the old way
 we have used. But it is not recommended. If you find a bug in the nvidia-docker report
