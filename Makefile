@@ -33,4 +33,4 @@ test: build
 	$(DOCKER) run -it -v $(SRC):/workspace/src -v $(DATA):/workspace/data --env KERAS_BACKEND=$(BACKEND) mmrl/dl py.test $(TEST)
 
 tensorboard: build
-	$(DOCKER) run -it -v $(SRC):/workspace/src -v $(DATA):/workspace/data -v $(LOGS):/workspace/logs -p 6006 --env KERAS_BACKEND=$(BACKEND) mmrl/dl tensorboard --logdir=/logs
+	$(DOCKER) run -it -v $(SRC):/workspace/src -v $(DATA):/workspace/data -v $(LOGS):/workspace/logs -p 0.0.0.0:6006:6006 --env KERAS_BACKEND=$(BACKEND) mmrl/dl tensorboard --logdir=/logs
