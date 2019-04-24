@@ -70,6 +70,7 @@ RUN pip install --upgrade pip && \
 RUN conda install \
       bcolz \
       h5py \
+      joblib \
       matplotlib \
       bokeh \
       selenium \
