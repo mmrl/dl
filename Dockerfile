@@ -116,6 +116,7 @@ RUN conda install \
       jupyter labextension install @jupyterlab/git && \
       jupyter serverextension enable --py jupyterlab_git && \
       jupyter labextension install @jupyterlab/github && \
+      jupyter labextension install jupyterlab-drawio && \
       jupyter labextension install @jupyter-widgets/jupyterlab-manager && \
       npm cache clean --force && \
       jupyter notebook --generate-config && \
