@@ -112,6 +112,8 @@ RUN conda install \
       jupyterlab-git && \
       conda clean --all && \
       jupyter labextension install @jupyterlab/hub-extension@^0.12.0 && \
+      jupyter labextension install @jupyterlab/git && \
+      jupyter serverextension enable --py jupyterlab_git && \
       jupyter labextension install @jupyterlab/github && \
       jupyter labextension install @jupyter-widgets/jupyterlab-manager && \
       npm cache clean --force && \
