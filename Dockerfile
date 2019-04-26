@@ -106,7 +106,7 @@ RUN conda install \
       tensorboard \
       nodejs \
       'jupyterhub=0.9.6' \
-      'jupyterlab=0.35.4' \
+      'jupyterlab=0.35.5' \
       ipywidgets \
       widgetsnbextension \
       jupyterlab-git && \
