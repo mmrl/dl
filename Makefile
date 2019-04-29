@@ -17,6 +17,15 @@ LOGS?="${HOME}/logs"
 build:
 	$(DOCKER) build -t mmrl/dl --build-arg python_version=$(PYTHON_VERSION) --build-arg cuda_version=$(CUDA_VERSION) --build-arg cudnn_version=$(CUDNN_VERSION) --build-arg NB_UID=$(UID) -f $(DOCKER_FILE) .
 
+prune:
+	$(DOCKER) system prune -f
+
+nuke:
+	$(DOCKER) system prune --volumes
+
+clean: prune
+	$(DOCKER) build -t mmrl/dl --no-cache --build-arg python_version=$(PYTHON_VERSION) --build-arg cuda_version=$(CUDA_VERSION) --build-arg cudnn_version=$(CUDNN_VERSION) --build-arg NB_UID=$(UID) -f $(DOCKER_FILE) .
+
 bash: build
 	$(DOCKER) run -it -v $(SRC):/workspace/src -v $(DATA):/workspace/data --env KERAS_BACKEND=$(BACKEND) mmrl/dl bash
 
@@ -34,3 +43,6 @@ test: build
 
 tensorboard: build
 	$(DOCKER) run -it -v $(SRC):/workspace/src -v $(DATA):/workspace/data -v $(LOGS):/workspace/logs -p 0.0.0.0:6006:6006 --env KERAS_BACKEND=$(BACKEND) mmrl/dl tensorboard --logdir=/logs
+
+info:
+	$(DOCKER) system info
