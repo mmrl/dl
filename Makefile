@@ -15,7 +15,7 @@ SRC?=$(shell dirname `pwd`)
 LOGS?="${HOME}/logs"
 
 build:
-	docker build -t mmrl/dl --build-arg python_version=$(PYTHON_VERSION) --build-arg cuda_version=$(CUDA_VERSION) --build-arg cudnn_version=$(CUDNN_VERSION) --build-arg NB_UID=$(UID) -f $(DOCKER_FILE) .
+	$(DOCKER) build -t mmrl/dl --build-arg python_version=$(PYTHON_VERSION) --build-arg cuda_version=$(CUDA_VERSION) --build-arg cudnn_version=$(CUDNN_VERSION) --build-arg NB_UID=$(UID) -f $(DOCKER_FILE) .
 
 bash: build
 	$(DOCKER) run -it -v $(SRC):/workspace/src -v $(DATA):/workspace/data --env KERAS_BACKEND=$(BACKEND) mmrl/dl bash
