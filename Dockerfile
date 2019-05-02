@@ -87,6 +87,8 @@ RUN conda install \
       pygpu \
       pyyaml \
       scikit-learn \
+      scikit-image \
+      opencv \
       six \
       theano \
       mkdocs \
