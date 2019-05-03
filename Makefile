@@ -47,4 +47,4 @@ tensorboard: build
 
 info: build
 	$(DOCKER) system info
-	$(DOCKER) run -it mmrl/dl nvidia-smi
+	$(DOCKER) run -it --rm mmrl/dl nvidia-smi
