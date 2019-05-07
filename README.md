@@ -74,7 +74,7 @@ Fri Apr 12 16:51:39 2019
 
 To launch the image with GPU support and mount the present working directory in the container type:
 
-    $ docker run --runtime=nvidia -it --rm -v $(pwd):/workspace/src mmrl/dl
+    $ docker run --runtime=nvidia -it --rm --net=host -v $(pwd):/workspace/src mmrl/dl
 
 Then open a browser and enter the following URL if your running the container locally:
 
