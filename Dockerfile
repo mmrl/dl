@@ -126,7 +126,7 @@ RUN conda install --quiet --yes \
       nodejs \
       'notebook=5.7.8' \
       'jupyterhub=1.0.0' \
-      'jupyterlab=0.35.5' \
+      'jupyterlab=0.35.6' \
       ipywidgets \
       widgetsnbextension \
       jupyterlab-git && \
