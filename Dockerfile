@@ -77,12 +77,12 @@ ARG python_version=3.6
 RUN conda config --append channels conda-forge
 RUN conda config --append channels pytorch
 RUN conda install -y python=${python_version}
-# RUN pip install --upgrade pip
-RUN pip install --upgrade pip && \
-    pip install \
-      sklearn_pandas \
-      # tensorflow-gpu \
-      cntk-gpu
+RUN pip install --upgrade pip
+# RUN pip install --upgrade pip && \
+#     pip install \
+#       sklearn_pandas \
+#       # tensorflow-gpu \
+#       cntk-gpu
 RUN conda install --quiet --yes \
       bcolz \
       h5py \
