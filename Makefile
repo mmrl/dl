@@ -2,6 +2,7 @@ help:
 	@cat Makefile
 
 DATA?="${HOME}/data"
+RESULTS?="${HOME}/results"
 UID?=1000
 GPU?=0
 DOCKER_FILE=Dockerfile
@@ -28,22 +29,22 @@ clean: prune
 	$(DOCKER) build -t mmrl/dl --no-cache --build-arg python_version=$(PYTHON_VERSION) --build-arg cuda_version=$(CUDA_VERSION) --build-arg cudnn_version=$(CUDNN_VERSION) --build-arg NB_UID=$(UID) -f $(DOCKER_FILE) .
 
 bash: build
-	$(DOCKER) run -it -v $(SRC):/workspace/src -v $(DATA):/workspace/data --env KERAS_BACKEND=$(BACKEND) mmrl/dl bash
+	$(DOCKER) run -it -v $(SRC):/workspace/src -v $(DATA):/workspace/data -v $(RESULTS):/workspace/results --env KERAS_BACKEND=$(BACKEND) mmrl/dl bash
 
 ipython: build
-	$(DOCKER) run -it -v $(SRC):/workspace/src -v $(DATA):/workspace/data --env KERAS_BACKEND=$(BACKEND) mmrl/dl ipython
+	$(DOCKER) run -it -v $(SRC):/workspace/src -v $(DATA):/workspace/data -v $(RESULTS):/workspace/results --env KERAS_BACKEND=$(BACKEND) mmrl/dl ipython
 
 lab: build
-	$(DOCKER) run -it -v $(SRC):/workspace/src -v $(DATA):/workspace/data --net=host --env KERAS_BACKEND=$(BACKEND) mmrl/dl
+	$(DOCKER) run -it -v $(SRC):/workspace/src -v $(DATA):/workspace/data -v $(RESULTS):/workspace/results --net=host --env KERAS_BACKEND=$(BACKEND) mmrl/dl
 
 notebook: build
-	$(DOCKER) run -it -v $(SRC):/workspace/src -v $(DATA):/workspace/data --net=host --env KERAS_BACKEND=$(BACKEND) mmrl/dl jupyter notebook --port=8888 --ip=0.0.0.0
+	$(DOCKER) run -it -v $(SRC):/workspace/src -v $(DATA):/workspace/data -v $(RESULTS):/workspace/results --net=host --env KERAS_BACKEND=$(BACKEND) mmrl/dl jupyter notebook --port=8888 --ip=0.0.0.0
 
 test: build
-	$(DOCKER) run -it -v $(SRC):/workspace/src -v $(DATA):/workspace/data --env KERAS_BACKEND=$(BACKEND) mmrl/dl py.test $(TEST)
+	$(DOCKER) run -it -v $(SRC):/workspace/src -v $(DATA):/workspace/data -v $(RESULTS):/workspace/results --env KERAS_BACKEND=$(BACKEND) mmrl/dl py.test $(TEST)
 
 tensorboard: build
-	$(DOCKER) run -it -v $(SRC):/workspace/src -v $(DATA):/workspace/data -v $(LOGS):/workspace/logs -p 0.0.0.0:6006:6006 --env KERAS_BACKEND=$(BACKEND) mmrl/dl tensorboard --logdir=/logs
+	$(DOCKER) run -it -v $(RESULTS):/workspace/results -v $(LOGS):/workspace/logs -p 0.0.0.0:6006:6006 --env KERAS_BACKEND=$(BACKEND) mmrl/dl tensorboard --logdir=/logs
 
 info: build
 	$(DOCKER) system info
