@@ -165,7 +165,4 @@ VOLUME /workspace
 
 EXPOSE 6006 8888
 
-# We set ENTRYPOINT, so while we still use exec mode, we don’t
-# explicitly call /bin/bash
-# CMD [ "exec python run.py" ]
 CMD ["jupyter", "lab", "--port=8888", "--ip=0.0.0.0"]
