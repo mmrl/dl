@@ -48,10 +48,14 @@ ENV PATH=$CONDA_DIR/bin:$PATH \
 #     rm Miniconda3-4.2.12-Linux-x86_64.sh && \
 #     echo export PATH=$CONDA_DIR/bin:'$PATH' > /etc/profile.d/conda.sh
 
-RUN wget --quiet --no-check-certificate https://repo.continuum.io/miniconda/Miniconda3-4.5.12-Linux-x86_64.sh && \
-    echo "e5e5b4cd2a918e0e96b395534222773f7241dc59d776db1b9f7fedfcb489157a *Miniconda3-4.5.12-Linux-x86_64.sh" | sha256sum -c - && \
-    /bin/bash /Miniconda3-4.5.12-Linux-x86_64.sh -f -b -p $CONDA_DIR && \
-    rm Miniconda3-4.5.12-Linux-x86_64.sh && \
+ARG MINICONDA_VERSION=4.6.14
+ARG MINCONDA_MD5=718259965f234088d785cad1fbd7de03
+ENV MINICONDA_VERSION=$MINICONDA_VERSION \
+    MINCONDA_MD5=$MINCONDA_MD5
+RUN wget --quiet --no-check-certificate https://repo.continuum.io/miniconda/Miniconda3-${MINICONDA_VERSION}-Linux-x86_64.sh && \
+    echo "${MINCONDA_MD5} *Miniconda3-${MINICONDA_VERSION}-Linux-x86_64.sh" | md5sum -c - && \
+    /bin/bash /Miniconda3-${MINICONDA_VERSION}-Linux-x86_64.sh -f -b -p $CONDA_DIR && \
+    rm Miniconda3-${MINICONDA_VERSION}-Linux-x86_64.sh && \
     echo export PATH=$CONDA_DIR/bin:'$PATH' > /etc/profile.d/conda.sh
 
 # Enable prompt color in the skeleton .bashrc before creating the default NB_USER
