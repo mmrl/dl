@@ -79,7 +79,7 @@ RUN pip install --upgrade pip && \
       sklearn_pandas \
       # tensorflow-gpu \
       cntk-gpu
-RUN conda install \
+RUN conda install --quiet --yes \
       bcolz \
       h5py \
       joblib \
@@ -124,7 +124,7 @@ RUN conda install \
       ipywidgets \
       widgetsnbextension \
       jupyterlab-git && \
-      conda clean --all && \
+      conda clean --all -f -y && \
       jupyter labextension install @jupyterlab/hub-extension@^0.12.0 && \
       jupyter labextension install @jupyterlab/google-drive && \
       jupyter labextension install @jupyterlab/git && \
