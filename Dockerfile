@@ -42,14 +42,9 @@ ENV PATH=$CONDA_DIR/bin:$PATH \
     HOME=/home/$NB_USER
 
 # Install conda
-# RUN wget --quiet --no-check-certificate https://repo.continuum.io/miniconda/Miniconda3-4.2.12-Linux-x86_64.sh && \
-#     echo "c59b3dd3cad550ac7596e0d599b91e75d88826db132e4146030ef471bb434e9a *Miniconda3-4.2.12-Linux-x86_64.sh" | sha256sum -c - && \
-#     /bin/bash /Miniconda3-4.2.12-Linux-x86_64.sh -f -b -p $CONDA_DIR && \
-#     rm Miniconda3-4.2.12-Linux-x86_64.sh && \
-#     echo export PATH=$CONDA_DIR/bin:'$PATH' > /etc/profile.d/conda.sh
-
 ARG MINICONDA_VERSION=4.6.14
 ARG MINCONDA_MD5=718259965f234088d785cad1fbd7de03
+
 ENV MINICONDA_VERSION=$MINICONDA_VERSION \
     MINCONDA_MD5=$MINCONDA_MD5
 RUN wget --quiet --no-check-certificate https://repo.continuum.io/miniconda/Miniconda3-${MINICONDA_VERSION}-Linux-x86_64.sh && \
@@ -167,11 +162,10 @@ COPY theanorc /home/thedude/.theanorc
 
 ENV PYTHONPATH='/src/:/work/src/:$PYTHONPATH'
 
-# WORKDIR /data
 # WORKDIR $HOME
+# VOLUME $HOME
 WORKDIR /work
 VOLUME /work
-# VOLUME $HOME
 
 EXPOSE 6006 8888
 
