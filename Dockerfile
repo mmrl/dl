@@ -65,14 +65,14 @@ RUN useradd -m -s /bin/bash -N -u $NB_UID -g $NB_GID $NB_USER && \
     chown $NB_USER $CONDA_DIR -R && \
     mkdir -p /src && \
     chown $NB_USER /src && \
-    mkdir -p /workspace/src && \
-    chown $NB_USER /workspace/src && \
-    mkdir -p /workspace/data && \
-    chown $NB_USER /workspace/data && \
-    mkdir -p /workspace/results && \
-    chown $NB_USER /workspace/results && \
-    mkdir -p /workspace/logs && \
-    chown $NB_USER /workspace/logs
+    mkdir -p /work/src && \
+    chown $NB_USER /work/src && \
+    mkdir -p /work/data && \
+    chown $NB_USER /work/data && \
+    mkdir -p /work/results && \
+    chown $NB_USER /work/results && \
+    mkdir -p /work/logs && \
+    chown $NB_USER /work/logs
 
 # Install Python packages and keras
 USER $NB_USER
@@ -165,12 +165,12 @@ COPY theanorc /home/thedude/.theanorc
 # ENV LC_ALL=C.UTF-8
 # ENV LANG=C.UTF-8
 
-ENV PYTHONPATH='/src/:/workspace/src/:$PYTHONPATH'
+ENV PYTHONPATH='/src/:/work/src/:$PYTHONPATH'
 
 # WORKDIR /data
 # WORKDIR $HOME
-WORKDIR /workspace
-VOLUME /workspace
+WORKDIR /work
+VOLUME /work
 # VOLUME $HOME
 
 EXPOSE 6006 8888
