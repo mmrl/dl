@@ -11,7 +11,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
       bzip2 \
       # build-essential \
       g++ \
-      git \
+      # git \
       graphviz \
       libgl1-mesa-glx \
       libhdf5-dev \
@@ -98,7 +98,7 @@ RUN conda install \
       mkdocs \
       tqdm \
       tensorflow-gpu \
-      # git \
+      git \
       # setuptools \
       cmake \
       # cffi \
