@@ -92,7 +92,6 @@ RUN conda install --quiet --yes \
       seaborn \
       mkl \
       nose \
-      notebook \
       Pillow \
       pandas \
       pydot \
@@ -120,7 +119,8 @@ RUN conda install --quiet --yes \
       # mamgma-cuda100 \
       tensorboard \
       nodejs \
-      'jupyterhub=0.9.6' \
+      'notebook=5.7.8' \
+      'jupyterhub=1.0.0' \
       'jupyterlab=0.35.5' \
       ipywidgets \
       widgetsnbextension \
