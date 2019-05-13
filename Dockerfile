@@ -3,6 +3,8 @@ ARG cudnn_version=7
 FROM nvidia/cuda:${cuda_version}-cudnn${cudnn_version}-devel
 
 # ENTRYPOINT [ "/bin/bash", "-c" ]
+# Needed for string substitution
+SHELL ["/bin/bash", "-c"]
 
 # Install system packages
 RUN apt-get update && apt-get install -y --no-install-recommends \
@@ -104,8 +106,8 @@ RUN conda install \
       pytorch \
       ignite \
       torchvision \
-      # 'cudatoolkit>=${cuda_version}' \
-      'cudatoolkit>=10.0' \
+      'cudatoolkit>=${cuda_version}' \
+      # 'cudatoolkit>=10.0' \
       # mamgma-cuda100 \
       tensorboard \
       nodejs \
