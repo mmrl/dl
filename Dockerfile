@@ -150,6 +150,7 @@ ENV PYTHONPATH='/src/:/workspace/src/:$PYTHONPATH'
 # WORKDIR /data
 # WORKDIR $HOME
 WORKDIR /workspace
+VOLUME /workspace
 # VOLUME $HOME
 
 EXPOSE 6006 8888
