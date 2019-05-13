@@ -2,6 +2,8 @@ ARG cuda_version=10.0
 ARG cudnn_version=7
 FROM nvidia/cuda:${cuda_version}-cudnn${cudnn_version}-devel
 
+LABEL maintainer="Ben Evans <ben.d.evans@gmail.com>"
+
 # ENTRYPOINT [ "/bin/bash", "-c" ]
 # Needed for string substitution
 SHELL ["/bin/bash", "-c"]
