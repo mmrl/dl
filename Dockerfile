@@ -19,9 +19,23 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
       wget && \
     rm -rf /var/lib/apt/lists/*
 
+# Configure environment
+ARG NB_UID=1000
+ARG NB_GID=100
+ARG NB_USER=thedude
+
+ENV CONDA_DIR=/opt/conda \
+    SHELL=/bin/bash \
+    NB_USER=$NB_USER \
+    NB_UID=$NB_UID \
+    NB_GID=$NB_GID \
+    LC_ALL=en_US.UTF-8 \
+    LANG=en_US.UTF-8 \
+    LANGUAGE=en_US.UTF-8
+ENV PATH=$CONDA_DIR/bin:$PATH \
+    HOME=/home/$NB_USER
+
 # Install conda
-ENV CONDA_DIR /opt/conda
-ENV PATH $CONDA_DIR/bin:$PATH
 
 RUN wget --quiet --no-check-certificate https://repo.continuum.io/miniconda/Miniconda3-4.2.12-Linux-x86_64.sh && \
     echo "c59b3dd3cad550ac7596e0d599b91e75d88826db132e4146030ef471bb434e9a *Miniconda3-4.2.12-Linux-x86_64.sh" | sha256sum -c - && \
@@ -34,13 +48,6 @@ RUN wget --quiet --no-check-certificate https://repo.continuum.io/miniconda/Mini
 #     /bin/bash /Miniconda3-4.5.12-Linux-x86_64.sh -f -b -p $CONDA_DIR && \
 #     rm Miniconda3-4.5.12-Linux-x86_64.sh && \
 #     echo export PATH=$CONDA_DIR/bin:'$PATH' > /etc/profile.d/conda.sh
-
-# Install Python packages and keras
-ARG NB_UID=1000
-ARG NB_GID=100
-ENV NB_USER thedude
-ENV NB_UID=$NB_UID
-ENV HOME=/home/$NB_USER
 
 # Enable prompt color in the skeleton .bashrc before creating the default NB_USER
 RUN sed -i 's/^#force_color_prompt=yes/force_color_prompt=yes/' /etc/skel/.bashrc
@@ -58,6 +65,7 @@ RUN useradd -m -s /bin/bash -N -u $NB_UID -g $NB_GID $NB_USER && \
     mkdir -p /workspace/logs && \
     chown $NB_USER /workspace/logs
 
+# Install Python packages and keras
 USER $NB_USER
 
 ARG python_version=3.6
