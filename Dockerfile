@@ -51,6 +51,8 @@ RUN useradd -m -s /bin/bash -N -u $NB_UID -g $NB_GID $NB_USER && \
     chown $NB_USER /workspace/src && \
     mkdir -p /workspace/data && \
     chown $NB_USER /workspace/data && \
+    mkdir -p /workspace/results && \
+    chown $NB_USER /workspace/results && \
     mkdir -p /workspace/logs && \
     chown $NB_USER /workspace/logs
 
