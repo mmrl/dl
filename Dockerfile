@@ -106,6 +106,7 @@ RUN conda install --quiet --yes \
       mkdocs \
       tqdm \
       tensorflow-gpu \
+      keras \
       git \
       # setuptools \
       cmake \
@@ -138,9 +139,9 @@ RUN conda install --quiet --yes \
       rm -rf $CONDA_DIR/share/jupyter/lab/staging && \
       rm -rf /home/$NB_USER/.cache/yarn
 #      && \
-RUN git clone git://github.com/keras-team/keras.git /src && pip install -e /src[tests] && \
-    pip install git+git://github.com/keras-team/keras.git && \
-    conda clean -yt
+# RUN git clone git://github.com/keras-team/keras.git /src && pip install -e /src[tests] && \
+#     pip install git+git://github.com/keras-team/keras.git && \
+#     conda clean -yt
 
 # Use the environment.yml to create the conda environment.
 # https://fmgdata.kinja.com/using-docker-with-conda-environments-1790901398
