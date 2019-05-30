@@ -84,6 +84,7 @@ RUN pip install --upgrade pip
 #       # tensorflow-gpu \
 #       cntk-gpu
 RUN conda install --quiet --yes \
+      imagemagick \
       bcolz \
       h5py \
       joblib \
