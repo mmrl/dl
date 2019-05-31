@@ -99,7 +99,7 @@ RUN conda config --append channels conda-forge
 RUN conda install -y python=${python_version}
 RUN pip install --upgrade pip && \
     pip install \
-      sklearn_pandas \
+      sklearn_pandas
 RUN conda install --quiet --yes \
       imagemagick \
       bcolz \
