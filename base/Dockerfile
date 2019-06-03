@@ -12,8 +12,8 @@ SHELL ["/bin/bash", "-c"]
 # Install system packages
 RUN apt-get update && apt-get install -y --no-install-recommends \
       bzip2 \
-      # build-essential \
-      g++ \
+      build-essential \
+      # g++ \
       # git \
       graphviz \
       libgl1-mesa-glx \
