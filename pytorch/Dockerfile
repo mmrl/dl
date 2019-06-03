@@ -6,7 +6,7 @@ RUN conda install --quiet --yes \
       numpy \
       ninja \
       pyyaml \
-      mkl \
+      # mkl \
       mkl-include \
       setuptools \
       cmake \
@@ -15,9 +15,9 @@ RUN conda install --quiet --yes \
       pytorch \
       ignite \
       torchvision \
-      magma-cuda100 \
+      magma-cuda100 && \
       # 'cudatoolkit>=${cuda_version}' \
-      'cudatoolkit>=10.0' && \
+      # 'cudatoolkit>=10.0' && \
       conda clean --all -f -y && \
       npm cache clean --force && \
       rm -rf $CONDA_DIR/share/jupyter/lab/staging && \

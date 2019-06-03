@@ -10,14 +10,14 @@ FROM mmrl/dl:base
 # ARG cuda_version=10.0
 
 RUN conda install --quiet --yes \
-      mkl \
-      # theano \
-      tensorflow-gpu \
-      keras \
+      # mkl \
       # git \
       # setuptools \
       # 'cudatoolkit>=${cuda_version}' \
-      'cudatoolkit>=10.0' \
+      # 'cudatoolkit>=10.0' \
+      # theano \
+      tensorflow-gpu \
+      keras \
       tensorboard && \
       conda clean --all -f -y && \
       npm cache clean --force && \
