@@ -24,6 +24,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     rm -rf /var/lib/apt/lists/*
 
 # Dependencies from https://github.com/tensorflow/tensorflow/blob/master/tensorflow/tools/dockerfiles/dockerfiles/gpu-jupyter.Dockerfile
+# N.B. Most of these libraries are included in cudatoolkit
 # Check if other libraries e.g. cufft are included in the cuda base image
 # RUN apt-get update && apt-get install -y --no-install-recommends \
 #         build-essential \
@@ -73,8 +74,6 @@ RUN wget --quiet --no-check-certificate https://repo.continuum.io/miniconda/Mini
     rm Miniconda3-${MINICONDA_VERSION}-Linux-x86_64.sh && \
     echo export PATH=$CONDA_DIR/bin:'$PATH' > /etc/profile.d/conda.sh
 
-# Install Python packages
-
 # Enable prompt color in the skeleton .bashrc before creating the default NB_USER
 RUN sed -i 's/^#force_color_prompt=yes/force_color_prompt=yes/' /etc/skel/.bashrc
 
@@ -93,6 +92,7 @@ RUN useradd -m -s /bin/bash -N -u $NB_UID -g $NB_GID $NB_USER && \
 
 USER $NB_USER
 
+# Install Python packages
 ARG python_version=3.6
 
 RUN conda config --append channels conda-forge
@@ -127,7 +127,6 @@ RUN conda install --quiet --yes \
       tqdm \
       git \
       # setuptools \
-
       # 'cudatoolkit>=${cuda_version}' \
       'cudatoolkit>=10.0' \
       nodejs \
