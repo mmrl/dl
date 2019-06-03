@@ -136,6 +136,7 @@ RUN conda install --quiet --yes \
       'jupyterlab=0.35.6' \
       ipywidgets \
       widgetsnbextension \
+      nbdime \
       jupyterlab-git && \
       conda clean --all -f -y && \
       jupyter labextension install @jupyterlab/hub-extension@^0.12.0 && \
@@ -150,6 +151,8 @@ RUN conda install --quiet --yes \
       jupyter notebook --generate-config && \
       rm -rf $CONDA_DIR/share/jupyter/lab/staging && \
       rm -rf /home/$NB_USER/.cache/yarn
+
+RUN nbdime config-git --enable --global
 
 # ENV LC_ALL=C.UTF-8
 # ENV LANG=C.UTF-8

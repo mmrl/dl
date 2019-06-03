@@ -129,6 +129,7 @@ RUN conda install --quiet --yes \
       'jupyterlab=0.35.6' \
       ipywidgets \
       widgetsnbextension \
+      nbdime \
       jupyterlab-git && \
       conda clean --all -f -y && \
       jupyter labextension install @jupyterlab/hub-extension@^0.12.0 && \
@@ -148,6 +149,7 @@ RUN conda install --quiet --yes \
 #     pip install git+git://github.com/keras-team/keras.git && \
 #     conda clean -yt
 
+RUN nbdime config-git --enable --global
 # Use the environment.yml to create the conda environment.
 # https://fmgdata.kinja.com/using-docker-with-conda-environments-1790901398
 # COPY environment.yml /tmp/environment.yml
