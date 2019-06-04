@@ -13,6 +13,7 @@ SHELL ["/bin/bash", "-c"]
 RUN apt-get update && apt-get install -y --no-install-recommends \
       bzip2 \
       build-essential \
+      cmake \
       # g++ \
       git \
       graphviz \

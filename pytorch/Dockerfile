@@ -6,10 +6,10 @@ RUN conda install --quiet --yes \
       numpy \
       ninja \
       pyyaml \
+      # cmake \
       # mkl \
       mkl-include \
       setuptools \
-      cmake \
       # cffi \
       typing \
       pytorch \
