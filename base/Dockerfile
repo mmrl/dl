@@ -13,14 +13,26 @@ SHELL ["/bin/bash", "-c"]
 RUN apt-get update && apt-get install -y --no-install-recommends \
       bzip2 \
       build-essential \
+      ca-certificates \
       cmake \
+      curl \
       # g++ \
       git \
       graphviz \
+      libfreetype6-dev \
       libgl1-mesa-glx \
+      libhdf5-serial-dev \
       libhdf5-dev \
+      libjpeg-dev \
+      libpng-dev \
+      libzmq3-dev \
       locales \
       openmpi-bin \
+      pkg-config \
+      rsync \
+      software-properties-common \
+      # sudo \
+      unzip \
       wget && \
     rm -rf /var/lib/apt/lists/*
 
