@@ -3,16 +3,18 @@ FROM mmrl/dl:base
 # https://github.com/pytorch/pytorch/blob/master/docker/pytorch/Dockerfile
 RUN conda config --append channels pytorch
 RUN conda install --quiet --yes \
+      # setuptools \
       # git \
-      numpy \
-      ninja \
-      pyyaml \
+      # numpy \
+      # pyyaml \
+      # scipy \
+      # cython \
       # cmake \
       # mkl \
       mkl-include \
-      setuptools \
-      # cffi \
+      ninja \
       typing \
+      cffi \
       pytorch \
       ignite \
       torchvision \
