@@ -21,9 +21,9 @@ RUN conda install --quiet --yes \
       wheel \
       mock \
       tensorflow-gpu \
-      keras \
       # keras-preprocessing \
       # keras-applications \
+      keras-gpu \
       tensorboard && \
       conda clean --all -f -y && \
       npm cache clean --force && \
