@@ -38,23 +38,13 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 
 # Dependencies from https://github.com/tensorflow/tensorflow/blob/master/tensorflow/tools/dockerfiles/dockerfiles/gpu-jupyter.Dockerfile
 # N.B. Most of these libraries are included in cudatoolkit
-# Check if other libraries e.g. cufft are included in the cuda base image
-# RUN apt-get update && apt-get install -y --no-install-recommends \
-#         build-essential \
-#         cuda-command-line-tools-${CUDA/./-} \
-#         cuda-cublas-${CUDA/./-} \
-#         cuda-cufft-${CUDA/./-} \
-#         cuda-curand-${CUDA/./-} \
-#         cuda-cusolver-${CUDA/./-} \
-#         cuda-cusparse-${CUDA/./-} \
-#         curl \
-#         libcudnn7=${CUDNN}+cuda${CUDA} \
-#         libfreetype6-dev \
-#         libhdf5-serial-dev \
-#         libzmq3-dev \
-#         pkg-config \
-#         software-properties-common \
-#         unzip
+# cuda-command-line-tools-${CUDA/./-} \
+# cuda-cublas-${CUDA/./-} \
+# cuda-cufft-${CUDA/./-} \
+# cuda-curand-${CUDA/./-} \
+# cuda-cusolver-${CUDA/./-} \
+# cuda-cusparse-${CUDA/./-} \
+# libcudnn7=${CUDNN}+cuda${CUDA} \
 
 RUN echo "en_GB.UTF-8 UTF-8" > /etc/locale.gen && \
     locale-gen
@@ -74,6 +64,9 @@ ENV CONDA_DIR=/opt/conda \
     LANGUAGE=en_GB.UTF-8
 ENV PATH=$CONDA_DIR/bin:$PATH \
     HOME=/home/$NB_USER
+# See http://bugs.python.org/issue19846
+# ENV LC_ALL=C.UTF-8
+# ENV LANG=C.UTF-8
 
 # Install conda
 ARG MINICONDA_VERSION=4.6.14
@@ -172,16 +165,11 @@ RUN conda install --quiet --yes \
 
 RUN nbdime config-git --enable --global
 
-# ENV LC_ALL=C.UTF-8
-# ENV LANG=C.UTF-8
-
 ENV PYTHONPATH='/src/:/work/src/:$PYTHONPATH'
 
 # WORKDIR $HOME
 # VOLUME $HOME
 WORKDIR /work
 VOLUME /work
-
 EXPOSE 8888
-
 CMD ["jupyter", "lab", "--port=8888", "--ip=0.0.0.0"]
