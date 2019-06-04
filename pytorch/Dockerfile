@@ -24,5 +24,5 @@ RUN conda install --quiet --yes \
       rm -rf $CONDA_DIR/share/jupyter/lab/staging && \
       rm -rf /home/$NB_USER/.cache/yarn
 
-WORKDIR /work
-VOLUME /work
+# WORKDIR /work
+# VOLUME /work
