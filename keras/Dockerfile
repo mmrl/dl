@@ -18,8 +18,12 @@ RUN conda install --quiet --yes \
       # 'cudatoolkit>=${cuda_version}' \
       # 'cudatoolkit>=10.0' \
       # theano \
+      wheel \
+      mock \
       tensorflow-gpu \
       keras \
+      # keras-preprocessing \
+      # keras-applications \
       tensorboard && \
       conda clean --all -f -y && \
       npm cache clean --force && \
