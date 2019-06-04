@@ -14,7 +14,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
       bzip2 \
       build-essential \
       # g++ \
-      # git \
+      git \
       graphviz \
       libgl1-mesa-glx \
       libhdf5-dev \
@@ -125,8 +125,8 @@ RUN conda install --quiet --yes \
       six \
       mkdocs \
       tqdm \
-      git \
       # setuptools \
+      # git \
       # 'cudatoolkit>=${cuda_version}' \
       'cudatoolkit>=10.0' \
       nodejs \
