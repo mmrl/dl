@@ -114,6 +114,11 @@ RUN pip install --upgrade pip && \
     pip install \
       sklearn_pandas
 RUN conda install --quiet --yes \
+      setuptools \
+      numpy \
+      scipy \
+      cython \
+      sympy \
       imagemagick \
       bcolz \
       h5py \
@@ -138,7 +143,8 @@ RUN conda install --quiet --yes \
       six \
       mkdocs \
       tqdm \
-      # setuptools \
+      xlrd \
+      xlwt \
       # git \
       # 'cudatoolkit>=${cuda_version}' \
       'cudatoolkit>=10.0' \
