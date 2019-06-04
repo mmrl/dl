@@ -1,5 +1,6 @@
 FROM mmrl/dl:base
 
+# https://github.com/pytorch/pytorch/blob/master/docker/pytorch/Dockerfile
 RUN conda config --append channels pytorch
 RUN conda install --quiet --yes \
       # git \

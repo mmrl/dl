@@ -1,11 +1,11 @@
 ARG cuda_version=10.0
 ARG cudnn_version=7
 FROM nvidia/cuda:${cuda_version}-cudnn${cudnn_version}-devel
-
+# https://gitlab.com/nvidia/cuda/blob/ubuntu18.04/10.0/devel/cudnn7/Dockerfile
+# https://github.com/jupyter/docker-stacks/blob/master/base-notebook/Dockerfile
 LABEL maintainer="Ben Evans <ben.d.evans@gmail.com>"
 
 # ENTRYPOINT [ "/bin/bash", "-c" ]
-
 # Needed for string substitution
 SHELL ["/bin/bash", "-c"]
 

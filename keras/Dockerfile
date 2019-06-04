@@ -1,4 +1,6 @@
 FROM mmrl/dl:base
+# https://github.com/keras-team/keras/blob/master/docker/Dockerfile
+# https://github.com/tensorflow/tensorflow/blob/master/tensorflow/tools/dockerfiles/dockerfiles/gpu.Dockerfile
 
 # # Install Python packages and keras
 # RUN conda install -y python=${python_version}
