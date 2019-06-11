@@ -104,7 +104,7 @@ RUN conda install --quiet --yes \
       mkdocs \
       tqdm \
       tensorflow-gpu \
-      keras \
+      keras-gpu \
       # git \
       # setuptools \
       cmake \
