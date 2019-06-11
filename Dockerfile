@@ -60,14 +60,8 @@ RUN useradd -m -s /bin/bash -N -u $NB_UID -g $NB_GID $NB_USER && \
     chown $NB_USER $CONDA_DIR -R && \
     mkdir -p /src && \
     chown $NB_USER /src && \
-    mkdir -p /work/src && \
-    chown $NB_USER /work/src && \
-    mkdir -p /work/data && \
-    chown $NB_USER /work/data && \
-    mkdir -p /work/results && \
-    chown $NB_USER /work/results && \
-    mkdir -p /work/logs && \
-    chown $NB_USER /work/logs
+    mkdir -p /work/{src,data,results,logs} && \
+    chown -R $NB_USER /work
 
 # Install Python packages and keras
 USER $NB_USER
