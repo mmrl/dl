@@ -106,9 +106,9 @@ RUN conda install --quiet --yes \
       tensorflow-gpu \
       keras-gpu \
       # git \
-      # setuptools \
+      setuptools \
       cmake \
-      # cffi \
+      cffi \
       typing \
       pytorch \
       ignite \
