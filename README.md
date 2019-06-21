@@ -90,6 +90,21 @@ You will then be asked for a token which you can copy and paste from the termina
 http://(<HOSTNAME> or 127.0.0.1):8888/?token=5233b0<...>8afd2a
 ```
 
+## Permissions
+
+The images are built by default with user `thedude` which has `UID 1000` and `GID 100` (`users`). In Docker, UIDs are shared by the linux kernel (but not usernames) so if you mount host folders in the container, files created by the container will therefore be owned by this UID/GID (the username does not matter). You may then need to change the permissions on the host if the UIDs/GIDs do not match for the host user to read and edit them. Similarly, the owner of data mounted within the container may not match the UID/GID of the user within the container, potentially causing you to be unable to read, modify or execute files in the mounted folder from within the running container.
+
+There are currently several solutions:
+
+1. Change the group of your host folders to GID 100 and give r+w permissions to this group.
+2. Change the UID/GID of the container user with the following commands:
+    $ usermod -u 1000 thedude
+    $ groupmod -g 100 thedude
+    Replacing 1000 and 100 with the UID and GID of the host user.
+3. Run the container with the argument `--user $(id -u):$(id -g)` (the user may also be given additional group membership with: `--group-add`).
+4. Similarly, use [fixuid](https://boxboat.com/2017/07/25/fixuid-change-docker-container-uid-gid/) and pass host user IDs at runtime. This also updates all files in the container owned by `thedude` and fixes the `$HOME` variable.
+5. Rebuild the image specifying the UID: `--build-arg NB_UID=$(id -u)`.
+
 ## Advanced - Building and running your own container
 
 We are using `Makefile` to simplify docker commands within make commands.
