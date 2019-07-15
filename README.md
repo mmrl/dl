@@ -7,6 +7,8 @@ This directory contains files to build [Docker](http://www.docker.com/) images w
 * `mmrl/dl:pytorch`: PyTorch
 * `mmrl/dl:keras`: Keras and TensorFlow
 
+These are considered experimental and may be moved to their own repositories in future. In the meantime, the instructions below refer to the combined image `mmrl/dl` (based on the Keras Dockerfile) which contains ALL TEH THINGZ!!!
+
 ## Installation
 
 Install the latest nvidia drivers
