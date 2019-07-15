@@ -121,7 +121,7 @@ Build the container and start an iPython shell
 
     $ make ipython
 
-Build the container and start a bash
+Build the container and start a bash shell
 
     $ make bash
 
