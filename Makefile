@@ -44,7 +44,7 @@ test: build
 	$(DOCKER) run -it -v $(SRC):/work/src -v $(DATA):/work/data -v $(RESULTS):/work/results --env $(TAG) py.test $(TEST)
 
 tensorboard: build
-	$(DOCKER) run -it -v $(RESULTS):/work/results -v $(LOGS):/work/logs -p 0.0.0.0:6006:6006 --env $(TAG) tensorboard --logdir=/logs
+	$(DOCKER) run -it -v $(RESULTS):/work/results -v $(LOGS):/work/logs --net=host -p 0.0.0.0:6006:6006 --env $(TAG) tensorboard --logdir=/logs
 
 info: build
 	$(DOCKER) system info
