@@ -4,7 +4,6 @@ FROM nvidia/cuda:${cuda_version}-cudnn${cudnn_version}-devel
 
 LABEL maintainer="Ben Evans <ben.d.evans@gmail.com>"
 
-# ENTRYPOINT [ "/bin/bash", "-c" ]
 # Needed for string substitution
 SHELL ["/bin/bash", "-c"]
 
@@ -12,7 +11,6 @@ SHELL ["/bin/bash", "-c"]
 RUN apt-get update && apt-get install -y --no-install-recommends \
       bzip2 \
       build-essential \
-      # g++ \
       git \
       graphviz \
       libgl1-mesa-glx \
@@ -40,6 +38,9 @@ ENV CONDA_DIR=/opt/conda \
     LANGUAGE=en_GB.UTF-8
 ENV PATH=$CONDA_DIR/bin:$PATH \
     HOME=/home/$NB_USER
+
+# ENV LC_ALL=C.UTF-8
+# ENV LANG=C.UTF-8
 
 # Install conda
 ARG MINICONDA_VERSION=4.6.14
@@ -75,8 +76,6 @@ RUN pip install --upgrade pip
 # RUN pip install --upgrade pip && \
 #     pip install \
 #       sklearn_pandas \
-#       # tensorflow-gpu \
-#       cntk-gpu
 RUN conda install --quiet --yes \
       imagemagick \
       bcolz \
@@ -104,7 +103,6 @@ RUN conda install --quiet --yes \
       tqdm \
       tensorflow-gpu \
       keras-gpu \
-      # git \
       setuptools \
       cmake \
       cffi \
@@ -137,27 +135,11 @@ RUN conda install --quiet --yes \
       jupyter notebook --generate-config && \
       rm -rf $CONDA_DIR/share/jupyter/lab/staging && \
       rm -rf /home/$NB_USER/.cache/yarn
-#      && \
-# RUN git clone git://github.com/keras-team/keras.git /src && pip install -e /src[tests] && \
-#     pip install git+git://github.com/keras-team/keras.git && \
-#     conda clean -yt
 
 RUN nbdime config-git --enable --global
-# Use the environment.yml to create the conda environment.
-# https://fmgdata.kinja.com/using-docker-with-conda-environments-1790901398
-# COPY environment.yml /tmp/environment.yml
-# RUN [ "conda", "update", "conda", "-y" ]
-# RUN [ "conda", "update", "--all", "-y" ]
-
-# RUN [ -s /tmp/environment.yml ] && conda env update -n root -f /tmp/environment.yml
-
-# ENV LC_ALL=C.UTF-8
-# ENV LANG=C.UTF-8
 
 ENV PYTHONPATH='/src/:/work/src/:$PYTHONPATH'
 
-# WORKDIR $HOME
-# VOLUME $HOME
 WORKDIR /work
 VOLUME /work
 
