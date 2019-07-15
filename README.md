@@ -132,11 +132,6 @@ For GPU support install NVIDIA drivers (ideally latest) and
 
     $ make notebook GPU=0 # or [ipython, bash]
 
-Switch between Theano and TensorFlow
-
-    $ make notebook BACKEND=theano
-    $ make notebook BACKEND=tensorflow
-
 Mount a volume for external data sets
 
     $ make DATA=~/mydata

@@ -17,7 +17,6 @@ RUN conda install --quiet --yes \
       # setuptools \
       # 'cudatoolkit>=${cuda_version}' \
       # 'cudatoolkit>=10.0' \
-      # theano \
       wheel \
       mock \
       tensorflow-gpu \
@@ -33,7 +32,5 @@ RUN conda install --quiet --yes \
 # RUN git clone git://github.com/keras-team/keras.git /src && pip install -e /src[tests] && \
 #     pip install git+git://github.com/keras-team/keras.git && \
 #     conda clean -yt
-
-# COPY theanorc /home/thedude/.theanorc
 
 EXPOSE 6006

@@ -100,7 +100,6 @@ RUN conda install --quiet --yes \
       scikit-image \
       opencv \
       six \
-      # theano \
       mkdocs \
       tqdm \
       tensorflow-gpu \
@@ -151,8 +150,6 @@ RUN nbdime config-git --enable --global
 # RUN [ "conda", "update", "--all", "-y" ]
 
 # RUN [ -s /tmp/environment.yml ] && conda env update -n root -f /tmp/environment.yml
-
-# COPY theanorc /home/thedude/.theanorc
 
 # ENV LC_ALL=C.UTF-8
 # ENV LANG=C.UTF-8
