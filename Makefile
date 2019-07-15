@@ -7,6 +7,7 @@ UID?=1000
 GPU?=0
 DOCKER_FILE=Dockerfile
 DOCKER=GPU=$(GPU) nvidia-docker
+TAG?=mmrl/dl
 PYTHON_VERSION?=3.6
 CUDA_VERSION?=10.0
 CUDNN_VERSION?=7
@@ -15,7 +16,7 @@ SRC?=$(shell dirname `pwd`)
 LOGS?="${HOME}/logs"
 
 build:
-	$(DOCKER) build -t mmrl/dl --build-arg python_version=$(PYTHON_VERSION) --build-arg cuda_version=$(CUDA_VERSION) --build-arg cudnn_version=$(CUDNN_VERSION) --build-arg NB_UID=$(UID) -f $(DOCKER_FILE) .
+	$(DOCKER) build -t $(TAG) --build-arg python_version=$(PYTHON_VERSION) --build-arg cuda_version=$(CUDA_VERSION) --build-arg cudnn_version=$(CUDNN_VERSION) --build-arg NB_UID=$(UID) -f $(DOCKER_FILE) .
 
 prune:
 	$(DOCKER) system prune -f
@@ -25,26 +26,26 @@ nuke:
 
 clean: prune
 	git pull
-	$(DOCKER) build -t mmrl/dl --no-cache --build-arg python_version=$(PYTHON_VERSION) --build-arg cuda_version=$(CUDA_VERSION) --build-arg cudnn_version=$(CUDNN_VERSION) --build-arg NB_UID=$(UID) -f $(DOCKER_FILE) .
+	$(DOCKER) build -t $(TAG) --no-cache --build-arg python_version=$(PYTHON_VERSION) --build-arg cuda_version=$(CUDA_VERSION) --build-arg cudnn_version=$(CUDNN_VERSION) --build-arg NB_UID=$(UID) -f $(DOCKER_FILE) .
 
 bash: build
-	$(DOCKER) run -it -v $(SRC):/work/src -v $(DATA):/work/data -v $(RESULTS):/work/results --env mmrl/dl bash
+	$(DOCKER) run -it -v $(SRC):/work/src -v $(DATA):/work/data -v $(RESULTS):/work/results --env $(TAG) bash
 
 ipython: build
-	$(DOCKER) run -it -v $(SRC):/work/src -v $(DATA):/work/data -v $(RESULTS):/work/results --env mmrl/dl ipython
+	$(DOCKER) run -it -v $(SRC):/work/src -v $(DATA):/work/data -v $(RESULTS):/work/results --env $(TAG) ipython
 
 lab: build
-	$(DOCKER) run -it -v $(SRC):/work/src -v $(DATA):/work/data -v $(RESULTS):/work/results --net=host --env mmrl/dl
+	$(DOCKER) run -it -v $(SRC):/work/src -v $(DATA):/work/data -v $(RESULTS):/work/results --net=host --env $(TAG)
 
 notebook: build
-	$(DOCKER) run -it -v $(SRC):/work/src -v $(DATA):/work/data -v $(RESULTS):/work/results --net=host --env mmrl/dl jupyter notebook --port=8888 --ip=0.0.0.0
+	$(DOCKER) run -it -v $(SRC):/work/src -v $(DATA):/work/data -v $(RESULTS):/work/results --net=host --env $(TAG) jupyter notebook --port=8888 --ip=0.0.0.0
 
 test: build
-	$(DOCKER) run -it -v $(SRC):/work/src -v $(DATA):/work/data -v $(RESULTS):/work/results --env mmrl/dl py.test $(TEST)
+	$(DOCKER) run -it -v $(SRC):/work/src -v $(DATA):/work/data -v $(RESULTS):/work/results --env $(TAG) py.test $(TEST)
 
 tensorboard: build
-	$(DOCKER) run -it -v $(RESULTS):/work/results -v $(LOGS):/work/logs -p 0.0.0.0:6006:6006 --env mmrl/dl tensorboard --logdir=/logs
+	$(DOCKER) run -it -v $(RESULTS):/work/results -v $(LOGS):/work/logs -p 0.0.0.0:6006:6006 --env $(TAG) tensorboard --logdir=/logs
 
 info: build
 	$(DOCKER) system info
-	$(DOCKER) run -it --rm mmrl/dl nvidia-smi
+	$(DOCKER) run -it --rm $(TAG) nvidia-smi
