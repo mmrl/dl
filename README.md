@@ -28,6 +28,8 @@ e.g.
 
 Reboot the system to load the NVIDIA drivers.
 
+N.B. Although the CUDA version installed above is 10.1 which is incompatible with current releases of TensorFlow, CUDA 10.0 will be mounted in the Docker image so that the libraries will work properly. If preferred, CUDA 10.0 can be installed on the host from [here](https://developer.nvidia.com/cuda-10.0-download-archive). 
+
 ### Post-installation
 There are a few [additional steps](https://docs.nvidia.com/cuda/cuda-installation-guide-linux/index.html#post-installation-actions) which need to be performed manually e.g.:
 
