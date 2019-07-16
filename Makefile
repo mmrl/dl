@@ -4,6 +4,7 @@ help:
 DATA?="${HOME}/data"
 RESULTS?="${HOME}/results"
 UID?=1000
+HOST_PORT?=8888
 GPU?=0
 DOCKER_FILE=Dockerfile
 DOCKER=GPU=$(GPU) nvidia-docker
@@ -35,10 +36,10 @@ ipython: build
 	$(DOCKER) run -it -v $(SRC):/work/src -v $(DATA):/work/data -v $(RESULTS):/work/results $(TAG) ipython
 
 lab: build
-	$(DOCKER) run -it -v $(SRC):/work/src -v $(DATA):/work/data -v $(RESULTS):/work/results -p 8888:8888 $(TAG)
+	$(DOCKER) run -it -v $(SRC):/work/src -v $(DATA):/work/data -v $(RESULTS):/work/results -p 8888:$(HOST_PORT) $(TAG)
 
 notebook: build
-	$(DOCKER) run -it -v $(SRC):/work/src -v $(DATA):/work/data -v $(RESULTS):/work/results --net=host $(TAG) jupyter notebook --port=8888 --ip=0.0.0.0
+	$(DOCKER) run -it -v $(SRC):/work/src -v $(DATA):/work/data -v $(RESULTS):/work/results -p 8888:$(HOST_PORT) $(TAG) jupyter notebook --port=8888 --ip=0.0.0.0
 
 test: build
 	$(DOCKER) run -it -v $(SRC):/work/src -v $(DATA):/work/data -v $(RESULTS):/work/results $(TAG) py.test $(TEST)
