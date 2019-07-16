@@ -2,7 +2,7 @@
 
 ![Docker Pulls](https://img.shields.io/docker/pulls/mmrl/dl.svg?style=popout)
 
-This directory contains files to build [Docker](http://www.docker.com/) images which make it easy to get up and running with GPU-accelerated deep learning. The base image provides a Jupyter Lab (notebook) environment in a Docker container which has direct access to the host system's GPU(s). Several variants with popular deep learning libraries are available to choose from (built on top of the base image) which currently include:
+This directory contains files to build [Docker](http://www.docker.com/) images which make it easy to get up and running with GPU-accelerated deep learning. The base image provides a Jupyter Lab (notebook) environment in a Docker container which has direct access to the host system's GPU(s). Several variants with popular deep learning libraries are available to choose from (built on top of the base image - `mmrl/dl:base`) which currently include:
 
 * `mmrl/dl:pytorch`: PyTorch
 * `mmrl/dl:keras`: Keras and TensorFlow
