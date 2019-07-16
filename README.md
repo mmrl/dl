@@ -149,3 +149,5 @@ Create your own Dockerfile and start with the following line to inherit all the 
 ```
 FROM mmrl/dl
 ```
+
+Alternatively, see the custom directory for example files. 

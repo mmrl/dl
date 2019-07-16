@@ -1,0 +1,7 @@
+name: custom
+channels:
+  - conda-forge
+dependencies:
+  - scikit-optimize
+  - pip:
+    - cma
