@@ -29,22 +29,22 @@ clean: prune
 	$(DOCKER) build -t $(TAG) --no-cache --build-arg python_version=$(PYTHON_VERSION) --build-arg cuda_version=$(CUDA_VERSION) --build-arg cudnn_version=$(CUDNN_VERSION) --build-arg NB_UID=$(UID) -f $(DOCKER_FILE) .
 
 bash: build
-	$(DOCKER) run -it -v $(SRC):/work/src -v $(DATA):/work/data -v $(RESULTS):/work/results --env $(TAG) bash
+	$(DOCKER) run -it -v $(SRC):/work/src -v $(DATA):/work/data -v $(RESULTS):/work/results $(TAG) bash
 
 ipython: build
-	$(DOCKER) run -it -v $(SRC):/work/src -v $(DATA):/work/data -v $(RESULTS):/work/results --env $(TAG) ipython
+	$(DOCKER) run -it -v $(SRC):/work/src -v $(DATA):/work/data -v $(RESULTS):/work/results $(TAG) ipython
 
 lab: build
-	$(DOCKER) run -it -v $(SRC):/work/src -v $(DATA):/work/data -v $(RESULTS):/work/results --net=host --env $(TAG)
+	$(DOCKER) run -it -v $(SRC):/work/src -v $(DATA):/work/data -v $(RESULTS):/work/results --net=host $(TAG)
 
 notebook: build
-	$(DOCKER) run -it -v $(SRC):/work/src -v $(DATA):/work/data -v $(RESULTS):/work/results --net=host --env $(TAG) jupyter notebook --port=8888 --ip=0.0.0.0
+	$(DOCKER) run -it -v $(SRC):/work/src -v $(DATA):/work/data -v $(RESULTS):/work/results --net=host $(TAG) jupyter notebook --port=8888 --ip=0.0.0.0
 
 test: build
-	$(DOCKER) run -it -v $(SRC):/work/src -v $(DATA):/work/data -v $(RESULTS):/work/results --env $(TAG) py.test $(TEST)
+	$(DOCKER) run -it -v $(SRC):/work/src -v $(DATA):/work/data -v $(RESULTS):/work/results $(TAG) py.test $(TEST)
 
 tensorboard: build
-	$(DOCKER) run -it -v $(RESULTS):/work/results -v $(LOGS):/work/logs --net=host -p 0.0.0.0:6006:6006 --env $(TAG) tensorboard --logdir=/logs
+	$(DOCKER) run -it -v $(RESULTS):/work/results -v $(LOGS):/work/logs --net=host -p 0.0.0.0:6006:6006 $(TAG) tensorboard --logdir=/logs
 
 info: build
 	$(DOCKER) system info
