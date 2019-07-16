@@ -35,7 +35,7 @@ ipython: build
 	$(DOCKER) run -it -v $(SRC):/work/src -v $(DATA):/work/data -v $(RESULTS):/work/results $(TAG) ipython
 
 lab: build
-	$(DOCKER) run -it -v $(SRC):/work/src -v $(DATA):/work/data -v $(RESULTS):/work/results --net=host $(TAG)
+	$(DOCKER) run -it -v $(SRC):/work/src -v $(DATA):/work/data -v $(RESULTS):/work/results -p 8888:8888 $(TAG)
 
 notebook: build
 	$(DOCKER) run -it -v $(SRC):/work/src -v $(DATA):/work/data -v $(RESULTS):/work/results --net=host $(TAG) jupyter notebook --port=8888 --ip=0.0.0.0
