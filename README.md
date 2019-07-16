@@ -14,6 +14,15 @@ Additionally there is a `custom` directory with instructions and examples for bu
 Install the latest NVIDIA drivers for Linux (the recommended way is through the package manager)
 * [Package Manager Installation](https://docs.nvidia.com/cuda/cuda-installation-guide-linux/index.html#package-manager-installation)
 
+### Post-installation
+There are a few [additional steps](https://docs.nvidia.com/cuda/cuda-installation-guide-linux/index.html#post-installation-actions) which need to be performed manually e.g.:
+
+Set the following environment variables e.g. by editing `~/.bashrc`:
+
+    $ export PATH=/usr/local/cuda-10.1/bin${PATH:+:${PATH}}
+    $ export LD_LIBRARY_PATH=/usr/local/cuda-10.1/lib64\
+                             ${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}
+
 ### Installing Docker
 
 General installation instructions are
