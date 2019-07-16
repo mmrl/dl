@@ -14,21 +14,16 @@ Additionally there is a `custom` directory with instructions and examples for bu
 Install the latest NVIDIA drivers for Linux (the recommended way is through the package manager)
 * [Package Manager Installation](https://docs.nvidia.com/cuda/cuda-installation-guide-linux/index.html#package-manager-installation)
 
-For example, these are the instructions for [Ubuntu 64bit](https://docs.nvidia.com/cuda/cuda-installation-guide-linux/index.html#ubuntu-installation):
-    $ sudo dpkg --install cuda-repo-<distro><version>amd64.deb
-e.g.
+For example, these are the instructions for [Ubuntu 64bit](https://docs.nvidia.com/cuda/cuda-installation-guide-linux/index.html#ubuntu-installation) assuming release 18.10 and CUDA version 10.1.168-1:
+
     $ sudo dpkg -i cuda-repo-ubuntu1810_10.1.168-1_amd64.deb
-
-    $ sudo apt-key adv --fetch-keys https://developer.download.nvidia.com/compute/cuda/repos/<distro>/x86_64/7fa2af80.pub
-e.g.
-    $ sudo apt-key adv --fetch-keys https://developer.download.nvidia.com/compute/cuda/repos/ubuntu1804/x86_64/7fa2af80.pub
-
+    $ sudo apt-key adv --fetch-keys https://developer.download.nvidia.com/compute/cuda/repos/ubuntu1810/x86_64/7fa2af80.pub
     $ sudo apt-get update
     $ sudo apt-get install cuda
 
 Reboot the system to load the NVIDIA drivers.
 
-N.B. Although the CUDA version installed above is 10.1 which is incompatible with current releases of TensorFlow, CUDA 10.0 will be mounted in the Docker image so that the libraries will work properly. If preferred, CUDA 10.0 can be installed on the host from [here](https://developer.nvidia.com/cuda-10.0-download-archive). 
+N.B. Although the CUDA version installed above is 10.1 which is incompatible with current releases of TensorFlow, CUDA 10.0 will be mounted in the Docker image so that the libraries will work properly. If preferred, CUDA 10.0 can be installed on the host from [here](https://developer.nvidia.com/cuda-10.0-download-archive).
 
 ### Post-installation
 There are a few [additional steps](https://docs.nvidia.com/cuda/cuda-installation-guide-linux/index.html#post-installation-actions) which need to be performed manually e.g.:
