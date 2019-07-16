@@ -128,7 +128,7 @@ RUN conda install --quiet --yes \
       jupyter serverextension enable --py jupyterlab_git && \
       jupyter labextension install @jupyterlab/github && \
       jupyter labextension install jupyterlab-drawio && \
-      jupyter labextension install jupyterlab_bokeh@0.6.3 && \
+      jupyter labextension install jupyterlab_bokeh && \
       jupyter labextension install @jupyter-widgets/jupyterlab-manager && \
       npm cache clean --force && \
       jupyter notebook --generate-config && \
