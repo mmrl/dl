@@ -11,8 +11,8 @@ Additionally there is a `custom` directory with instructions and examples for bu
 
 ## Installation
 
-Install the latest nvidia drivers
-* [Ubuntu](https://docs.nvidia.com/cuda/cuda-installation-guide-linux/index.html#ubuntu-installation)
+Install the latest NVIDIA drivers for Linux (the recommended way is through the package manager)
+* [Package Manager Installation](https://docs.nvidia.com/cuda/cuda-installation-guide-linux/index.html#package-manager-installation)
 
 ### Installing Docker
 
