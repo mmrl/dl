@@ -14,6 +14,20 @@ Additionally there is a `custom` directory with instructions and examples for bu
 Install the latest NVIDIA drivers for Linux (the recommended way is through the package manager)
 * [Package Manager Installation](https://docs.nvidia.com/cuda/cuda-installation-guide-linux/index.html#package-manager-installation)
 
+For example, these are the instructions for [Ubuntu 64bit](https://docs.nvidia.com/cuda/cuda-installation-guide-linux/index.html#ubuntu-installation):
+    $ sudo dpkg --install cuda-repo-<distro><version>amd64.deb
+e.g.
+    $ sudo dpkg -i cuda-repo-ubuntu1810_10.1.168-1_amd64.deb
+
+    $ sudo apt-key adv --fetch-keys https://developer.download.nvidia.com/compute/cuda/repos/<distro>/x86_64/7fa2af80.pub
+e.g.
+    $ sudo apt-key adv --fetch-keys https://developer.download.nvidia.com/compute/cuda/repos/ubuntu1804/x86_64/7fa2af80.pub
+
+    $ sudo apt-get update
+    $ sudo apt-get install cuda
+
+Reboot the system to load the NVIDIA drivers.
+
 ### Post-installation
 There are a few [additional steps](https://docs.nvidia.com/cuda/cuda-installation-guide-linux/index.html#post-installation-actions) which need to be performed manually e.g.:
 
