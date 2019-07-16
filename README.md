@@ -7,7 +7,7 @@ This directory contains files to build [Docker](http://www.docker.com/) images w
 * `mmrl/dl:pytorch`: PyTorch
 * `mmrl/dl:keras`: Keras and TensorFlow
 
-These are considered experimental and may be moved to their own repositories in future. In the meantime, the instructions below refer to the combined image `mmrl/dl` (based on the Keras Dockerfile) which contains ALL TEH THINGZ!!!
+Additionally there is a `custom` directory with instructions and examples for building your own image. These are considered experimental and may be moved to their own repositories in future. In the meantime, the instructions below refer to the combined image `mmrl/dl` (based on the Keras Dockerfile) which contains ALL TEH THINGZ!!!
 
 ## Installation
 
@@ -150,4 +150,4 @@ Create your own Dockerfile and start with the following line to inherit all the 
 FROM mmrl/dl
 ```
 
-Alternatively, see the custom directory for example files. 
+Alternatively, see the custom directory for example files.
