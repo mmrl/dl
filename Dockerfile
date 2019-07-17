@@ -75,7 +75,7 @@ RUN pip install --upgrade pip
 # RUN pip install --upgrade pip && \
 #     pip install \
 #       sklearn_pandas \
-RUN conda install --quiet --yes joblib
+RUN ls -al /
 
 RUN conda install --quiet --yes \
       imagemagick \
