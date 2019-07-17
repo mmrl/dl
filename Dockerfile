@@ -84,8 +84,7 @@ RUN pip install --upgrade pip
 # RUN pip install --upgrade pip && \
 #     pip install \
 #       sklearn_pandas \
-# --quiet
-RUN conda install --yes \
+RUN conda install --quiet --yes \
       imagemagick \
       bcolz \
       h5py \
@@ -126,7 +125,7 @@ RUN conda install --yes \
       nodejs \
       'notebook=5.7.8' \
       'jupyterhub=1.0.0' \
-      'jupyterlab=1.0.2' \
+      'jupyterlab=1.0.1' \
       ipywidgets \
       widgetsnbextension \
       nbdime \
