@@ -64,7 +64,7 @@ RUN useradd -m -s /bin/bash -N -u $NB_UID -g $NB_GID $NB_USER && \
     chown $NB_USER /src && \
     mkdir -p /work/{src,data,results,logs} && \
     chown -R $NB_USER /work
-# USER $NB_USER
+USER $NB_USER
 
 # Install Python packages and keras
 ARG python_version=3.6
@@ -136,7 +136,6 @@ RUN conda install --quiet --yes \
 
 RUN nbdime config-git --enable --global
 
-USER $NB_USER
 ENV PYTHONPATH='/src/:/work/src/:$PYTHONPATH'
 
 WORKDIR /work
