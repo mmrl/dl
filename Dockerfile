@@ -21,8 +21,8 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
       wget && \
     rm -rf /var/lib/apt/lists/*
 
-RUN echo "en_GB.UTF-8 UTF-8" > /etc/locale.gen && \
-    locale-gen
+# RUN echo "en_GB.UTF-8 UTF-8" > /etc/locale.gen && \
+#     locale-gen
 
 # Configure environment
 ARG NB_UID=1000
