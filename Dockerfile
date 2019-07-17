@@ -15,7 +15,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
       graphviz \
       libgl1-mesa-glx \
       libhdf5-dev \
-      locales \
+      # locales \
       openmpi-bin \
       tree \
       wget && \
@@ -34,9 +34,11 @@ ENV CONDA_DIR=/opt/conda \
     NB_USER=$NB_USER \
     NB_UID=$NB_UID \
     NB_GID=$NB_GID \
-    LC_ALL=en_GB.UTF-8 \
-    LANG=en_GB.UTF-8 \
-    LANGUAGE=en_GB.UTF-8
+    LC_ALL=C.UTF-8 \
+    LANG=C.UTF-8
+# LC_ALL=en_GB.UTF-8 \
+# LANG=en_GB.UTF-8 \
+# LANGUAGE=en_GB.UTF-8
 ENV PATH=$CONDA_DIR/bin:$PATH \
     HOME=/home/$NB_USER
 
