@@ -77,6 +77,7 @@ USER $NB_USER
 ARG python_version=3.6
 RUN conda config --append channels conda-forge
 RUN conda config --append channels pytorch
+RUN conda update -n base conda
 RUN conda install -y python=${python_version}
 RUN pip install --upgrade pip
 # RUN pip install --upgrade pip && \
