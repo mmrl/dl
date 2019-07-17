@@ -75,6 +75,7 @@ USER $NB_USER
 
 # Install Python packages and keras
 ARG python_version=3.6
+RUN echo "python ${python_version}.*" > $CONDA_DIR/conda-meta/pinned
 RUN conda config --append channels conda-forge
 RUN conda config --append channels pytorch
 RUN conda update -n base conda
