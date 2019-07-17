@@ -131,15 +131,15 @@ There are currently several solutions:
 
 ## Advanced - Building and running your own container
 
-We are using `Makefile` to simplify docker commands within make commands.
+A `Makefile` is provided to simplify common docker commands with make commands.
 
-Build the container and start a Jupyter Notebook
-
-    $ make notebook
-
-Alternatively, run the container with the new Jupyter lab interface
+Build the container and run the Jupyter lab interface
 
     $ make lab
+
+Alternatively, build the container and start a Jupyter Notebook
+
+    $ make notebook
 
 Build the container and start an iPython shell
 
