@@ -89,13 +89,12 @@ RUN useradd -m -s /bin/bash -N -u $NB_UID -g $NB_GID $NB_USER && \
     chown $NB_USER /src && \
     mkdir -p /work/{src,data,results,logs} && \
     chown -R $NB_USER /work
-
 USER $NB_USER
+
 ENV PYTHONPATH='/src/:/work/src/:$PYTHONPATH'
 
 # Install Python packages
 ARG python_version=3.6
-
 RUN conda config --append channels conda-forge
 RUN conda install -y python=${python_version}
 RUN pip install --upgrade pip && \
