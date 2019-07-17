@@ -140,6 +140,7 @@ ENV PYTHONPATH='/src/:/work/src/:$PYTHONPATH'
 WORKDIR /work
 VOLUME /work
 
+# https://docs.docker.com/engine/reference/builder/#expose
 EXPOSE 6006 8888
 
 CMD ["jupyter", "lab", "--port=8888", "--ip=0.0.0.0"]
