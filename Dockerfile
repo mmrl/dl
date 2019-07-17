@@ -17,7 +17,6 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
       libhdf5-dev \
       locales \
       openmpi-bin \
-      sudo \
       wget && \
     rm -rf /var/lib/apt/lists/*
 
@@ -59,8 +58,6 @@ RUN wget --quiet --no-check-certificate https://repo.continuum.io/miniconda/Mini
 RUN sed -i 's/^#force_color_prompt=yes/force_color_prompt=yes/' /etc/skel/.bashrc
 
 RUN useradd -m -s /bin/bash -N -u $NB_UID -g $NB_GID $NB_USER && \
-    echo "${NB_USER}:${NB_USER}" | chpasswd && \
-    adduser $NB_USER sudo && \
     chown $NB_USER $CONDA_DIR -R && \
     mkdir -p /src && \
     chown $NB_USER /src && \
