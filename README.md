@@ -11,6 +11,8 @@ Additionally there is a `custom` directory with instructions and examples for bu
 
 ## Installation
 
+### 1. Installing NVIDIA drivers
+
 Install the latest NVIDIA drivers for Linux (the recommended way is through the package manager)
 * [Package Manager Installation](https://docs.nvidia.com/cuda/cuda-installation-guide-linux/index.html#package-manager-installation)
 
@@ -25,7 +27,7 @@ Reboot the system to load the NVIDIA drivers.
 
 N.B. Although the CUDA version installed above is 10.1 which is incompatible with current releases of TensorFlow, CUDA 10.0 will be mounted in the Docker image so that the libraries will work properly. If preferred, CUDA 10.0 can be installed on the host from [here](https://developer.nvidia.com/cuda-10.0-download-archive).
 
-### Post-installation
+#### Post-installation
 There are a few [additional steps](https://docs.nvidia.com/cuda/cuda-installation-guide-linux/index.html#post-installation-actions) which need to be performed manually e.g.:
 
 Set the following environment variables e.g. by editing `~/.bashrc`:
@@ -34,7 +36,7 @@ Set the following environment variables e.g. by editing `~/.bashrc`:
     $ export LD_LIBRARY_PATH=/usr/local/cuda-10.1/lib64\
                              ${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}
 
-### Installing Docker
+### 2. Installing Docker
 
 General installation instructions are
 [on the Docker site](https://docs.docker.com/install/), but we give some
@@ -44,7 +46,7 @@ quick links here:
 * [macOS](https://docs.docker.com/docker-for-mac/install/)
 * [Windows](https://docs.docker.com/docker-for-windows/install/)
 
-### Installing nvidia-docker
+### 3. Installing nvidia-docker
 
 * [Add the NVIDIA repository](https://nvidia.github.io/nvidia-docker/)
 
