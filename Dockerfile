@@ -21,10 +21,10 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
       wget && \
     rm -rf /var/lib/apt/lists/*
 
-# RUN echo "en_GB.UTF-8 UTF-8" > /etc/locale.gen && \
-#     locale-gen
-RUN echo "en_US.UTF-8 UTF-8" > /etc/locale.gen && \
+RUN echo "en_GB.UTF-8 UTF-8" > /etc/locale.gen && \
     locale-gen
+# RUN echo "en_US.UTF-8 UTF-8" > /etc/locale.gen && \
+#     locale-gen
 
 # Configure environment
 ARG NB_UID=1000
@@ -36,12 +36,12 @@ ENV CONDA_DIR=/opt/conda \
     NB_USER=$NB_USER \
     NB_UID=$NB_UID \
     NB_GID=$NB_GID \
-    LC_ALL=en_US.UTF-8 \
-    LANG=en_US.UTF-8 \
-    LANGUAGE=en_US.UTF-8
-# LC_ALL=en_GB.UTF-8 \
-# LANG=en_GB.UTF-8 \
-# LANGUAGE=en_GB.UTF-8
+    LC_ALL=en_GB.UTF-8 \
+    LANG=en_GB.UTF-8 \
+    LANGUAGE=en_GB.UTF-8
+# LC_ALL=en_US.UTF-8 \
+# LANG=en_US.UTF-8 \
+# LANGUAGE=en_US.UTF-8
 ENV PATH=$CONDA_DIR/bin:$PATH \
     HOME=/home/$NB_USER
 
