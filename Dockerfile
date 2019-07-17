@@ -75,9 +75,7 @@ RUN pip install --upgrade pip
 # RUN pip install --upgrade pip && \
 #     pip install \
 #       sklearn_pandas \
-USER root
-RUN conda update conda
-USER $NB_USER
+RUN ls -al $CONDA_DIR
 RUN conda install --quiet --yes \
       imagemagick \
       bcolz \
