@@ -120,8 +120,10 @@ There are currently several solutions:
 
 1. Change the group of your host folders to GID 100 and give r+w permissions to this group.
 2. Change the UID/GID of the container user with the following commands:
+
     $ usermod -u 1000 thedude
     $ groupmod -g 100 thedude
+
     Replacing 1000 and 100 with the UID and GID of the host user.
 3. Run the container with the argument `--user $(id -u):$(id -g)` (the user may also be given additional group membership with: `--group-add`).
 4. Similarly, use [fixuid](https://boxboat.com/2017/07/25/fixuid-change-docker-container-uid-gid/) and pass host user IDs at runtime. This also updates all files in the container owned by `thedude` and fixes the `$HOME` variable.
@@ -150,7 +152,7 @@ Build the container and start a bash shell
 For GPU support install NVIDIA drivers (ideally latest) and
 [nvidia-docker](https://github.com/NVIDIA/nvidia-docker). Run using
 
-    $ make notebook GPU=0 # or [ipython, bash]
+    $ make notebook GPU=0  # or [ipython, bash]
 
 Mount a volume for external data sets
 
