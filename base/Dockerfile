@@ -85,7 +85,6 @@ RUN sed -i 's/^#force_color_prompt=yes/force_color_prompt=yes/' /etc/skel/.bashr
 
 RUN useradd -m -s /bin/bash -N -u $NB_UID -g $NB_GID $NB_USER && \
     chown -R $NB_USER:$NB_GID $CONDA_DIR && \
-    chmod -R u+w $CONDA_DIR && \
     mkdir -p /src && \
     chown $NB_USER /src && \
     mkdir -p /work/{src,data,results,logs} && \
