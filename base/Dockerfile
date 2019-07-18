@@ -16,7 +16,6 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
       ca-certificates \
       cmake \
       curl \
-      # g++ \
       git \
       graphviz \
       libfreetype6-dev \
@@ -31,7 +30,6 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
       pkg-config \
       rsync \
       software-properties-common \
-      # sudo \
       unzip \
       wget && \
     rm -rf /var/lib/apt/lists/*
@@ -134,7 +132,6 @@ RUN conda install --quiet --yes \
       tqdm \
       xlrd \
       xlwt \
-      # git \
       # 'cudatoolkit>=${cuda_version}' \
       'cudatoolkit>=10.0' \
       nodejs \
@@ -161,8 +158,6 @@ RUN conda install --quiet --yes \
 
 RUN nbdime config-git --enable --global
 
-# WORKDIR $HOME
-# VOLUME $HOME
 WORKDIR /work
 VOLUME /work
 EXPOSE 8888
