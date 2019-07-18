@@ -80,13 +80,14 @@ ARG python_version=3.6
 # RUN echo "python ${python_version}.*" > $CONDA_DIR/conda-meta/pinned
 RUN conda config --append channels conda-forge
 RUN conda config --append channels pytorch
-RUN conda update -n base conda
-RUN conda install -y python=${python_version}
+# RUN conda update -n base conda
+# RUN conda install -y python=${python_version}
 RUN pip install --upgrade pip
 # RUN pip install --upgrade pip && \
 #     pip install \
 #       sklearn_pandas \
 RUN conda install --quiet --yes \
+      python=${python_version} \
       imagemagick \
       bcolz \
       h5py \
