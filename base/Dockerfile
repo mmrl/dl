@@ -84,7 +84,8 @@ RUN wget --quiet --no-check-certificate https://repo.continuum.io/miniconda/Mini
 RUN sed -i 's/^#force_color_prompt=yes/force_color_prompt=yes/' /etc/skel/.bashrc
 
 RUN useradd -m -s /bin/bash -N -u $NB_UID -g $NB_GID $NB_USER && \
-    chown $NB_USER $CONDA_DIR -R && \
+    chown -R $NB_USER:$NB_GID $CONDA_DIR && \
+    chmod -R u+w $CONDA_DIR && \
     mkdir -p /src && \
     chown $NB_USER /src && \
     mkdir -p /work/{src,data,results,logs} && \
