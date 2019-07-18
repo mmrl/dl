@@ -96,12 +96,13 @@ ENV PYTHONPATH='/src/:/work/src/:$PYTHONPATH'
 # Install Python packages
 ARG python_version=3.6
 RUN conda config --append channels conda-forge
-RUN conda install -y python=${python_version}
+# RUN conda install -y python=${python_version}
 RUN pip install --upgrade pip
 # RUN pip install --upgrade pip && \
 #     pip install \
 #       sklearn_pandas
 RUN conda install --quiet --yes \
+      python=${python_version} \
       setuptools \
       numpy \
       scipy \
