@@ -8,7 +8,8 @@ LABEL maintainer="Ben Evans <ben.d.evans@gmail.com>"
 SHELL ["/bin/bash", "-c"]
 
 # Install system packages
-RUN apt-get update && apt-get install -y --no-install-recommends \
+RUN apt-get update --fix-missing && \
+    apt-get install -y --no-install-recommends \
       bzip2 \
       build-essential \
       git \
@@ -19,6 +20,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
       openmpi-bin \
       tree \
       wget && \
+    apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
 RUN echo "en_GB.UTF-8 UTF-8" > /etc/locale.gen && \
