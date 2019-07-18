@@ -81,7 +81,7 @@ RUN echo "python ${python_version}.*" > $CONDA_DIR/conda-meta/pinned
 RUN conda config --append channels conda-forge
 RUN conda config --append channels pytorch
 RUN conda update -n base conda
-RUN conda install -y python=${python_version} cudatoolkit>=${cuda_version}
+RUN conda install -y python=${python_version}
 RUN pip install --upgrade pip
 # RUN pip install --upgrade pip && \
 #     pip install \
@@ -121,7 +121,7 @@ RUN conda install --quiet --yes \
       ignite \
       torchvision \
       # "cudatoolkit>=${cuda_version}" \
-      # 'cudatoolkit>=10.0' \
+      'cudatoolkit>=10.0' \
       magma-cuda100 \
       tensorboard \
       nodejs \
