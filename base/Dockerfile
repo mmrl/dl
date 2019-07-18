@@ -132,8 +132,8 @@ RUN conda install --quiet --yes \
       tqdm \
       xlrd \
       xlwt \
-      # 'cudatoolkit>=${cuda_version}' \
-      'cudatoolkit>=10.0' \
+      cudatoolkit=${cuda_version} \
+      # 'cudatoolkit>=10.0' \
       nodejs \
       'notebook=5.7.8' \
       'jupyterhub=1.0.0' \
