@@ -13,22 +13,41 @@ Additionally there is a `custom` directory with instructions and examples for bu
 
 ### 1. Installing NVIDIA drivers
 
-Install the latest NVIDIA drivers for Linux (the recommended way is through the package manager)
-* [Package Manager Installation](https://docs.nvidia.com/cuda/cuda-installation-guide-linux/index.html#package-manager-installation)
+#### 1. a) Run file
 
-For example, these are the instructions for [Ubuntu 64bit](https://docs.nvidia.com/cuda/cuda-installation-guide-linux/index.html#ubuntu-installation) assuming release 18.10 and CUDA version 10.1.168-1:
+For the most versatility, download and install the NVIDIA drivers with the [run file](https://www.nvidia.com/Download/index.aspx?lang=en-in). This allows you to pass options to register the driver with the kernel `--dkms` (so the kernel can be updated without having to reinstall the driver) and optionally, use your onboard graphics for the display and make the NVIDIA GPU a headless computational device `--no-opengl-files` (freeing up the maximum resources for number crunching). For example on Ubuntu:
+
+    $ sudo apt-get install build-essential gcc-multilib dkms
+    $ chmod +x NVIDIA-Linux-x86_64-430.34.run
+    $ sudo ./NVIDIA-Linux-x86_64-430.34.run --dkms --no-opengl-files
+    $ sudo reboot
+
+#### 1. b) Package Manager
+
+Perhaps the simplest way to Install the latest NVIDIA drivers for Linux is through the [Package Manager](https://docs.nvidia.com/cuda/cuda-installation-guide-linux/index.html#package-manager-installation).
+
+For example with Ubuntu to install driver version 430:
+
+    $ sudo add-apt-repository ppa:graphics-drivers
+    $ sudo apt update
+    $ sudo apt install nvidia-430
+    $ sudo reboot
+
+Optionally, you can run `nvidia-smi -pm 1` to enable persistent mode, which will save some time from loading the driver. It will have significant effect on machines with more than 4 GPUs.
+
+Optionally, you can also install CUDA (and cuDNN) on the host if you wish to use your GPU without the Docker image. For example, these are the instructions for [Ubuntu 64bit](https://docs.nvidia.com/cuda/cuda-installation-guide-linux/index.html#ubuntu-installation) assuming release 18.10 and CUDA version 10.1.168-1:
 
     $ sudo dpkg -i cuda-repo-ubuntu1810_10.1.168-1_amd64.deb
     $ sudo apt-key adv --fetch-keys https://developer.download.nvidia.com/compute/cuda/repos/ubuntu1810/x86_64/7fa2af80.pub
     $ sudo apt-get update
     $ sudo apt-get install cuda
 
-Reboot the system to load the NVIDIA drivers.
+Remember to reboot the system to load the NVIDIA drivers.
 
-N.B. Although the CUDA version installed above is 10.1 which is incompatible with current releases of TensorFlow, CUDA 10.0 will be mounted in the Docker image so that the libraries will work properly. If preferred, CUDA 10.0 can be installed on the host from [here](https://developer.nvidia.com/cuda-10.0-download-archive).
+N.B. Although the CUDA version installed above is 10.1 which is incompatible with current releases of TensorFlow, CUDA 10.0 will be mounted in the Docker image so that the libraries will work properly. If preferred, CUDA 10.0 can be installed on the host from [here](https://developer.nvidia.com/cuda-10.0-download-archive) or omitted entirely since it is sufficient to install only the drivers on the host.
 
-#### Post-installation
-There are a few [additional steps](https://docs.nvidia.com/cuda/cuda-installation-guide-linux/index.html#post-installation-actions) which need to be performed manually e.g.:
+##### Post-installation
+If you installed CUDA/cuDNN on the host, there are a few [additional steps](https://docs.nvidia.com/cuda/cuda-installation-guide-linux/index.html#post-installation-actions) which need to be performed manually e.g.:
 
 Set the following environment variables e.g. by editing `~/.bashrc`:
 
