@@ -99,7 +99,7 @@ Fri Apr 12 16:51:39 2019
 
 ## Quick start - Running the container
 
-To launch the image with GPU support and mount the present working directory in the container type:
+To launch the image with GPU support and mount the present working directory in the container's source code directory type:
 
     $ docker run --runtime=nvidia -it --rm -p 8888:8888 -v $(pwd):/work/src mmrl/dl
 
