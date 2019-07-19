@@ -15,8 +15,7 @@ RUN conda install --quiet --yes \
       # mkl \
       # git \
       # setuptools \
-      # 'cudatoolkit>=${cuda_version}' \
-      # 'cudatoolkit>=10.0' \
+      # cudatoolkit=${cuda_version} \
       wheel \
       mock \
       tensorflow-gpu \

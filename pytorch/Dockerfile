@@ -5,6 +5,7 @@ RUN conda config --append channels pytorch
 RUN conda install --quiet --yes \
       # setuptools \
       # git \
+      # cudatoolkit=${cuda_version} \
       # numpy \
       # pyyaml \
       # scipy \
@@ -19,8 +20,6 @@ RUN conda install --quiet --yes \
       ignite \
       torchvision \
       magma-cuda100 && \
-      # 'cudatoolkit>=${cuda_version}' \
-      # 'cudatoolkit>=10.0' && \
       conda clean --all -f -y && \
       npm cache clean --force && \
       rm -rf $CONDA_DIR/share/jupyter/lab/staging && \

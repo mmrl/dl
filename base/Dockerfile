@@ -101,6 +101,7 @@ RUN pip install --upgrade pip
 #       sklearn_pandas
 RUN conda install --quiet --yes \
       python=${python_version} \
+      cudatoolkit=${cuda_version} \
       setuptools \
       numpy \
       scipy \
@@ -132,8 +133,6 @@ RUN conda install --quiet --yes \
       tqdm \
       xlrd \
       xlwt \
-      cudatoolkit=${cuda_version} \
-      # 'cudatoolkit>=10.0' \
       nodejs \
       'notebook=5.7.8' \
       'jupyterhub=1.0.0' \

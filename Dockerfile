@@ -25,8 +25,6 @@ RUN apt-get update --fix-missing && \
 
 RUN echo "en_GB.UTF-8 UTF-8" > /etc/locale.gen && \
     locale-gen
-# RUN echo "en_US.UTF-8 UTF-8" > /etc/locale.gen && \
-#     locale-gen
 
 # Configure environment
 ARG NB_UID=1000
@@ -41,9 +39,6 @@ ENV CONDA_DIR=/opt/conda \
     LC_ALL=en_GB.UTF-8 \
     LANG=en_GB.UTF-8 \
     LANGUAGE=en_GB.UTF-8
-# LC_ALL=en_US.UTF-8 \
-# LANG=en_US.UTF-8 \
-# LANGUAGE=en_US.UTF-8
 ENV PATH=$CONDA_DIR/bin:$PATH \
     HOME=/home/$NB_USER
 
