@@ -103,7 +103,7 @@ To launch the image with GPU support and mount the present working directory in 
 
     $ docker run --runtime=nvidia -it --rm -p 8888:8888 -v $(pwd):/work/src mmrl/dl
 
-Then open a browser and enter the following URL if your running the container locally:
+Then open a browser and enter the following URL if you are running the container locally:
 
     $ http://127.0.0.1:8888
 
