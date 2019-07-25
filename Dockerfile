@@ -8,17 +8,22 @@ LABEL maintainer="Ben Evans <ben.d.evans@gmail.com>"
 SHELL ["/bin/bash", "-c"]
 
 # Install system packages
-RUN apt-get update --fix-missing && \
+RUN apt-get update && \
     apt-get install -y --no-install-recommends \
       bzip2 \
       build-essential \
+      ca-certificates \
+      cmake \
+      curl \
       git \
       graphviz \
       libgl1-mesa-glx \
       libhdf5-dev \
       locales \
       openmpi-bin \
+      rsync \
       tree \
+      unzip \
       wget && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
@@ -97,6 +102,7 @@ RUN conda install --quiet --yes \
       mkl \
       nose \
       Pillow \
+      python-lmdb \
       pandas \
       pydot \
       pygpu \

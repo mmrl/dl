@@ -121,6 +121,7 @@ RUN conda install --quiet --yes \
       mkl \
       nose \
       Pillow \
+      python-lmdb \
       pandas \
       pydot \
       pygpu \
