@@ -1,4 +1,4 @@
-# Using the MMRL Docker image for deep learning
+# MMRL Docker images for deep learning
 
 ![Docker Pulls](https://img.shields.io/docker/pulls/mmrl/dl.svg?style=popout)
 
