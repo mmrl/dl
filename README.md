@@ -33,7 +33,7 @@ For example with Ubuntu to install driver version 430:
     $ sudo apt install nvidia-430
     $ sudo reboot
 
-Optionally, you can run `nvidia-smi -pm 1` to enable persistent mode, which will save some time from loading the driver. It will have significant effect on machines with more than 4 GPUs.
+If you have multiple GPUs, you can run `nvidia-smi -pm 1` to enable persistent mode, which will save some time from loading the driver. It will have a significant effect on machines with more than 4 GPUs.
 
 Optionally, you can also install CUDA (and cuDNN) on the host if you wish to use your GPU without the Docker image. For example, these are the instructions for [Ubuntu 64bit](https://docs.nvidia.com/cuda/cuda-installation-guide-linux/index.html#ubuntu-installation) assuming release 18.10 and CUDA version 10.1.168-1:
 
