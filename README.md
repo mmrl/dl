@@ -98,7 +98,7 @@ sudo pkill -SIGHUP dockerd
 
 `docker run --runtime=nvidia --rm nvidia/cuda nvidia-smi`
 
-You should see something like this showing the GPUs available:
+You should see something like this showing the GPUs available to Docker:
 
 ```
 Fri Apr 12 16:51:39 2019       
