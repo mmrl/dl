@@ -125,7 +125,7 @@ Fri Apr 12 16:51:39 2019
 
 ## Running the container
 
-To launch the image with GPU support and mount the present working directory in the container's source code directory type:
+To launch the image with GPU support and mount the present working directory in the container's source code directory type (or replace `mmrl/dl` with whichever image you prefer e.g. `mmrl/dl:pytorch`):
 
     $ docker run --runtime=nvidia -it --rm -p 8888:8888 -v $(pwd):/work/src mmrl/dl
 
