@@ -24,7 +24,7 @@ For the most versatility, download and install the NVIDIA drivers with the [run 
 
 #### 1. b) Package Manager
 
-Perhaps the simplest way to Install the latest NVIDIA drivers for Linux is through the [Package Manager](https://docs.nvidia.com/cuda/cuda-installation-guide-linux/index.html#package-manager-installation).
+As an alternative to the Run file, perhaps the simplest way to Install the latest NVIDIA drivers for Linux is through the [Package Manager](https://docs.nvidia.com/cuda/cuda-installation-guide-linux/index.html#package-manager-installation).
 
 For example with Ubuntu to install driver version 430:
 
