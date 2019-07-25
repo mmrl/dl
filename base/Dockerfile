@@ -10,7 +10,8 @@ LABEL maintainer="Ben Evans <ben.d.evans@gmail.com>"
 SHELL ["/bin/bash", "-c"]
 
 # Install system packages
-RUN apt-get update && apt-get install -y --no-install-recommends \
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends \
       bzip2 \
       build-essential \
       ca-certificates \
@@ -94,7 +95,6 @@ ENV PYTHONPATH='/src/:/work/src/:$PYTHONPATH'
 # Install Python packages
 ARG python_version=3.6
 RUN conda config --append channels conda-forge
-# RUN conda install -y python=${python_version}
 RUN pip install --upgrade pip
 # RUN pip install --upgrade pip && \
 #     pip install \
