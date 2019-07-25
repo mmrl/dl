@@ -2,12 +2,17 @@
 
 ![Docker Pulls](https://img.shields.io/docker/pulls/mmrl/dl.svg?style=popout)
 
-This directory contains files to build [Docker](http://www.docker.com/) images which make it easy to get up and running with GPU-accelerated deep learning. The base image provides a Jupyter Lab (notebook) environment in a Docker container which has direct access to the host system's GPU(s). Several variants with popular deep learning libraries are available to choose from (built on top of the base image - `mmrl/dl:base`) which currently include:
+This directory contains files to build [Docker](http://www.docker.com/) images - encapsulated computational containers which enhance reproducibility for scientific research. They are similar in design philosophy to the excellent [Jupyter Docker Stacks](https://github.com/jupyter/docker-stacks) but with a focus on making it easy to get up and running with GPU-accelerated deep learning. The base image provides a Jupyter Lab (notebook) environment in a Docker container which has direct access to the host system's GPU(s). Several variants with popular deep learning libraries are available to choose from which currently include:
 
-* `mmrl/dl:pytorch`: PyTorch
-* `mmrl/dl:keras`: Keras and TensorFlow
+* `mmrl/dl:base`: Contains Jupyter and other useful packages but no DL libraries
+* `mmrl/dl:pytorch`: PyTorch (built on top of `mmrl/dl:base`)
+* `mmrl/dl:keras`: Keras and TensorFlow (built on top of `mmrl/dl:base`)
 
-Additionally there is a `custom` directory with instructions and examples for building your own image. These are considered experimental and may be moved to their own repositories in future. In the meantime, the instructions below refer to the combined image `mmrl/dl` (based on the Keras Dockerfile) which contains ALL TEH THINGZ!!!
+Additionally there is a `custom` directory with instructions and examples for building your own image. These are considered stable but may be moved to their own repositories in future.
+
+The instructions below refer to the combined (default) image `mmrl/dl` (based on the Keras Dockerfile) which contains ALL TEH THINGZ!!! This is considered experimental and may be removed in the future (as it should really be tagged `bloaty-mcbloatface`!). This tag `mmrl/dl` may be substituted for any of the above tags when following the [instructions below](#running-the-container) to use a leaner image.
+
+If you already have a working Docker/nvidia-docker installation, skip to [Running the container](#running-the-container) for a quick start, otherwise work through the installation steps below.
 
 ## Installation
 
@@ -118,7 +123,7 @@ Fri Apr 12 16:51:39 2019
 +-----------------------------------------------------------------------------+
 ```
 
-## Quick start - Running the container
+## Running the container
 
 To launch the image with GPU support and mount the present working directory in the container's source code directory type:
 
