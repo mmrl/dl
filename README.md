@@ -173,9 +173,9 @@ There are currently several solutions:
 4. Similarly, use [fixuid](https://boxboat.com/2017/07/25/fixuid-change-docker-container-uid-gid/) and pass host user IDs at runtime. This also updates all files in the container owned by `thedude` and fixes the `$HOME` variable.
 5. Rebuild the image specifying the UID: `--build-arg NB_UID=$(id -u)`.
 
-## Advanced - Building and running your own container
+## Building and running your own container
 
-A `Makefile` is provided to simplify common docker commands with make commands.
+A `Makefile` is provided to simplify common docker commands with make commands. By default the `Makefile` assumes you are using `mmrl/dl` but any image may be selected by setting the `TAG` variable (e.g. `make lab TAG=mmrl/dl:keras`).
 
 Build the container and run the Jupyter lab interface
 
