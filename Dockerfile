@@ -88,6 +88,10 @@ RUN pip install --upgrade pip
 #       sklearn_pandas \
 RUN conda install --quiet --yes \
       python=${python_version} \
+      numpy \
+      scipy \
+      cython \
+      sympy \
       imagemagick \
       bcolz \
       h5py \
@@ -113,6 +117,8 @@ RUN conda install --quiet --yes \
       six \
       mkdocs \
       tqdm \
+      xlrd \
+      xlwt \
       tensorflow-gpu \
       keras-gpu \
       setuptools \
