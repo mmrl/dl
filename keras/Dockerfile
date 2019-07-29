@@ -32,4 +32,6 @@ RUN conda install --quiet --yes \
 #     pip install git+git://github.com/keras-team/keras.git && \
 #     conda clean -yt
 
+RUN git clone https://github.com/tensorflow/models.git /src/models
+
 EXPOSE 6006
