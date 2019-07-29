@@ -90,8 +90,6 @@ RUN useradd -m -s /bin/bash -N -u $NB_UID -g $NB_GID $NB_USER && \
     chown -R $NB_USER /work
 USER $NB_USER
 
-ENV PYTHONPATH='/src/:/work/src/:$PYTHONPATH'
-
 # Install Python packages
 ARG python_version=3.6
 RUN conda config --append channels conda-forge
@@ -157,6 +155,8 @@ RUN conda install --quiet --yes \
       rm -rf /home/$NB_USER/.cache/yarn
 
 RUN nbdime config-git --enable --global
+
+ENV PYTHONPATH='/src/:/work/src/:$PYTHONPATH'
 
 WORKDIR /work
 VOLUME /work
