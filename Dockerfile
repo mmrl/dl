@@ -148,6 +148,7 @@ RUN conda install --quiet --yes \
       rm -rf /home/$NB_USER/.cache/yarn
 
 RUN nbdime config-git --enable --global
+RUN git clone https://github.com/tensorflow/models.git /src/models
 
 ENV PYTHONPATH='/src/:/work/src/:$PYTHONPATH'
 
