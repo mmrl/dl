@@ -127,9 +127,9 @@ RUN conda install --quiet --yes \
       magma-cuda100 \
       tensorboard \
       nodejs \
-      'notebook=5.7.8' \
+      'notebook=6.0.0' \
       'jupyterhub=1.0.0' \
-      'jupyterlab=1.0.2' \
+      'jupyterlab=1.0.4' \
       ipywidgets \
       widgetsnbextension \
       nbdime \
