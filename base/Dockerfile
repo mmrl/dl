@@ -90,8 +90,6 @@ RUN useradd -m -s /bin/bash -N -u $NB_UID -g $NB_GID $NB_USER && \
     chown -R $NB_USER /work
 USER $NB_USER
 
-ENV PYTHONPATH='/src/:/work/src/:$PYTHONPATH'
-
 # Install Python packages
 ARG python_version=3.6
 RUN conda config --append channels conda-forge
@@ -135,21 +133,20 @@ RUN conda install --quiet --yes \
       xlrd \
       xlwt \
       nodejs \
-      'notebook=5.7.8' \
+      'notebook=6.0.0' \
       'jupyterhub=1.0.0' \
-      'jupyterlab=0.35.6' \
+      'jupyterlab=1.0.4' \
       ipywidgets \
       widgetsnbextension \
       nbdime \
       jupyterlab-git && \
       conda clean --all -f -y && \
-      jupyter labextension install @jupyterlab/hub-extension@^0.12.0 && \
       jupyter labextension install @jupyterlab/google-drive && \
       jupyter labextension install @jupyterlab/git && \
       jupyter serverextension enable --py jupyterlab_git && \
       jupyter labextension install @jupyterlab/github && \
       jupyter labextension install jupyterlab-drawio && \
-      jupyter labextension install jupyterlab_bokeh@0.6.3 && \
+      jupyter labextension install jupyterlab_bokeh && \
       jupyter labextension install @jupyter-widgets/jupyterlab-manager && \
       npm cache clean --force && \
       jupyter notebook --generate-config && \
@@ -157,6 +154,8 @@ RUN conda install --quiet --yes \
       rm -rf /home/$NB_USER/.cache/yarn
 
 RUN nbdime config-git --enable --global
+
+ENV PYTHONPATH='/src/:/work/src/:$PYTHONPATH'
 
 WORKDIR /work
 VOLUME /work
