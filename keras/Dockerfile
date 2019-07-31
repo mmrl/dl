@@ -33,5 +33,6 @@ RUN conda install --quiet --yes \
 #     conda clean -yt
 
 RUN git clone https://github.com/tensorflow/models.git /src/models
+ENV PYTHONPATH="$PYTHONPATH:/src/models"
 
 EXPOSE 6006
