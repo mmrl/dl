@@ -133,6 +133,7 @@ RUN conda install --quiet --yes \
       torchvision \
       cudatoolkit=${cuda_version} \
       # 'cudatoolkit>=10.0' \
+      # magma-cuda${cuda_version//.} \
       magma-cuda100 \
       tensorboard \
       nodejs \
