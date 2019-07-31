@@ -3,6 +3,7 @@ help:
 
 DATA?="${HOME}/data"
 RESULTS?="${HOME}/results"
+VOLUME?=deepnet
 UID?=1000
 HOST_PORT?=8888
 GPU?=0
@@ -37,6 +38,9 @@ ipython: build
 
 lab: build
 	$(DOCKER) run -it -v $(SRC):/work/code -v $(DATA):/work/data -v $(RESULTS):/work/results -p $(HOST_PORT):8888 $(TAG)
+
+vlab: build
+	$(DOCKER) run -it -v $(VOLUME):/work -p $(HOST_PORT):8888 $(TAG)
 
 notebook: build
 	$(DOCKER) run -it -v $(SRC):/work/code -v $(DATA):/work/data -v $(RESULTS):/work/results -p $(HOST_PORT):8888 $(TAG) jupyter notebook --port=8888 --ip=0.0.0.0
