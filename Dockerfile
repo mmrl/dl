@@ -161,10 +161,10 @@ RUN git clone https://github.com/tensorflow/models.git /src/models
 
 ENV PYTHONPATH='/src/:/work/code/:$PYTHONPATH'
 
-WORKDIR /work
+WORKDIR /work/notebooks
 VOLUME /work
 
 # https://docs.docker.com/engine/reference/builder/#expose
 EXPOSE 6006 8888
 
-CMD ["jupyter", "lab", "--port=8888", "--ip=0.0.0.0"]
+CMD ["jupyter", "lab", "--port=8888", "--ip=0.0.0.0", "--no-browser", "--notebook-dir='/work/notebooks'"]
