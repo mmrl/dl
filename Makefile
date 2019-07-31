@@ -43,7 +43,7 @@ vlab: build
 	$(DOCKER) run -it -v $(VOLUME):/work -p $(HOST_PORT):8888 $(TAG)
 
 notebook: build
-	$(DOCKER) run -it -v $(SRC):/work/code -v $(DATA):/work/data -v $(RESULTS):/work/results -p $(HOST_PORT):8888 $(TAG) jupyter notebook --port=8888 --ip=0.0.0.0
+	$(DOCKER) run -it -v $(SRC):/work/code -v $(DATA):/work/data -v $(RESULTS):/work/results -p $(HOST_PORT):8888 $(TAG) jupyter notebook --port=8888 --ip=0.0.0.0 --notebook-dir='/work/notebooks'
 
 test: build
 	$(DOCKER) run -it -v $(SRC):/work/code -v $(DATA):/work/data -v $(RESULTS):/work/results $(TAG) py.test $(TEST)
