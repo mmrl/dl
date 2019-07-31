@@ -180,4 +180,5 @@ VOLUME /work
 # https://docs.docker.com/engine/reference/builder/#expose
 EXPOSE 6006 8888
 
-CMD ["jupyter", "lab", "--port=8888", "--ip=0.0.0.0", "--no-browser", "--notebook-dir='/work/notebooks'"]
+# "--no-browser"
+CMD ["jupyter", "lab", "--port=8888", "--ip=0.0.0.0", "--notebook-dir='/work/notebooks'"]

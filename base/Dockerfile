@@ -142,4 +142,4 @@ RUN nbdime config-git --enable --global
 WORKDIR /work/notebooks
 VOLUME /work
 EXPOSE 8888
-CMD ["jupyter", "lab", "--port=8888", "--ip=0.0.0.0", "--no-browser", "--notebook-dir='/work/notebooks'"]
+CMD ["jupyter", "lab", "--port=8888", "--ip=0.0.0.0", "--notebook-dir='/work/notebooks'"]
