@@ -44,8 +44,6 @@ ENV CONDA_DIR=/opt/conda \
     LC_ALL=en_GB.UTF-8 \
     LANG=en_GB.UTF-8 \
     LANGUAGE=en_GB.UTF-8
-ENV PATH=$CONDA_DIR/bin:$PATH \
-    HOME=/home/$NB_USER
 
 # ENV LC_ALL=C.UTF-8
 # ENV LANG=C.UTF-8
@@ -73,9 +71,12 @@ RUN useradd -m -s /bin/bash -N -u $NB_UID -g $NB_GID $NB_USER && \
     chown -R $NB_USER:$NB_GID $CONDA_DIR && \
     mkdir -p /src && \
     chown $NB_USER /src && \
-    mkdir -p /work/{src,data,results,logs} && \
+    mkdir -p /work/{code,data,logs,models,notebooks,results} && \
     chown -R $NB_USER /work
 USER $NB_USER
+
+ENV PATH=/work/code:$CONDA_DIR/bin:$PATH \
+    HOME=/home/$NB_USER
 
 # Install Python packages and keras
 ARG python_version=3.6
@@ -158,7 +159,7 @@ RUN conda install --quiet --yes \
 RUN nbdime config-git --enable --global
 RUN git clone https://github.com/tensorflow/models.git /src/models
 
-ENV PYTHONPATH='/src/:/work/src/:$PYTHONPATH'
+ENV PYTHONPATH='/src/:/work/code/:$PYTHONPATH'
 
 WORKDIR /work
 VOLUME /work

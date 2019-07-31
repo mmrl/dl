@@ -127,7 +127,7 @@ Fri Apr 12 16:51:39 2019
 
 To launch the image with GPU support and mount the present working directory in the container's source code directory type (or replace `mmrl/dl` with whichever image you prefer e.g. `mmrl/dl:pytorch`):
 
-    $ docker run --runtime=nvidia -it --rm -p 8888:8888 -v $(pwd):/work/src mmrl/dl
+    $ docker run --runtime=nvidia -it --rm -p 8888:8888 -v $(pwd):/work/code mmrl/dl
 
 Then open a browser and enter the following URL if you are running the container locally:
 
@@ -146,15 +146,17 @@ On launching a `mmrl/dl` container, the working directory is set to `/work` whic
 
 ```
 .
+├── code        # Place code and scripts here
 ├── data        # Place input data and image sets here
 ├── logs        # Contains the outputs for tensorboard
-├── results     # Model outputs should be saved here
-└── src         # Place code and scripts here
+├── models      # Save model data and metadata here
+├── notebooks   # Working directory for notebooks
+└── results     # Model outputs should be saved here
 ```
 
-The `/work` is set as a [Docker Volume](https://docs.docker.com/storage/volumes/) meaning that changes made here will persist on the host's file storage. To access the same changes across multiple runs, simply use the same volume name whenever you launch the container e.g. `-v deepnet:/work` (here called `deepnet`). Files may then be copied between the volume (`deepnet`) and the host with [`docker cp`](https://docs.docker.com/engine/reference/commandline/cp/) commands when required. Code and data may also be cloned and downloaded within the running container using the provided tools (`wget` and `git`).
+The `/work` directory is set as a [Docker Volume](https://docs.docker.com/storage/volumes/) meaning that changes made here will persist on the host's file storage. To access the same changes across multiple runs, simply use the same volume name whenever you launch the container e.g. `-v deepnet:/work` (here called `deepnet`). Files may then be copied between the volume (`deepnet`) and the host with [`docker cp`](https://docs.docker.com/engine/reference/commandline/cp/) commands when required. Code and data may also be cloned and downloaded within the running container using the provided tools (`wget` and `git`).
 
-Alternatively, directories from the host computer can be mounted over as many of these individual subdirectories as required e.g. `-v $(pwd)/ImageNet:/work/data -v $(pwd)/repo:/work/src` or an entire project directory (which should contain the same layout) can be mounted over the whole working directory e.g. `-v $(pwd):/work`. These [bind mounts](https://docs.docker.com/storage/bind-mounts/) directly share the files between the container and the host, giving full access to the container processes (e.g. writing and deleting) so care should be taken when using this method. For more information, see the [Docker storage](https://docs.docker.com/storage/) pages.
+Alternatively, directories from the host computer can be mounted over as many of these individual subdirectories as required e.g. `-v $(pwd)/ImageNet:/work/data -v $(pwd)/repo:/work/code` or an entire project directory (which should contain the same layout) can be mounted over the whole working directory e.g. `-v $(pwd):/work`. These [bind mounts](https://docs.docker.com/storage/bind-mounts/) directly share the files between the container and the host, giving full access to the container processes (e.g. writing and deleting) so care should be taken when using this method. For more information, see the [Docker storage](https://docs.docker.com/storage/) pages.
 
 ## Permissions
 
