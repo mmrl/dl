@@ -1,11 +1,9 @@
 ARG cuda_version=10.0
 ARG cudnn_version=7
 FROM nvidia/cuda:${cuda_version}-cudnn${cudnn_version}-devel
-# https://gitlab.com/nvidia/cuda/blob/ubuntu18.04/10.0/devel/cudnn7/Dockerfile
-# https://github.com/jupyter/docker-stacks/blob/master/base-notebook/Dockerfile
+
 LABEL maintainer="Ben Evans <ben.d.evans@gmail.com>"
 
-# ENTRYPOINT [ "/bin/bash", "-c" ]
 # Needed for string substitution
 SHELL ["/bin/bash", "-c"]
 
@@ -35,16 +33,6 @@ RUN apt-get update && \
       wget && \
     rm -rf /var/lib/apt/lists/*
 
-# Dependencies from https://github.com/tensorflow/tensorflow/blob/master/tensorflow/tools/dockerfiles/dockerfiles/gpu-jupyter.Dockerfile
-# N.B. Most of these libraries are included in cudatoolkit
-# cuda-command-line-tools-${CUDA/./-} \
-# cuda-cublas-${CUDA/./-} \
-# cuda-cufft-${CUDA/./-} \
-# cuda-curand-${CUDA/./-} \
-# cuda-cusolver-${CUDA/./-} \
-# cuda-cusparse-${CUDA/./-} \
-# libcudnn7=${CUDNN}+cuda${CUDA} \
-
 RUN echo "en_GB.UTF-8 UTF-8" > /etc/locale.gen && \
     locale-gen
 
@@ -61,9 +49,6 @@ ENV CONDA_DIR=/opt/conda \
     LC_ALL=en_GB.UTF-8 \
     LANG=en_GB.UTF-8 \
     LANGUAGE=en_GB.UTF-8
-# See http://bugs.python.org/issue19846
-# ENV LC_ALL=C.UTF-8
-# ENV LANG=C.UTF-8
 
 # Install conda
 ARG MINICONDA_VERSION=4.7.10
@@ -96,9 +81,6 @@ ENV PATH="/work/code:$CONDA_DIR/bin:$PATH" \
 ARG python_version=3.6
 RUN conda config --append channels conda-forge
 RUN pip install --upgrade pip
-# RUN pip install --upgrade pip && \
-#     pip install \
-#       sklearn_pandas
 RUN conda install --quiet --yes \
       python=${python_version} \
       cudatoolkit=${cuda_version} \
