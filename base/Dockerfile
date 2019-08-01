@@ -81,7 +81,7 @@ ENV PATH="/work/code:$CONDA_DIR/bin:$PATH" \
 
 # Install Python packages
 ARG python_version=3.6
-RUN conda config --append channels conda-forge
+RUN conda config --prepend channels conda-forge
 # RUN pip install --upgrade pip
 RUN conda install --quiet --yes \
       python=${python_version} \
