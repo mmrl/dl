@@ -175,11 +175,12 @@ RUN conda install --quiet --yes \
 RUN nbdime config-git --enable --global
 RUN git clone https://github.com/tensorflow/models.git /src/models
 
-WORKDIR /work/notebooks
+# WORKDIR /work/notebooks
+WORKDIR /work
 VOLUME /work
 
 # https://docs.docker.com/engine/reference/builder/#expose
 EXPOSE 6006 8888
 
 # "--no-browser"
-CMD ["jupyter", "lab", "--port=8888", "--ip=0.0.0.0", "--notebook-dir='/work/notebooks'"]
+CMD ["jupyter", "lab", "--port=8888", "--ip=0.0.0.0"]
