@@ -142,7 +142,7 @@ http://(<HOSTNAME> or 127.0.0.1):8888/?token=5233b0<...>8afd2a
 
 ## Container directory structure
 
-On launching a `mmrl/dl` container, the project directory is set to `/work` (with `/work/notebooks` as the initial working directory) which contains the following subdirectories:
+On launching a `mmrl/dl` container, the project directory is set to `/work` which contains the following subdirectories:
 
 ```
 .
