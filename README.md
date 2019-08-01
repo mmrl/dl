@@ -4,9 +4,9 @@
 
 This directory contains files to build [Docker](http://www.docker.com/) images - encapsulated computational containers which enhance reproducibility for scientific research. They are similar in design philosophy to the excellent [Jupyter Docker Stacks](https://github.com/jupyter/docker-stacks) but with a focus on making it easy to get up and running with GPU-accelerated deep learning. The base image provides a Jupyter Lab (notebook) environment in a Docker container which has direct access to the host system's GPU(s). Several variants with popular deep learning libraries are available to choose from which currently include:
 
-* `mmrl/dl-base`: Contains Jupyter and other useful packages but no DL libraries
-* `mmrl/dl-pytorch`: PyTorch (built on top of `mmrl/dl-base`)
-* `mmrl/dl-keras`: Keras and TensorFlow (built on top of `mmrl/dl-base`)
+* `mmrl/dl-base` [![image metadata](https://images.microbadger.com/badges/image/mmrl/dl-base.svg)](https://microbadger.com/images/mmrl/dl-base "mmrl/dl-base image metadata"): Contains Jupyter and other useful packages but no DL libraries
+* `mmrl/dl-pytorch` [![image metadata](https://images.microbadger.com/badges/image/mmrl/dl-pytorch.svg)](https://microbadger.com/images/mmrl/dl-pytorch "mmrl/dl-pytorch image metadata"): PyTorch (built on top of `mmrl/dl-base`)
+* `mmrl/dl-keras` [![image metadata](https://images.microbadger.com/badges/image/mmrl/dl-keras.svg)](https://microbadger.com/images/mmrl/dl-keras "mmrl/dl-keras image metadata"): Keras and TensorFlow (built on top of `mmrl/dl-base`)
 
 Additionally there is a `custom` directory with instructions and examples for building your own image. These are considered stable but may be moved to their own repositories in future.
 
