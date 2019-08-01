@@ -95,8 +95,8 @@ ENV PATH="/work/code:$CONDA_DIR/bin:$PATH" \
 # Install Python packages and keras
 ARG python_version=3.6
 # RUN echo "python ${python_version}.*" > $CONDA_DIR/conda-meta/pinned
-RUN conda config --append channels conda-forge
-RUN conda config --append channels pytorch
+RUN conda config --prepend channels conda-forge
+RUN conda config --prepend channels pytorch
 # RUN conda update -n base conda
 # RUN conda install -y python=${python_version}
 RUN pip install --upgrade pip
