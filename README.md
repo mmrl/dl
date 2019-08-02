@@ -4,9 +4,9 @@
 
 This directory contains files to build [Docker](http://www.docker.com/) images - encapsulated computational containers which enhance reproducibility for scientific research. They are similar in design philosophy to the excellent [Jupyter Docker Stacks](https://github.com/jupyter/docker-stacks) but with a focus on making it easy to get up and running with GPU-accelerated deep learning. The base image provides a Jupyter Lab (notebook) environment in a Docker container which has direct access to the host system's GPU(s). Several variants with popular deep learning libraries are available to choose from which currently include:
 
-* `mmrl/dl:base`: Contains Jupyter and other useful packages but no DL libraries
-* `mmrl/dl:pytorch`: PyTorch (built on top of `mmrl/dl:base`)
-* `mmrl/dl:keras`: Keras and TensorFlow (built on top of `mmrl/dl:base`)
+* `mmrl/dl-base` [![image metadata](https://images.microbadger.com/badges/image/mmrl/dl-base.svg)](https://microbadger.com/images/mmrl/dl-base "mmrl/dl-base image metadata"): Contains Jupyter and other useful packages but no DL libraries
+* `mmrl/dl-pytorch` [![image metadata](https://images.microbadger.com/badges/image/mmrl/dl-pytorch.svg)](https://microbadger.com/images/mmrl/dl-pytorch "mmrl/dl-pytorch image metadata"): PyTorch (built on top of `mmrl/dl-base`)
+* `mmrl/dl-keras` [![image metadata](https://images.microbadger.com/badges/image/mmrl/dl-keras.svg)](https://microbadger.com/images/mmrl/dl-keras "mmrl/dl-keras image metadata"): Keras and TensorFlow (built on top of `mmrl/dl-base`)
 
 Additionally there is a `custom` directory with instructions and examples for building your own image. These are considered stable but may be moved to their own repositories in future.
 
@@ -125,7 +125,7 @@ Fri Apr 12 16:51:39 2019
 
 ## Running the container
 
-To launch the image with GPU support and mount the present working directory in the container's source code directory type (or replace `mmrl/dl` with whichever image you prefer e.g. `mmrl/dl:pytorch`):
+To launch the image with GPU support and mount the present working directory in the container's source code directory type (or replace `mmrl/dl` with whichever image you prefer e.g. `mmrl/dl-pytorch`):
 
     $ docker run --runtime=nvidia -it --rm -p 8888:8888 -v $(pwd):/work/code mmrl/dl
 
@@ -142,7 +142,7 @@ http://(<HOSTNAME> or 127.0.0.1):8888/?token=5233b0<...>8afd2a
 
 ## Container directory structure
 
-On launching a `mmrl/dl` container, the project directory is set to `/work` (with `/work/notebooks` as the initial working directory) which contains the following subdirectories:
+On launching a `mmrl/dl` container, the project directory is set to `/work` which contains the following subdirectories:
 
 ```
 .
@@ -177,7 +177,7 @@ There are currently several solutions:
 
 ## Building and running your own container
 
-A `Makefile` is provided to simplify common docker commands with make commands. By default the `Makefile` assumes you are using `mmrl/dl` but any image may be selected by setting the `TAG` variable (e.g. `make lab TAG=mmrl/dl:keras`).
+A `Makefile` is provided to simplify common docker commands with make commands. By default the `Makefile` assumes you are using `mmrl/dl` but any image may be selected by setting the `TAG` variable (e.g. `make lab TAG=mmrl/dl-keras`).
 
 Build the container and run the Jupyter lab interface
 
@@ -212,10 +212,10 @@ Prints all make tasks
 
 The above `docker run` command will pull the [ready-made Docker image for deep learning](https://hub.docker.com/r/mmrl/dl) from the [MMRL repository on Docker Hub](https://hub.docker.com/u/mmrl), however you can use it as a base image and customise it to your needs.
 
-Create your own Dockerfile and start with the following line to inherit all the features of the mmrl/dl container:
+Create your own Dockerfile and start with the following line to inherit all the features of the `mmrl/dl-base` container:
 
 ```
-FROM mmrl/dl
+FROM mmrl/dl-base
 ```
 
 Alternatively, see the custom directory for example files.

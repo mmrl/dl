@@ -1,4 +1,4 @@
-ARG BASE_CONTAINER=mmrl/dl:base
+ARG BASE_CONTAINER=mmrl/dl-base
 FROM $BASE_CONTAINER
 
 # Use the environment.yml to create the conda environment.

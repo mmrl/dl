@@ -1,4 +1,4 @@
-FROM mmrl/dl:base
+FROM mmrl/dl-base
 
 # https://github.com/pytorch/pytorch/blob/master/docker/pytorch/Dockerfile
 RUN conda config --prepend channels pytorch
