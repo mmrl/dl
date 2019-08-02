@@ -1,6 +1,6 @@
 # MMRL Docker images for deep learning
 
-![Docker Pulls](https://img.shields.io/docker/pulls/mmrl/dl.svg?style=popout)
+[![Docker Pulls](https://img.shields.io/docker/pulls/mmrl/dl.svg?style=popout)](https://hub.docker.com/r/mmrl/dl) [![docker stars](https://img.shields.io/docker/stars/mmrl/dl.svg)](https://hub.docker.com/r/mmrl/dl) [![image metadata](https://images.microbadger.com/badges/image/mmrl/dl.svg)](https://microbadger.com/images/mmrl/dl "mmrl/dl image metadata")
 
 This directory contains files to build [Docker](http://www.docker.com/) images - encapsulated computational containers which enhance reproducibility for scientific research. They are similar in design philosophy to the excellent [Jupyter Docker Stacks](https://github.com/jupyter/docker-stacks) but with a focus on making it easy to get up and running with GPU-accelerated deep learning. The base image provides a Jupyter Lab (notebook) environment in a Docker container which has direct access to the host system's GPU(s). Several variants with popular deep learning libraries are available to choose from which currently include:
 
