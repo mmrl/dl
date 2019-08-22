@@ -6,7 +6,7 @@ RESULTS?="${HOME}/results"
 VOLUME?=deepnet
 UID?=1000
 HOST_PORT?=8888
-GPU?=0
+GPU?=all
 DOCKER_FILE=Dockerfile
 DOCKER=GPU=$(GPU) nvidia-docker
 TAG?=mmrl/dl
