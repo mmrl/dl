@@ -29,6 +29,7 @@ RUN apt-get update && \
       pkg-config \
       rsync \
       software-properties-common \
+      tree \
       unzip \
       wget && \
     rm -rf /var/lib/apt/lists/*

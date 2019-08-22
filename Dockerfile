@@ -19,11 +19,18 @@ RUN apt-get update && \
       curl \
       git \
       graphviz \
+      libfreetype6-dev \
       libgl1-mesa-glx \
+      libhdf5-serial-dev \
       libhdf5-dev \
+      libjpeg-dev \
+      libpng-dev \
+      libzmq3-dev \
       locales \
       openmpi-bin \
+      pkg-config \
       rsync \
+      software-properties-common \
       tree \
       unzip \
       wget && \
