@@ -78,26 +78,22 @@ quick links here:
 
 These instructions are for Ubuntu. For other distributions, see [here](https://nvidia.github.io/nvidia-docker/).
 
-```
-curl -s -L https://nvidia.github.io/nvidia-docker/gpgkey | \
-  sudo apt-key add -
-distribution=$(. /etc/os-release;echo $ID$VERSION_ID)
-curl -s -L https://nvidia.github.io/nvidia-docker/$distribution/nvidia-docker.list | \
-  sudo tee /etc/apt/sources.list.d/nvidia-docker.list
-sudo apt-get update
-```
+    $ curl -s -L https://nvidia.github.io/nvidia-docker/gpgkey | \
+        sudo apt-key add -
+    $ distribution=$(. /etc/os-release;echo $ID$VERSION_ID)
+    $ curl -s -L https://nvidia.github.io/nvidia-docker/$distribution/nvidia-docker.list | \
+        sudo tee /etc/apt/sources.list.d/nvidia-docker.list
+    $ sudo apt-get update
 
 * Install the nvidia-docker2 package
-
 ```
-sudo apt-get install nvidia-docker2
-sudo pkill -SIGHUP dockerd
+$ sudo apt-get install nvidia-docker2
+$ sudo pkill -SIGHUP dockerd
 ```
-
 * Verify the installation
-
-`docker run --runtime=nvidia --rm nvidia/cuda nvidia-smi`
-
+```
+$ docker run --runtime=nvidia --rm nvidia/cuda nvidia-smi
+```
 You should see something like this showing the GPUs available to Docker:
 
 ```
@@ -130,16 +126,14 @@ To launch the image with GPU support and mount the present working directory in 
     $ docker run --runtime=nvidia -it --rm -p 8888:8888 -v $(pwd):/work/code mmrl/dl
 
 Then open a browser and enter the following URL if you are running the container locally:
-
-    $ http://127.0.0.1:8888
-
+```
+http://127.0.0.1:8888
+```
 (If you're running the container on a remote server, replace 127.0.0.1 with the name or IP address of the server.)
 You will then be asked for a token which you can copy and paste from the terminal output that looks something like this:
-
 ```
 http://(<HOSTNAME> or 127.0.0.1):8888/?token=5233b0<...>8afd2a
 ```
-
 ## Container directory structure
 
 On launching a `mmrl/dl` container, the project directory is set to `/work` which contains the following subdirectories:
@@ -164,16 +158,16 @@ The images are built by default with user `thedude` which has `UID 1000` and `GI
 
 There are currently several solutions:
 
-1. Change the group of your host folders to GID 100 and give r+w permissions to this group.
-2. Change the UID/GID of the container user with the following commands:
-
+* Change the group of your host folders to `GID 100` and give `r+w` permissions to this group.
+* Change the `UID`/`GID` of the container user with the following commands:
+    ```
     $ usermod -u 1000 thedude
     $ groupmod -g 100 thedude
-
-    Replacing 1000 and 100 with the UID and GID of the host user.
-3. Run the container with the argument `--user $(id -u):$(id -g)` (the user may also be given additional group membership with: `--group-add`).
-4. Similarly, use [fixuid](https://boxboat.com/2017/07/25/fixuid-change-docker-container-uid-gid/) and pass host user IDs at runtime. This also updates all files in the container owned by `thedude` and fixes the `$HOME` variable.
-5. Rebuild the image specifying the UID: `--build-arg NB_UID=$(id -u)`.
+    ```
+    Replacing `1000` and `100` with the `UID` and `GID` of the host user.
+* Run the container with the argument `--user $(id -u):$(id -g)` (the user may also be given additional group membership with: `--group-add`).
+* Similarly, use [fixuid](https://boxboat.com/2017/07/25/fixuid-change-docker-container-uid-gid/) and pass host user IDs at runtime. This also updates all files in the container owned by `thedude` and fixes the `$HOME` variable.
+* Rebuild the image specifying the `UID`: `--build-arg NB_UID=$(id -u)`.
 
 ## Building and running your own container
 
