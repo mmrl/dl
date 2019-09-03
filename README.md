@@ -147,11 +147,11 @@ On launching a `mmrl/dl` container, the project directory is set to `/work` whic
 ```
 .
 ├── code        # Place code and scripts here
-├── data        # Place input data and image sets here
+├── data        # Place or mount input data sets here
 ├── logs        # Contains the outputs for tensorboard
 ├── models      # Save model data and metadata here
 ├── notebooks   # Working directory for notebooks
-└── results     # Model outputs should be saved here
+└── results     # Save model outputs here
 ```
 
 The `/work` directory is set as a [Docker Volume](https://docs.docker.com/storage/volumes/) meaning that changes made here will persist on the host's file storage. To access the same changes across multiple runs, simply use the same volume name whenever you launch the container e.g. `-v deepnet:/work` (here called `deepnet`). Files may then be copied between the volume (`deepnet`) and the host with [`docker cp`](https://docs.docker.com/engine/reference/commandline/cp/) commands when required. Code and data may also be cloned and downloaded within the running container using the provided tools (`wget` and `git`).
