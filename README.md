@@ -189,8 +189,7 @@ Build the container and start a bash shell
 
     $ make bash
 
-For GPU support install NVIDIA drivers (ideally latest) and
-[nvidia-docker](https://github.com/NVIDIA/nvidia-docker). Run using
+To restrict access to a specific GPU in the container
 
     $ make notebook GPU=0  # or [ipython, bash]
 
