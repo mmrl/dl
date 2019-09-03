@@ -165,9 +165,11 @@ RUN conda install --quiet --yes \
       ipywidgets \
       widgetsnbextension \
       nbdime \
+      jupyter_conda \
       jupyterlab-git && \
       conda clean --all -f -y && \
       jupyter labextension install @jupyterlab/google-drive && \
+      jupyter labextension install jupyterlab_toastify jupyterlab_conda && \
       jupyter labextension install @jupyterlab/git && \
       jupyter serverextension enable --py jupyterlab_git && \
       jupyter labextension install @jupyterlab/github && \
