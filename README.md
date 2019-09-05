@@ -15,6 +15,7 @@ The instructions below refer to the combined (default) image `mmrl/dl` (based on
 If you already have a working Docker/nvidia-docker installation, skip to [Running the container](#running-the-container) for a quick start, otherwise work through the installation steps below.
 
 ## Installation
+<details><summary>Click here to see installation instructions.</summary><p>
 
 ### 1. Installing NVIDIA drivers
 
@@ -118,6 +119,7 @@ Fri Apr 12 16:51:39 2019
 |    0      1361      G   /usr/lib/xorg/Xorg                            69MiB |
 +-----------------------------------------------------------------------------+
 ```
+</p></details>
 
 ## Running the container
 
