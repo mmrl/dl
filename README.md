@@ -84,29 +84,28 @@ These instructions are for Ubuntu. For other distributions, see [here](https://n
     $ distribution=$(. /etc/os-release;echo $ID$VERSION_ID)
     $ curl -s -L https://nvidia.github.io/nvidia-docker/$distribution/nvidia-docker.list | \
         sudo tee /etc/apt/sources.list.d/nvidia-docker.list
-    $ sudo apt-get update
 
-* Install the nvidia-docker2 package
+* Install the `nvidia-container-toolkit` package
 ```
-$ sudo apt-get install nvidia-docker2
-$ sudo pkill -SIGHUP dockerd
+$ sudo apt-get update && sudo apt-get install -y nvidia-container-toolkit
+$ sudo systemctl restart docker
 ```
 * Verify the installation
 ```
-$ docker run --runtime=nvidia --rm nvidia/cuda nvidia-smi
+$ docker run --gpus all --rm nvidia/cuda nvidia-smi
 ```
 You should see something like this showing the GPUs available to Docker:
 
 ```
-Fri Apr 12 16:51:39 2019       
+Wed Sep 25 13:09:12 2019       
 +-----------------------------------------------------------------------------+
-| NVIDIA-SMI 418.56       Driver Version: 418.56       CUDA Version: 10.1     |
+| NVIDIA-SMI 430.26       Driver Version: 430.26       CUDA Version: 10.2     |
 |-------------------------------+----------------------+----------------------+
 | GPU  Name        Persistence-M| Bus-Id        Disp.A | Volatile Uncorr. ECC |
 | Fan  Temp  Perf  Pwr:Usage/Cap|         Memory-Usage | GPU-Util  Compute M. |
 |===============================+======================+======================|
 |   0  TITAN Xp            Off  | 00000000:05:00.0  On |                  N/A |
-| 23%   30C    P8    10W / 250W |     72MiB / 12192MiB |      0%      Default |
+| 23%   31C    P8     9W / 250W |    113MiB / 12192MiB |      0%      Default |
 +-------------------------------+----------------------+----------------------+
 |   1  TITAN Xp            Off  | 00000000:09:00.0 Off |                  N/A |
 | 23%   27C    P8     9W / 250W |      2MiB / 12196MiB |      0%      Default |
@@ -125,7 +124,7 @@ Fri Apr 12 16:51:39 2019
 
 To launch the image with GPU support and mount the present working directory in the container's source code directory type (or replace `mmrl/dl` with whichever image you prefer e.g. `mmrl/dl-pytorch`):
 
-    $ docker run --runtime=nvidia -it --rm -p 8888:8888 -v $(pwd):/work/code mmrl/dl
+    $ docker run --gpus all -it --rm -p 8888:8888 -v $(pwd):/work/code mmrl/dl
 
 Then open a browser and enter the following URL if you are running the container locally:
 ```
