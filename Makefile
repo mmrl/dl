@@ -34,16 +34,16 @@ bash: build
 	$(DOCKER) run -it --init -v $(SRC):/work/code -v $(DATA):/work/data -v $(RESULTS):/work/results -p 6006:6006 $(TAG) bash
 
 ipython: build
-	$(DOCKER) run -it --init -v $(SRC):/work/code -v $(DATA):/work/data -v $(RESULTS):/work/results $(TAG) ipython
+	$(DOCKER) run --name $(TAG)-ipy -it --init -v $(SRC):/work/code -v $(DATA):/work/data -v $(RESULTS):/work/results $(TAG) ipython
 
 lab: build
-	$(DOCKER) run -it --init -v $(SRC):/work/code -v $(DATA):/work/data -v $(RESULTS):/work/results -p $(HOST_PORT):8888 $(TAG)
+	$(DOCKER) run --name $(TAG)-lab -it --init -v $(SRC):/work/code -v $(DATA):/work/data -v $(RESULTS):/work/results -p 6006:6006 -p $(HOST_PORT):8888 $(TAG)
 
 vlab: build
 	$(DOCKER) run -it --init -v $(VOLUME):/work -p $(HOST_PORT):8888 $(TAG)
 
 notebook: build
-	$(DOCKER) run -it --init -v $(SRC):/work/code -v $(DATA):/work/data -v $(RESULTS):/work/results -p $(HOST_PORT):8888 $(TAG) jupyter notebook --port=8888 --ip=0.0.0.0 --notebook-dir='/work/notebooks'
+	$(DOCKER) run --name $(TAG)-nb -it --init -v $(SRC):/work/code -v $(DATA):/work/data -v $(RESULTS):/work/results -p $(HOST_PORT):8888 $(TAG) jupyter notebook --port=8888 --ip=0.0.0.0 --notebook-dir='/work/notebooks'
 
 test: build
 	$(DOCKER) run -it --init -v $(SRC):/work/code -v $(DATA):/work/data -v $(RESULTS):/work/results $(TAG) py.test $(TEST)
