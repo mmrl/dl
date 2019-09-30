@@ -51,6 +51,10 @@ test: build
 tensorboard: build
 	$(DOCKER) run -it --init -v $(RESULTS):/work/results -v $(LOGS):/work/logs -p 0.0.0.0:6006:6006 $(TAG) tensorboard --logdir=/logs
 
-info: build
-	$(DOCKER) system info
+info:
+	lsb_release -a
+	$(DOCKER) -v
 	$(DOCKER) run -it --rm $(TAG) nvidia-smi
+
+verbose: info
+	$(DOCKER) system info
