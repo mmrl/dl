@@ -49,7 +49,10 @@ test: build
 	$(DOCKER) run -it --init -v $(SRC):/work/code -v $(DATA):/work/data -v $(RESULTS):/work/results $(TAG) py.test $(TEST)
 
 tensorboard: build
-	$(DOCKER) run -it --init -v $(RESULTS):/work/results -v $(LOGS):/work/logs -p 0.0.0.0:6006:6006 $(TAG) tensorboard --logdir=/logs
+
+push: build
+	# $(DOCKER) tag $(TAG) $(NEWTAG)
+	$(DOCKER) push $(TAG)
 
 info:
 	lsb_release -a
