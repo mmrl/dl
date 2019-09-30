@@ -109,6 +109,7 @@ RUN conda install --quiet --yes \
       Pillow \
       python-lmdb \
       pandas \
+      papermill \
       pydot \
       pygpu \
       pyyaml \
