@@ -199,6 +199,10 @@ Mount a volume for external data sets
 
     $ make DATA=~/mydata
 
+Display system info
+
+    $ make info
+
 Prints all make tasks
 
     $ make help
