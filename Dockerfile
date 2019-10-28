@@ -160,9 +160,9 @@ RUN conda install --quiet --yes \
       # magma-cuda${cuda_version//.} \
       magma-cuda100 \
       nodejs \
-      'notebook=6.0.1' \
-      'jupyterhub=1.0.0' \
-      'jupyterlab=1.1.4' \
+      'notebook=6.0.*' \
+      'jupyterhub=1.0.*' \
+      'jupyterlab=1.1.*' \
       ipywidgets \
       widgetsnbextension \
       nbdime \

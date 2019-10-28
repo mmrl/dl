@@ -122,9 +122,9 @@ RUN conda install --quiet --yes \
       xlrd \
       xlwt \
       nodejs \
-      'notebook=6.0.1' \
-      'jupyterhub=1.0.0' \
-      'jupyterlab=1.1.4' \
+      'notebook=6.0.*' \
+      'jupyterhub=1.0.*' \
+      'jupyterlab=1.1.*' \
       ipywidgets \
       widgetsnbextension \
       nbdime \
