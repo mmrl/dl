@@ -17,8 +17,18 @@ TEST=tests/
 SRC?=$(shell dirname `pwd`)
 LOGS?="${HOME}/logs"
 
+all: base build keras pytorch
+	# $(DOCKER) build -t mmrl/dl-keras -f keras/$(DOCKER_FILE) .
+	# $(DOCKER) build -t mmrl/dl-pytorch -f pytorch/$(DOCKER_FILE) .
+
 build:
 	$(DOCKER) build -t $(TAG) --build-arg PYTHON_VERSION=$(PYTHON_VERSION) --build-arg CUDA_VERSION=$(CUDA_VERSION) --build-arg CUDNN_VERSION=$(CUDNN_VERSION) --build-arg NB_UID=$(UID) -f $(DOCKER_FILE) .
+
+base:
+	$(DOCKER) build -t mmrl/dl-base --build-arg PYTHON_VERSION=$(PYTHON_VERSION) --build-arg CUDA_VERSION=$(CUDA_VERSION) --build-arg CUDNN_VERSION=$(CUDNN_VERSION) --build-arg NB_UID=$(UID) -f base/$(DOCKER_FILE) .
+
+keras pytorch:
+	$(DOCKER) build -t mmrl/dl-$@ -f $@/$(DOCKER_FILE) .
 
 prune:
 	$(DOCKER) system prune -f
