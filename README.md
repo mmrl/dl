@@ -12,7 +12,9 @@ Additionally there is a `custom` directory with instructions and examples for bu
 
 The instructions below refer to the combined (default) image `mmrl/dl` (based on the Keras Dockerfile) which contains ALL TEH THINGZ!!! This is used for development and considered experimental, so may be removed in the future (as it should really be tagged `bloaty-mcbloatface`!). This tag `mmrl/dl` may be substituted for any of the above tags when following the [instructions below](#running-the-container) to use a leaner image.
 
-If you already have a working Docker/nvidia-docker installation, skip to [Running the container](#running-the-container) for a quick start, otherwise work through the installation steps below.
+If you already have a working Docker/nvidia-docker installation, skip to [Running the container](#running-the-container) for a quick start, otherwise work through the installation steps below. Alternatively, try the `mmrl/dl` image on binder without installing anything. 
+
+[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/mmrl/dl/master)
 
 ## Installation
 <details><summary>Click here to see installation instructions.</summary><p>
