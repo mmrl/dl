@@ -1,6 +1,6 @@
-ARG cuda_version=10.0
-ARG cudnn_version=7
-FROM nvidia/cuda:${cuda_version}-cudnn${cudnn_version}-devel
+ARG CUDA_VERSION=10.0
+ARG CUDNN_VERSION=7
+FROM nvidia/cuda:${CUDA_VERSION}-cudnn${CUDNN_VERSION}-devel
 
 LABEL maintainer="Ben Evans <ben.d.evans@gmail.com>"
 
@@ -81,13 +81,13 @@ ENV PATH="/work/code:$CONDA_DIR/bin:$PATH" \
     HOME="/home/$NB_USER"
 
 # Install Python packages
-ARG python_version=3.6
+ARG PYTHON_VERSION=3.6
 RUN conda config --prepend channels conda-forge
 # RUN pip install --upgrade pip
 RUN conda install --quiet --yes \
-      python=${python_version} \
+      python=${PYTHON_VERSION} \
       pip \
-      cudatoolkit=${cuda_version} \
+      cudatoolkit=${CUDA_VERSION} \
       setuptools \
       numpy \
       scipy \

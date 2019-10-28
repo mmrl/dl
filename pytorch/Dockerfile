@@ -5,7 +5,7 @@ RUN conda config --prepend channels pytorch
 RUN conda install --quiet --yes \
       # setuptools \
       # git \
-      # cudatoolkit=${cuda_version} \
+      # cudatoolkit=${CUDA_VERSION} \
       # numpy \
       # pyyaml \
       # scipy \

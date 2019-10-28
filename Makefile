@@ -18,7 +18,7 @@ SRC?=$(shell dirname `pwd`)
 LOGS?="${HOME}/logs"
 
 build:
-	$(DOCKER) build -t $(TAG) --build-arg python_version=$(PYTHON_VERSION) --build-arg cuda_version=$(CUDA_VERSION) --build-arg cudnn_version=$(CUDNN_VERSION) --build-arg NB_UID=$(UID) -f $(DOCKER_FILE) .
+	$(DOCKER) build -t $(TAG) --build-arg PYTHON_VERSION=$(PYTHON_VERSION) --build-arg CUDA_VERSION=$(CUDA_VERSION) --build-arg CUDNN_VERSION=$(CUDNN_VERSION) --build-arg NB_UID=$(UID) -f $(DOCKER_FILE) .
 
 prune:
 	$(DOCKER) system prune -f
@@ -28,7 +28,7 @@ nuke:
 
 clean: prune
 	git pull
-	$(DOCKER) build -t $(TAG) --no-cache --build-arg python_version=$(PYTHON_VERSION) --build-arg cuda_version=$(CUDA_VERSION) --build-arg cudnn_version=$(CUDNN_VERSION) --build-arg NB_UID=$(UID) -f $(DOCKER_FILE) .
+	$(DOCKER) build -t $(TAG) --no-cache --build-arg PYTHON_VERSION=$(PYTHON_VERSION) --build-arg CUDA_VERSION=$(CUDA_VERSION) --build-arg CUDNN_VERSION=$(CUDNN_VERSION) --build-arg NB_UID=$(UID) -f $(DOCKER_FILE) .
 
 bash: build
 	$(DOCKER) run -it --init -v $(SRC):/work/code -v $(DATA):/work/data -v $(RESULTS):/work/results -p 6006:6006 $(TAG) bash

@@ -3,19 +3,19 @@ FROM mmrl/dl-base
 # https://github.com/tensorflow/tensorflow/blob/master/tensorflow/tools/dockerfiles/dockerfiles/gpu.Dockerfile
 
 # # Install Python packages and keras
-# RUN conda install -y python=${python_version}
+# RUN conda install -y python=${PYTHON_VERSION}
 # RUN pip install --upgrade pip && \
 #     pip install \
 #       sklearn_pandas \
 #       # tensorflow-gpu \
 #       cntk-gpu
-# ARG cuda_version=10.0
+# ARG CUDA_VERSION=10.0
 
 RUN conda install --quiet --yes \
       # mkl \
       # git \
       # setuptools \
-      # cudatoolkit=${cuda_version} \
+      # cudatoolkit=${CUDA_VERSION} \
       wheel \
       mock && \
       'tensorflow-gpu=2.0.*' && \

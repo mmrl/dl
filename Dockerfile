@@ -1,6 +1,6 @@
-ARG cuda_version=10.0
-ARG cudnn_version=7
-FROM nvidia/cuda:${cuda_version}-cudnn${cudnn_version}-devel
+ARG CUDA_VERSION=10.0
+ARG CUDNN_VERSION=7
+FROM nvidia/cuda:${CUDA_VERSION}-cudnn${CUDNN_VERSION}-devel
 # https://gitlab.com/nvidia/cuda/blob/ubuntu18.04/10.0/devel/cudnn7/Dockerfile
 # https://github.com/jupyter/docker-stacks/blob/master/base-notebook/Dockerfile
 LABEL maintainer="Ben Evans <ben.d.evans@gmail.com>"
@@ -101,18 +101,18 @@ ENV PATH="/work/code:$CONDA_DIR/bin:$PATH" \
     HOME="/home/$NB_USER"
 
 # Install Python packages and keras
-ARG python_version=3.6
-# RUN echo "python ${python_version}.*" > $CONDA_DIR/conda-meta/pinned
+ARG PYTHON_VERSION=3.6
+# RUN echo "python ${PYTHON_VERSION}.*" > $CONDA_DIR/conda-meta/pinned
 RUN conda config --prepend channels conda-forge
 RUN conda config --prepend channels pytorch
 # RUN conda update -n base conda
-# RUN conda install -y python=${python_version}
+# RUN conda install -y python=${PYTHON_VERSION}
 # RUN pip install --upgrade pip
 # RUN pip install --upgrade pip && \
 #     pip install \
 #       sklearn_pandas \
 RUN conda install --quiet --yes \
-      python=${python_version} \
+      python=${PYTHON_VERSION} \
       pip \
       numpy \
       scipy \
@@ -156,9 +156,9 @@ RUN conda install --quiet --yes \
       pytorch \
       ignite \
       torchvision \
-      cudatoolkit=${cuda_version} \
+      cudatoolkit=${CUDA_VERSION} \
       # 'cudatoolkit>=10.0' \
-      # magma-cuda${cuda_version//.} \
+      # magma-cuda${CUDA_VERSION//.} \
       magma-cuda100 \
       nodejs \
       'notebook=6.0.*' \
