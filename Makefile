@@ -52,8 +52,8 @@ tensorboard: build
 	$(DOCKER) run -it --init -v $(LOGS):/work/logs -p 0.0.0.0:6006:6006 $(TAG) tensorboard --logdir=/work/logs
 
 tabs: build
-	$(DOCKER) run --name $(TAG)-tensorboard -d -v $(LOGS):/work/logs -p 0.0.0.0:6006:6006 $(TAG) tensorboard --logdir=/work/logs
-	$(DOCKER) run --name $(TAG)-lab -it --init -v $(SRC):/work/code -v $(DATA):/work/data -v $(RESULTS):/work/results -p $(HOST_PORT):8888 $(TAG)
+	$(DOCKER) run --name dl-tbd -d -v $(LOGS):/work/logs -p 0.0.0.0:6006:6006 $(TAG) tensorboard --logdir=/work/logs
+	$(DOCKER) run --name dl-lab -it --init -v $(SRC):/work/code -v $(DATA):/work/data -v $(RESULTS):/work/results -p $(HOST_PORT):8888 $(TAG)
 
 push: build
 	# $(DOCKER) tag $(TAG) $(NEWTAG)
