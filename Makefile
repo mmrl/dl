@@ -21,6 +21,8 @@ all: base build keras pytorch
 	# $(DOCKER) build -t mmrl/dl-keras -f keras/$(DOCKER_FILE) .
 	# $(DOCKER) build -t mmrl/dl-pytorch -f pytorch/$(DOCKER_FILE) .
 
+.PHONY: all base build keras pytorch prune nuke clean bash ipython lab vlab notebook test tensorboard tabs push info verbose
+
 build:
 	$(DOCKER) build -t $(TAG) --build-arg PYTHON_VERSION=$(PYTHON_VERSION) --build-arg CUDA_VERSION=$(CUDA_VERSION) --build-arg CUDNN_VERSION=$(CUDNN_VERSION) --build-arg NB_UID=$(UID) -f $(DOCKER_FILE) .
 
