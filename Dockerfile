@@ -145,8 +145,9 @@ RUN conda install --quiet --yes \
       tqdm \
       xlrd \
       xlwt \
-      tensorflow-gpu \
-      keras-gpu \
+      'tensorflow-gpu=2.0.*' \
+      # tensorboard \
+      # keras-gpu \
       setuptools \
       cmake \
       cffi \
@@ -167,6 +168,7 @@ RUN conda install --quiet --yes \
       nbdime \
       jupyter_conda \
       jupyterlab-git && \
+      # pip install tensorflow-gpu && \
       conda clean --all -f -y && \
       jupyter labextension install @jupyterlab/google-drive && \
       jupyter labextension install jupyterlab_toastify jupyterlab_conda && \

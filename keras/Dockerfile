@@ -17,12 +17,13 @@ RUN conda install --quiet --yes \
       # setuptools \
       # cudatoolkit=${cuda_version} \
       wheel \
-      mock \
-      tensorflow-gpu \
+      mock && \
+      'tensorflow-gpu=2.0.*' && \
       # keras-preprocessing \
       # keras-applications \
-      keras-gpu \
-      tensorboard && \
+      # keras-gpu \
+      # tensorboard && \
+      # pip install tensorflow-gpu && \
       conda clean --all -f -y && \
       npm cache clean --force && \
       rm -rf $CONDA_DIR/share/jupyter/lab/staging && \
