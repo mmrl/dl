@@ -101,7 +101,7 @@ ENV PATH="/work/code:$CONDA_DIR/bin:$PATH" \
     HOME="/home/$NB_USER"
 
 # Install Python packages and keras
-ARG PYTHON_VERSION=3.6
+ARG PYTHON_VERSION=3.7
 # RUN echo "python ${PYTHON_VERSION}.*" > $CONDA_DIR/conda-meta/pinned
 RUN conda config --prepend channels conda-forge
 RUN conda config --prepend channels pytorch

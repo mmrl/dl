@@ -81,7 +81,7 @@ ENV PATH="/work/code:$CONDA_DIR/bin:$PATH" \
     HOME="/home/$NB_USER"
 
 # Install Python packages
-ARG PYTHON_VERSION=3.6
+ARG PYTHON_VERSION=3.7
 RUN conda config --prepend channels conda-forge
 # RUN pip install --upgrade pip
 RUN conda install --quiet --yes \
