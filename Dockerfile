@@ -158,9 +158,8 @@ RUN conda install --quiet --yes \
       # 'cudatoolkit>=10.0' \
       # magma-cuda${cuda_version//.} \
       magma-cuda100 \
-      tensorboard \
       nodejs \
-      'notebook=6.0.0' \
+      'notebook=6.0.1' \
       'jupyterhub=1.0.0' \
       'jupyterlab=1.1.4' \
       ipywidgets \
