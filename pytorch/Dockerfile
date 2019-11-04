@@ -16,7 +16,7 @@ RUN conda install --quiet --yes \
       ninja \
       typing \
       cffi \
-      pytorch \
+      'pytorch=1.3.*' \
       ignite \
       torchvision \
       magma-cuda100 && \
