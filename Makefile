@@ -24,12 +24,14 @@ all: base build keras pytorch
 .PHONY: all base build keras pytorch prune nuke clean bash ipython lab vlab notebook test tensorboard tabs push info verbose
 
 build:
+	echo "Building $(TAG) image..."
 	$(DOCKER) build -t $(TAG) --build-arg PYTHON_VERSION=$(PYTHON_VERSION) --build-arg CUDA_VERSION=$(CUDA_VERSION) --build-arg CUDNN_VERSION=$(CUDNN_VERSION) --build-arg NB_UID=$(UID) -f $(DOCKER_FILE) .
 
 base:
+	echo "Building $@ image..."
 	$(DOCKER) build -t mmrl/dl-base --build-arg PYTHON_VERSION=$(PYTHON_VERSION) --build-arg CUDA_VERSION=$(CUDA_VERSION) --build-arg CUDNN_VERSION=$(CUDNN_VERSION) --build-arg NB_UID=$(UID) -f base/$(DOCKER_FILE) .
 
-keras pytorch:
+	echo "Building $@ image..."
 	$(DOCKER) build -t mmrl/dl-$@ -f $@/$(DOCKER_FILE) .
 
 prune:
