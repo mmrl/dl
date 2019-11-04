@@ -19,7 +19,7 @@ LOGS?="${HOME}/logs"
 
 all: base build keras pytorch
 
-.PHONY: all base build keras pytorch prune nuke clean bash ipython lab vlab notebook test tensorboard tabs push info verbose
+.PHONY: help all base build keras pytorch prune nuke clean bash ipython lab vlab notebook test tensorboard tabs push info verbose
 
 build:
 	echo "Building $(TAG) image..."
