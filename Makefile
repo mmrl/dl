@@ -31,6 +31,7 @@ base:
 	echo "Building $@ image..."
 	$(DOCKER) build -t mmrl/dl-base --build-arg PYTHON_VERSION=$(PYTHON_VERSION) --build-arg CUDA_VERSION=$(CUDA_VERSION) --build-arg CUDNN_VERSION=$(CUDNN_VERSION) --build-arg NB_UID=$(UID) -f base/$(DOCKER_FILE) .
 
+keras pytorch: base
 	echo "Building $@ image..."
 	$(DOCKER) build -t mmrl/dl-$@ -f $@/$(DOCKER_FILE) .
 
