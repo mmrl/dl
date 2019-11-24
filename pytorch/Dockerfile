@@ -5,7 +5,7 @@ RUN conda config --prepend channels pytorch
 RUN conda install --quiet --yes \
       # setuptools \
       # git \
-      # cudatoolkit=${cuda_version} \
+      # cudatoolkit=${CUDA_VERSION} \
       # numpy \
       # pyyaml \
       # scipy \
@@ -16,7 +16,7 @@ RUN conda install --quiet --yes \
       ninja \
       typing \
       cffi \
-      pytorch \
+      'pytorch=1.3.*' \
       ignite \
       torchvision \
       magma-cuda100 && \

@@ -1,6 +1,6 @@
-ARG cuda_version=10.0
-ARG cudnn_version=7
-FROM nvidia/cuda:${cuda_version}-cudnn${cudnn_version}-devel
+ARG CUDA_VERSION=10.0
+ARG CUDNN_VERSION=7
+FROM nvidia/cuda:${CUDA_VERSION}-cudnn${CUDNN_VERSION}-devel
 
 LABEL maintainer="Ben Evans <ben.d.evans@gmail.com>"
 
@@ -29,6 +29,7 @@ RUN apt-get update && \
       pkg-config \
       rsync \
       software-properties-common \
+      tree \
       unzip \
       wget && \
     rm -rf /var/lib/apt/lists/*
@@ -51,10 +52,10 @@ ENV CONDA_DIR=/opt/conda \
     LANGUAGE=en_GB.UTF-8
 
 # Install conda
-# ARG MINICONDA_VERSION=4.7.10
-# ARG MINCONDA_MD5=1c945f2b3335c7b2b15130b1b2dc5cf4
-ARG MINICONDA_VERSION=4.6.14
-ARG MINCONDA_MD5=718259965f234088d785cad1fbd7de03
+ARG MINICONDA_VERSION=4.7.12.1
+ARG MINCONDA_MD5=81c773ff87af5cfac79ab862942ab6b3
+# ARG MINICONDA_VERSION=4.6.14
+# ARG MINCONDA_MD5=718259965f234088d785cad1fbd7de03
 
 ENV MINICONDA_VERSION=$MINICONDA_VERSION \
     MINCONDA_MD5=$MINCONDA_MD5
@@ -80,13 +81,13 @@ ENV PATH="/work/code:$CONDA_DIR/bin:$PATH" \
     HOME="/home/$NB_USER"
 
 # Install Python packages
-ARG python_version=3.6
+ARG PYTHON_VERSION=3.7
 RUN conda config --prepend channels conda-forge
 # RUN pip install --upgrade pip
 RUN conda install --quiet --yes \
-      python=${python_version} \
+      python=${PYTHON_VERSION} \
       pip \
-      cudatoolkit=${cuda_version} \
+      cudatoolkit=${CUDA_VERSION} \
       setuptools \
       numpy \
       scipy \
@@ -108,6 +109,7 @@ RUN conda install --quiet --yes \
       Pillow \
       python-lmdb \
       pandas \
+      papermill \
       pydot \
       pygpu \
       pyyaml \
@@ -120,15 +122,17 @@ RUN conda install --quiet --yes \
       xlrd \
       xlwt \
       nodejs \
-      'notebook=6.0.0' \
-      'jupyterhub=1.0.0' \
-      'jupyterlab=1.0.4' \
+      'notebook=6.0.*' \
+      'jupyterhub=1.0.*' \
+      'jupyterlab=1.2.*' \
       ipywidgets \
       widgetsnbextension \
       nbdime \
+      jupyter_conda \
       jupyterlab-git && \
       conda clean --all -f -y && \
       jupyter labextension install @jupyterlab/google-drive && \
+      jupyter labextension install jupyterlab_toastify jupyterlab_conda && \
       jupyter labextension install @jupyterlab/git && \
       jupyter serverextension enable --py jupyterlab_git && \
       jupyter labextension install @jupyterlab/github && \
@@ -145,4 +149,4 @@ RUN nbdime config-git --enable --global
 WORKDIR /work
 VOLUME /work
 EXPOSE 8888
-CMD ["jupyter", "lab", "--port=8888", "--ip=0.0.0.0"]
+CMD ["jupyter", "lab", "--port=8888", "--ip=0.0.0.0", "--no-browser", "--allow-root"]

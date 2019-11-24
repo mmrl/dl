@@ -1,6 +1,6 @@
-ARG cuda_version=10.0
-ARG cudnn_version=7
-FROM nvidia/cuda:${cuda_version}-cudnn${cudnn_version}-devel
+ARG CUDA_VERSION=10.0
+ARG CUDNN_VERSION=7
+FROM nvidia/cuda:${CUDA_VERSION}-cudnn${CUDNN_VERSION}-devel
 # https://gitlab.com/nvidia/cuda/blob/ubuntu18.04/10.0/devel/cudnn7/Dockerfile
 # https://github.com/jupyter/docker-stacks/blob/master/base-notebook/Dockerfile
 LABEL maintainer="Ben Evans <ben.d.evans@gmail.com>"
@@ -19,11 +19,18 @@ RUN apt-get update && \
       curl \
       git \
       graphviz \
+      libfreetype6-dev \
       libgl1-mesa-glx \
+      libhdf5-serial-dev \
       libhdf5-dev \
+      libjpeg-dev \
+      libpng-dev \
+      libzmq3-dev \
       locales \
       openmpi-bin \
+      pkg-config \
       rsync \
+      software-properties-common \
       tree \
       unzip \
       wget && \
@@ -62,10 +69,11 @@ ENV CONDA_DIR=/opt/conda \
 # ENV LANG=C.UTF-8
 
 # Install conda
-# ARG MINICONDA_VERSION=4.7.10
-# ARG MINCONDA_MD5=1c945f2b3335c7b2b15130b1b2dc5cf4
-ARG MINICONDA_VERSION=4.6.14
-ARG MINCONDA_MD5=718259965f234088d785cad1fbd7de03
+ARG MINICONDA_VERSION=4.7.12.1
+ARG MINCONDA_MD5=81c773ff87af5cfac79ab862942ab6b3
+# ARG MINICONDA_VERSION=4.6.14
+# ARG MINCONDA_MD5=718259965f234088d785cad1fbd7de03
+# Last version to include Python 3.6: 4.5.4
 # ARG MINICONDA_VERSION=4.5.4
 # ARG MINCONDA_MD5=a946ea1d0c4a642ddf0c3a26a18bb16d
 
@@ -93,18 +101,18 @@ ENV PATH="/work/code:$CONDA_DIR/bin:$PATH" \
     HOME="/home/$NB_USER"
 
 # Install Python packages and keras
-ARG python_version=3.6
-# RUN echo "python ${python_version}.*" > $CONDA_DIR/conda-meta/pinned
+ARG PYTHON_VERSION=3.7
+# RUN echo "python ${PYTHON_VERSION}.*" > $CONDA_DIR/conda-meta/pinned
 RUN conda config --prepend channels conda-forge
 RUN conda config --prepend channels pytorch
 # RUN conda update -n base conda
-# RUN conda install -y python=${python_version}
+# RUN conda install -y python=${PYTHON_VERSION}
 # RUN pip install --upgrade pip
 # RUN pip install --upgrade pip && \
 #     pip install \
 #       sklearn_pandas \
 RUN conda install --quiet --yes \
-      python=${python_version} \
+      python=${PYTHON_VERSION} \
       pip \
       numpy \
       scipy \
@@ -126,6 +134,7 @@ RUN conda install --quiet --yes \
       Pillow \
       python-lmdb \
       pandas \
+      papermill \
       pydot \
       pygpu \
       pyyaml \
@@ -137,30 +146,33 @@ RUN conda install --quiet --yes \
       tqdm \
       xlrd \
       xlwt \
-      tensorflow-gpu \
-      keras-gpu \
+      'tensorflow-gpu=2.0.*' \
+      # tensorboard \
+      # keras-gpu \
       setuptools \
       cmake \
       cffi \
       typing \
-      pytorch \
+      'pytorch=1.3.*' \
       ignite \
       torchvision \
-      cudatoolkit=${cuda_version} \
+      cudatoolkit=${CUDA_VERSION} \
       # 'cudatoolkit>=10.0' \
-      # magma-cuda${cuda_version//.} \
+      # magma-cuda${CUDA_VERSION//.} \
       magma-cuda100 \
-      tensorboard \
       nodejs \
-      'notebook=6.0.0' \
-      'jupyterhub=1.0.0' \
-      'jupyterlab=1.0.4' \
+      'notebook=6.0.*' \
+      'jupyterhub=1.0.*' \
+      'jupyterlab=1.2.*' \
       ipywidgets \
       widgetsnbextension \
       nbdime \
+      jupyter_conda \
       jupyterlab-git && \
+      # pip install tensorflow-gpu && \
       conda clean --all -f -y && \
       jupyter labextension install @jupyterlab/google-drive && \
+      jupyter labextension install jupyterlab_toastify jupyterlab_conda && \
       jupyter labextension install @jupyterlab/git && \
       jupyter serverextension enable --py jupyterlab_git && \
       jupyter labextension install @jupyterlab/github && \
@@ -182,5 +194,4 @@ VOLUME /work
 # https://docs.docker.com/engine/reference/builder/#expose
 EXPOSE 6006 8888
 
-# "--no-browser"
-CMD ["jupyter", "lab", "--port=8888", "--ip=0.0.0.0"]
+CMD ["jupyter", "lab", "--port=8888", "--ip=0.0.0.0", "--no-browser", "--allow-root"]

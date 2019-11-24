@@ -1,6 +1,6 @@
 # MMRL Docker images for deep learning
 
-![Docker Pulls](https://img.shields.io/docker/pulls/mmrl/dl.svg?style=popout)
+[![Docker Pulls](https://img.shields.io/docker/pulls/mmrl/dl.svg?style=popout)](https://hub.docker.com/r/mmrl/dl) [![docker stars](https://img.shields.io/docker/stars/mmrl/dl.svg)](https://hub.docker.com/r/mmrl/dl) [![image metadata](https://images.microbadger.com/badges/image/mmrl/dl.svg)](https://microbadger.com/images/mmrl/dl "mmrl/dl image metadata")
 
 This directory contains files to build [Docker](http://www.docker.com/) images - encapsulated computational containers which enhance reproducibility for scientific research. They are similar in design philosophy to the excellent [Jupyter Docker Stacks](https://github.com/jupyter/docker-stacks) but with a focus on making it easy to get up and running with GPU-accelerated deep learning. The base image provides a Jupyter Lab (notebook) environment in a Docker container which has direct access to the host system's GPU(s). Several variants with popular deep learning libraries are available to choose from which currently include:
 
@@ -10,11 +10,14 @@ This directory contains files to build [Docker](http://www.docker.com/) images -
 
 Additionally there is a `custom` directory with instructions and examples for building your own image. These are considered stable but may be moved to their own repositories in future.
 
-The instructions below refer to the combined (default) image `mmrl/dl` (based on the Keras Dockerfile) which contains ALL TEH THINGZ!!! This is considered experimental and may be removed in the future (as it should really be tagged `bloaty-mcbloatface`!). This tag `mmrl/dl` may be substituted for any of the above tags when following the [instructions below](#running-the-container) to use a leaner image.
+The instructions below refer to the combined (default) image `mmrl/dl` (based on the Keras Dockerfile) which contains ALL TEH THINGZ!!! This is used for development and considered experimental, so may be removed in the future (as it should really be tagged `bloaty-mcbloatface`!). This tag `mmrl/dl` may be substituted for any of the above tags when following the [instructions below](#running-the-container) to use a leaner image.
 
-If you already have a working Docker/nvidia-docker installation, skip to [Running the container](#running-the-container) for a quick start, otherwise work through the installation steps below.
+If you already have a working Docker/nvidia-docker installation, skip to [Running the container](#running-the-container) for a quick start, otherwise work through the installation steps below. Alternatively, try the `mmrl/dl` image on binder without installing anything. 
+
+[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/mmrl/dl/master)
 
 ## Installation
+<details><summary>Click here to see installation instructions.</summary><p>
 
 ### 1. Installing NVIDIA drivers
 
@@ -78,38 +81,33 @@ quick links here:
 
 These instructions are for Ubuntu. For other distributions, see [here](https://nvidia.github.io/nvidia-docker/).
 
-```
-curl -s -L https://nvidia.github.io/nvidia-docker/gpgkey | \
-  sudo apt-key add -
-distribution=$(. /etc/os-release;echo $ID$VERSION_ID)
-curl -s -L https://nvidia.github.io/nvidia-docker/$distribution/nvidia-docker.list | \
-  sudo tee /etc/apt/sources.list.d/nvidia-docker.list
-sudo apt-get update
-```
+    $ curl -s -L https://nvidia.github.io/nvidia-docker/gpgkey | \
+        sudo apt-key add -
+    $ distribution=$(. /etc/os-release;echo $ID$VERSION_ID)
+    $ curl -s -L https://nvidia.github.io/nvidia-docker/$distribution/nvidia-docker.list | \
+        sudo tee /etc/apt/sources.list.d/nvidia-docker.list
 
-* Install the nvidia-docker2 package
-
+* Install the `nvidia-container-toolkit` package
 ```
-sudo apt-get install nvidia-docker2
-sudo pkill -SIGHUP dockerd
+$ sudo apt-get update && sudo apt-get install -y nvidia-container-toolkit
+$ sudo systemctl restart docker
 ```
-
 * Verify the installation
-
-`docker run --runtime=nvidia --rm nvidia/cuda nvidia-smi`
-
+```
+$ docker run --gpus all --rm nvidia/cuda nvidia-smi
+```
 You should see something like this showing the GPUs available to Docker:
 
 ```
-Fri Apr 12 16:51:39 2019       
+Wed Sep 25 13:09:12 2019       
 +-----------------------------------------------------------------------------+
-| NVIDIA-SMI 418.56       Driver Version: 418.56       CUDA Version: 10.1     |
+| NVIDIA-SMI 430.26       Driver Version: 430.26       CUDA Version: 10.2     |
 |-------------------------------+----------------------+----------------------+
 | GPU  Name        Persistence-M| Bus-Id        Disp.A | Volatile Uncorr. ECC |
 | Fan  Temp  Perf  Pwr:Usage/Cap|         Memory-Usage | GPU-Util  Compute M. |
 |===============================+======================+======================|
 |   0  TITAN Xp            Off  | 00000000:05:00.0  On |                  N/A |
-| 23%   30C    P8    10W / 250W |     72MiB / 12192MiB |      0%      Default |
+| 23%   31C    P8     9W / 250W |    113MiB / 12192MiB |      0%      Default |
 +-------------------------------+----------------------+----------------------+
 |   1  TITAN Xp            Off  | 00000000:09:00.0 Off |                  N/A |
 | 23%   27C    P8     9W / 250W |      2MiB / 12196MiB |      0%      Default |
@@ -122,24 +120,23 @@ Fri Apr 12 16:51:39 2019
 |    0      1361      G   /usr/lib/xorg/Xorg                            69MiB |
 +-----------------------------------------------------------------------------+
 ```
+</p></details>
 
 ## Running the container
 
 To launch the image with GPU support and mount the present working directory in the container's source code directory type (or replace `mmrl/dl` with whichever image you prefer e.g. `mmrl/dl-pytorch`):
 
-    $ docker run --runtime=nvidia -it --rm -p 8888:8888 -v $(pwd):/work/code mmrl/dl
+    $ docker run --gpus all -it --rm -p 8888:8888 -v $(pwd):/work/code mmrl/dl
 
 Then open a browser and enter the following URL if you are running the container locally:
-
-    $ http://127.0.0.1:8888
-
+```
+http://127.0.0.1:8888
+```
 (If you're running the container on a remote server, replace 127.0.0.1 with the name or IP address of the server.)
 You will then be asked for a token which you can copy and paste from the terminal output that looks something like this:
-
 ```
 http://(<HOSTNAME> or 127.0.0.1):8888/?token=5233b0<...>8afd2a
 ```
-
 ## Container directory structure
 
 On launching a `mmrl/dl` container, the project directory is set to `/work` which contains the following subdirectories:
@@ -147,11 +144,11 @@ On launching a `mmrl/dl` container, the project directory is set to `/work` whic
 ```
 .
 ├── code        # Place code and scripts here
-├── data        # Place input data and image sets here
+├── data        # Place or mount input data sets here
 ├── logs        # Contains the outputs for tensorboard
 ├── models      # Save model data and metadata here
 ├── notebooks   # Working directory for notebooks
-└── results     # Model outputs should be saved here
+└── results     # Save model outputs here
 ```
 
 The `/work` directory is set as a [Docker Volume](https://docs.docker.com/storage/volumes/) meaning that changes made here will persist on the host's file storage. To access the same changes across multiple runs, simply use the same volume name whenever you launch the container e.g. `-v deepnet:/work` (here called `deepnet`). Files may then be copied between the volume (`deepnet`) and the host with [`docker cp`](https://docs.docker.com/engine/reference/commandline/cp/) commands when required. Code and data may also be cloned and downloaded within the running container using the provided tools (`wget` and `git`).
@@ -164,16 +161,16 @@ The images are built by default with user `thedude` which has `UID 1000` and `GI
 
 There are currently several solutions:
 
-1. Change the group of your host folders to GID 100 and give r+w permissions to this group.
-2. Change the UID/GID of the container user with the following commands:
-
+* Change the group of your host folders to `GID 100` and give `r+w` permissions to this group.
+* Change the `UID`/`GID` of the container user with the following commands:
+    ```
     $ usermod -u 1000 thedude
     $ groupmod -g 100 thedude
-
-    Replacing 1000 and 100 with the UID and GID of the host user.
-3. Run the container with the argument `--user $(id -u):$(id -g)` (the user may also be given additional group membership with: `--group-add`).
-4. Similarly, use [fixuid](https://boxboat.com/2017/07/25/fixuid-change-docker-container-uid-gid/) and pass host user IDs at runtime. This also updates all files in the container owned by `thedude` and fixes the `$HOME` variable.
-5. Rebuild the image specifying the UID: `--build-arg NB_UID=$(id -u)`.
+    ```
+    Replacing `1000` and `100` with the `UID` and `GID` of the host user.
+* Run the container with the argument `--user $(id -u):$(id -g)` (the user may also be given additional group membership with: `--group-add`).
+* Similarly, use [fixuid](https://boxboat.com/2017/07/25/fixuid-change-docker-container-uid-gid/) and pass host user IDs at runtime. This also updates all files in the container owned by `thedude` and fixes the `$HOME` variable.
+* Rebuild the image specifying the `UID`: `--build-arg NB_UID=$(id -u)`.
 
 ## Building and running your own container
 
@@ -195,14 +192,17 @@ Build the container and start a bash shell
 
     $ make bash
 
-For GPU support install NVIDIA drivers (ideally latest) and
-[nvidia-docker](https://github.com/NVIDIA/nvidia-docker). Run using
+To restrict access to a specific GPU in the container
 
     $ make notebook GPU=0  # or [ipython, bash]
 
 Mount a volume for external data sets
 
     $ make DATA=~/mydata
+
+Display system info
+
+    $ make info
 
 Prints all make tasks
 
