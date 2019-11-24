@@ -11,5 +11,11 @@ COPY environment.yml /tmp/environment.yml
 
 WORKDIR /tmp
 RUN [ "conda", "env", "update", "-n", "root", "-f", "environment.yml" ]
+# https://github.com/ian-r-rose/binder-workspace-demo/
+# Set custom Jupyter lab settings
+COPY jupyterlab.settings ${HOME}/.jupyter/lab/user-settings/.
+# Import custom Jupyter lab workspace
+COPY workspace.json .
+RUN jupyter lab workspaces import /tmp/workspace.json
 WORKDIR /work
 # CMD [ "exec python run.py" ]
