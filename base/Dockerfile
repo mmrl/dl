@@ -54,9 +54,6 @@ ENV CONDA_DIR=/opt/conda \
 # Install conda
 ARG MINICONDA_VERSION=4.7.12.1
 ARG MINCONDA_MD5=81c773ff87af5cfac79ab862942ab6b3
-# ARG MINICONDA_VERSION=4.6.14
-# ARG MINCONDA_MD5=718259965f234088d785cad1fbd7de03
-
 ENV MINICONDA_VERSION=$MINICONDA_VERSION \
     MINCONDA_MD5=$MINCONDA_MD5
 RUN wget --quiet https://repo.continuum.io/miniconda/Miniconda3-${MINICONDA_VERSION}-Linux-x86_64.sh && \
@@ -83,7 +80,6 @@ ENV PATH="/work/code:$CONDA_DIR/bin:$PATH" \
 # Install Python packages
 ARG PYTHON_VERSION=3.7
 RUN conda config --prepend channels conda-forge
-# RUN pip install --upgrade pip
 RUN conda install --quiet --yes \
       python=${PYTHON_VERSION} \
       pip \
@@ -143,7 +139,6 @@ RUN conda install --quiet --yes \
       jupyter notebook --generate-config && \
       rm -rf $CONDA_DIR/share/jupyter/lab/staging && \
       rm -rf /home/$NB_USER/.cache/yarn
-
 RUN nbdime config-git --enable --global
 
 WORKDIR /work
