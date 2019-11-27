@@ -183,9 +183,12 @@ RUN conda install --quiet --yes \
       jupyter notebook --generate-config && \
       rm -rf $CONDA_DIR/share/jupyter/lab/staging && \
       rm -rf /home/$NB_USER/.cache/yarn
-
 RUN nbdime config-git --enable --global
-RUN git clone https://github.com/tensorflow/models.git /src/models
+
+# Clone Official Tensorflow models
+ARG TF_MODELS_VERSION=master
+ENV TF_MODELS_VERSION=${TF_MODELS_VERSION}
+RUN git clone -b ${TF_MODELS_VERSION} https://github.com/tensorflow/models.git /src/models
 
 # WORKDIR /work/notebooks
 WORKDIR /work

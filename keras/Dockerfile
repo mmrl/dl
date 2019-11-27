@@ -33,7 +33,10 @@ RUN conda install --quiet --yes \
 #     pip install git+git://github.com/keras-team/keras.git && \
 #     conda clean -yt
 
-RUN git clone https://github.com/tensorflow/models.git /src/models
+# Clone Official Tensorflow models
+ARG TF_MODELS_VERSION=master
+ENV TF_MODELS_VERSION=${TF_MODELS_VERSION}
+RUN git clone -b ${TF_MODELS_VERSION} https://github.com/tensorflow/models.git /src/models
 ENV PYTHONPATH="$PYTHONPATH:/src/models"
 
 EXPOSE 6006
