@@ -137,6 +137,7 @@ You will then be asked for a token which you can copy and paste from the termina
 ```
 http://(<HOSTNAME> or 127.0.0.1):8888/?token=5233b0<...>8afd2a
 ```
+N.B. If docker complains that the port is in use, then you need to map the Jupyter port to a different host port e.g. `-p 8889:8888` and update the URL accordingly. 
 ## Container directory structure
 
 On launching a `mmrl/dl` container, the project directory is set to `/work` which contains the following subdirectories:
