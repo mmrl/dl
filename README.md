@@ -126,7 +126,7 @@ Wed Sep 25 13:09:12 2019
 
 To launch the image with GPU support and mount the present working directory in the container's source code directory type (or replace `mmrl/dl` with whichever image you prefer e.g. `mmrl/dl-pytorch`):
 
-    $ docker run --gpus all -it --rm -p 8888:8888 -v $(pwd):/work/code mmrl/dl
+    $ docker run --gpus all -it --init --rm -p 8888:8888 -v $(pwd):/work/code mmrl/dl
 
 Then open a browser and enter the following URL if you are running the container locally:
 ```
@@ -138,6 +138,7 @@ You will then be asked for a token which you can copy and paste from the termina
 http://(<HOSTNAME> or 127.0.0.1):8888/?token=5233b0<...>8afd2a
 ```
 N.B. If docker complains that the port is in use, then you need to map the Jupyter port to a different host port e.g. `-p 8889:8888` and update the URL accordingly. 
+
 ## Container directory structure
 
 On launching a `mmrl/dl` container, the project directory is set to `/work` which contains the following subdirectories:
