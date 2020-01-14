@@ -104,6 +104,11 @@ ENV PATH="/work/code:$CONDA_DIR/bin:$PATH" \
 # Install Python packages and keras
 ARG PYTHON_VERSION=3.7
 # RUN echo "python ${PYTHON_VERSION}.*" > $CONDA_DIR/conda-meta/pinned
+
+# Disabling channel_priority installs the highest version then sorts ties by channel priority
+# RUN conda config --set channel_priority false
+# Strict channel_priority ensures all packages come from the top priority channel unless they only exist in another
+# RUN conda config --set channel_priority strict
 RUN conda config --prepend channels conda-forge
 RUN conda config --prepend channels pytorch
 # RUN conda update -n base conda
