@@ -9,6 +9,7 @@ CUDNN_VERSION?=7
 UID?=1000
 DOCKER_FILE=Dockerfile
 
+# Define run variables
 VOLUME?=deepnet
 HOST_PORT?=8888
 TB_HOST_PORTS?=6006-6015
@@ -25,10 +26,6 @@ MODELS_PATH?="/work/models"
 NOTEBOOKS_PATH?="/work/notebooks"
 RESULTS_PATH?="/work/results"
 TEST=tests/
-# SRC?=$(shell dirname `pwd`)
-# DATA?="${HOME}/data"
-# RESULTS?="${HOME}/results"
-# LOGS?="${HOME}/logs"
 
 all: base build keras pytorch
 
@@ -77,7 +74,6 @@ ifdef CODE
 MOUNTS += -v $(CODE):$(CODE_PATH)
 endif
 ifdef DATA
-# echo "Adding mount $(DATA) to container at $(DATA_PATH)"
 MOUNTS += -v $(DATA):$(DATA_PATH)
 endif
 ifdef LOGS
@@ -93,12 +89,12 @@ ifdef RESULTS
 MOUNTS += -v $(RESULTS):$(RESULTS_PATH)
 endif
 
+# Define Jupyter port
 PORTS := -p $(HOST_PORT):8888
 
 run:
 	@echo $(MOUNTS)
 
-# bash ipython: PORTS += -p 0.0.0.0:6006:6006
 bash ipython: PORTS += -p 0.0.0.0:$(TB_HOST_PORTS):$(TB_PORTS)
 bash ipython: build
 	$(DOCKER) run -it --init --name $(notdir $(TAG))-$@ $(MOUNTS) $(PORTS) $(TAG) $@
@@ -106,13 +102,6 @@ bash ipython: build
 lab: PORTS += -p 0.0.0.0:$(TB_HOST_PORTS):$(TB_PORTS)
 lab: build
 	$(DOCKER) run -it --init --rm --name $(subst /,_,$(TAG))-lab $(MOUNTS) $(PORTS) $(TAG)
-	# $(DOCKER) run -it --init --name $(TAG)-lab \
-	# 			  -v $(SRC):/work/code \
-	# 			  -v $(DATA):/work/data \
-	# 			  -v $(RESULTS):/work/results \
-	# 			  -p 0.0.0.0:6006:6006 \
-	# 			  -p $(HOST_PORT):8888 \
-	# 			  $(TAG)
 
 notebook: PORTS += -p 0.0.0.0:$(TB_HOST_PORTS):$(TB_PORTS)
 notebook: build
