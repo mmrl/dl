@@ -99,7 +99,14 @@ ENV PATH="/work/code:$CONDA_DIR/bin:$PATH" \
     PYTHONPATH="/work/code:$PYTHONPATH:/src:/src/models" \
     HOME="/home/$NB_USER"
 
-# Install Python packages and keras
+# Install Python packages
+
+# Inherit CUDA_VERSION from global layer
+ARG CUDA_VERSION
+RUN echo "CUDA: ${CUDA_VERSION}"
+ARG CUDNN_VERSION
+RUN echo "cuDNN: ${CUDNN_VERSION}"
+
 ARG PYTHON_VERSION=3.7
 # RUN echo "python ${PYTHON_VERSION}.*" > $CONDA_DIR/conda-meta/pinned
 
