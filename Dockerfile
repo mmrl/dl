@@ -108,8 +108,8 @@ ARG CUDNN_VERSION
 RUN echo "cuDNN: ${CUDNN_VERSION}"
 
 # Succeeds
-RUN echo ${CUDA_VERSION//.}
-RUN echo ${CUDA_VERSION%.*}
+# RUN echo ${CUDA_VERSION//.}
+# RUN echo ${CUDA_VERSION%.*}
 # Fails
 # RUN echo ${${CUDA_VERSION%.*}//.}
 # ARG CUDA_SHORT_VERSION=${CUDA_VERSION%.*}
