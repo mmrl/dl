@@ -107,6 +107,17 @@ RUN echo "CUDA: ${CUDA_VERSION}"
 ARG CUDNN_VERSION
 RUN echo "cuDNN: ${CUDNN_VERSION}"
 
+# Succeeds
+RUN echo ${CUDA_VERSION//.}
+RUN echo ${CUDA_VERSION%.*}
+# Fails
+# RUN echo ${${CUDA_VERSION%.*}//.}
+# ARG CUDA_SHORT_VERSION=${CUDA_VERSION%.*}
+# ENV CUDA_SHORT_VERSION="${CUDA_VERSION%.*}"
+# RUN echo ${${CUDA_VERSION//.}:0:3}
+# Not supported by docker build: 
+# https://github.com/docker/cli/blob/master/docs/reference/builder.md#environment-replacement
+
 ARG PYTHON_VERSION=3.7
 # RUN echo "python ${PYTHON_VERSION}.*" > $CONDA_DIR/conda-meta/pinned
 
