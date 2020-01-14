@@ -221,3 +221,11 @@ FROM mmrl/dl-base
 ```
 
 Alternatively, see the custom directory for example files.
+
+## Resources
+
+* [Docker](https://awesome-docker.netlify.com/)
+* [Keras](https://github.com/fchollet/keras-resources)
+* [TensorFlow](https://www.tensorflow.org/resources/models-datasets)
+* [Using TensorBoard in Notebooks](https://www.tensorflow.org/tensorboard/tensorboard_in_notebooks)
+* [PyTorch](https://pytorch.org/resources/)
