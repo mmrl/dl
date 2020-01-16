@@ -175,7 +175,7 @@ RUN conda install --quiet --yes \
       cmake \
       cffi \
       typing \
-      'pytorch=1.3.*' \
+      'pytorch=1.4.*' \
       ignite \
       torchvision \
       cudatoolkit=${CUDA_VERSION} \
