@@ -189,6 +189,7 @@ RUN conda install --quiet --yes \
       ipywidgets \
       widgetsnbextension \
       nbdime \
+      jupytext \
       jupyter_conda \
       jupyterlab-git && \
       # pip install tensorflow-gpu && \
