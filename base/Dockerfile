@@ -126,6 +126,7 @@ RUN conda install --quiet --yes \
       widgetsnbextension \
       nbdime \
       jupytext \
+      jupyternotify \
       jupyter_conda \
       jupyterlab-git && \
       conda clean --all -f -y && \
