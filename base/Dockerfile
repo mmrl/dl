@@ -106,6 +106,9 @@ RUN conda install --quiet --yes \
       Pillow \
       python-lmdb \
       pandas \
+      numexpr \
+      bottleneck \
+      tabulate \
       papermill \
       pydot \
       pygpu \
