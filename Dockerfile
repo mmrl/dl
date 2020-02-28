@@ -141,6 +141,7 @@ RUN conda install --quiet --yes \
       cython \
       sympy \
       jax \
+      numba \
       imagemagick \
       bcolz \
       h5py \
