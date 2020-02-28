@@ -119,7 +119,7 @@ RUN conda install --quiet --yes \
       scikit-learn \
       scikit-image \
       opencv \
-      six \
+      # six \
       mkdocs \
       tqdm \
       xlrd \
