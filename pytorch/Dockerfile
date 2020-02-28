@@ -27,3 +27,7 @@ RUN conda install --quiet --yes \
 
 # WORKDIR /work
 # VOLUME /work
+
+# Print version 
+RUN python -c 'import torch; print(f"PyTorch: {torch.__version__}")'
+# torch.cuda.is_available()

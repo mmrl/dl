@@ -39,4 +39,8 @@ ENV TF_MODELS_VERSION=${TF_MODELS_VERSION}
 RUN git clone -b ${TF_MODELS_VERSION} https://github.com/tensorflow/models.git /src/models
 ENV PYTHONPATH="$PYTHONPATH:/src/models"
 
+# Print versions
+RUN python -c 'import tensorflow as tf; print(f"TensorFlow: {tf.__version__}")'
+# tf.config.list_physical_devices('GPU')
+
 EXPOSE 6006

@@ -227,6 +227,12 @@ RUN git clone -b ${TF_MODELS_VERSION} https://github.com/tensorflow/models.git /
 WORKDIR /work
 VOLUME /work
 
+# Print versions
+RUN python -c 'import tensorflow as tf; print(f"TensorFlow: {tf.__version__}")'
+# tf.config.list_physical_devices('GPU')
+RUN python -c 'import torch; print(f"PyTorch: {torch.__version__}")'
+# torch.cuda.is_available()
+
 # https://docs.docker.com/engine/reference/builder/#expose
 EXPOSE 6006 8888
 
