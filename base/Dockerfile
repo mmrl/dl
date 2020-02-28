@@ -1,4 +1,4 @@
-ARG CUDA_VERSION=10.0
+ARG CUDA_VERSION=10.1
 ARG CUDNN_VERSION=7
 FROM nvidia/cuda:${CUDA_VERSION}-cudnn${CUDNN_VERSION}-devel
 
@@ -84,7 +84,8 @@ RUN conda config --prepend channels conda-forge
 RUN conda install --quiet --yes \
       python=${PYTHON_VERSION} \
       pip \
-      cudatoolkit=${CUDA_VERSION} \
+      # cudatoolkit=${CUDA_VERSION} \
+      cudatoolkit \
       setuptools \
       numpy \
       scipy \

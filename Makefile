@@ -4,7 +4,7 @@ help:
 # Define build variables
 TAG?=mmrl/dl
 PYTHON_VERSION?=3.7
-CUDA_VERSION?=10.0
+CUDA_VERSION?=10.1
 CUDNN_VERSION?=7
 UID?=1000
 DOCKER_FILE=Dockerfile

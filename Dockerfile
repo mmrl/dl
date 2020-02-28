@@ -1,4 +1,4 @@
-ARG CUDA_VERSION=10.0
+ARG CUDA_VERSION=10.1
 ARG CUDNN_VERSION=7
 FROM nvidia/cuda:${CUDA_VERSION}-cudnn${CUDNN_VERSION}-devel
 # https://gitlab.com/nvidia/cuda/blob/ubuntu18.04/10.0/devel/cudnn7/Dockerfile
@@ -173,7 +173,7 @@ RUN conda install --quiet --yes \
       tqdm \
       xlrd \
       xlwt \
-      'tensorflow-gpu=2.0.*' \
+      'tensorflow-gpu=2.1.*' \
       # tensorboard \
       # keras-gpu \
       setuptools \
@@ -183,10 +183,13 @@ RUN conda install --quiet --yes \
       'pytorch=1.4.*' \
       ignite \
       torchvision \
-      cudatoolkit=${CUDA_VERSION} \
+      # cudatoolkit=${CUDA_VERSION} \
+      cudatoolkit \
       # 'cudatoolkit>=10.0' \
       # magma-cuda${CUDA_VERSION//.} \
-      magma-cuda100 \
+    #   magma-cuda100 \
+      magma-cuda101 \
+    #   magma-cuda102 \
       nodejs \
       'notebook=6.0.*' \
       'jupyterhub=1.1.*' \

@@ -18,7 +18,7 @@ RUN conda install --quiet --yes \
       # cudatoolkit=${CUDA_VERSION} \
       wheel \
       mock \
-      'tensorflow-gpu=2.0.*' && \
+      'tensorflow-gpu=2.1.*' && \
       # keras-preprocessing \
       # keras-applications \
       # keras-gpu \

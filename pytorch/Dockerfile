@@ -19,7 +19,7 @@ RUN conda install --quiet --yes \
       'pytorch=1.4.*' \
       ignite \
       torchvision \
-      magma-cuda100 && \
+      magma-cuda101 && \
       conda clean --all -f -y && \
       npm cache clean --force && \
       rm -rf $CONDA_DIR/share/jupyter/lab/staging && \
