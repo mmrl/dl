@@ -90,6 +90,7 @@ RUN conda install --quiet --yes \
       scipy \
       cython \
       sympy \
+      jax \
       imagemagick \
       bcolz \
       h5py \
