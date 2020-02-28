@@ -6,7 +6,7 @@ This directory contains files to build [Docker](http://www.docker.com/) images -
 
 * `mmrl/dl-base` [![image metadata](https://images.microbadger.com/badges/image/mmrl/dl-base.svg)](https://microbadger.com/images/mmrl/dl-base "mmrl/dl-base image metadata"): Contains Jupyter and other useful packages but no DL libraries
 * `mmrl/dl-pytorch` [![image metadata](https://images.microbadger.com/badges/image/mmrl/dl-pytorch.svg)](https://microbadger.com/images/mmrl/dl-pytorch "mmrl/dl-pytorch image metadata"): PyTorch (built on top of `mmrl/dl-base`)
-* `mmrl/dl-keras` [![image metadata](https://images.microbadger.com/badges/image/mmrl/dl-keras.svg)](https://microbadger.com/images/mmrl/dl-keras "mmrl/dl-keras image metadata"): Keras and TensorFlow (built on top of `mmrl/dl-base`)
+* `mmrl/dl-tensorflow` [![image metadata](https://images.microbadger.com/badges/image/mmrl/dl-tensorflow.svg)](https://microbadger.com/images/mmrl/dl-tensorflow "mmrl/dl-tensorflow image metadata"): TensorFlow (built on top of `mmrl/dl-base`)
 
 Additionally there is a `custom` directory with instructions and examples for building your own image. These are considered stable but may be moved to their own repositories in future.
 
@@ -176,7 +176,7 @@ There are currently several solutions:
 
 ## Building and running your own container
 
-A `Makefile` is provided to simplify common docker commands with make commands. By default the `Makefile` assumes you are using `mmrl/dl` but any image may be selected by setting the `TAG` variable (e.g. `make lab TAG=mmrl/dl-keras`).
+A `Makefile` is provided to simplify common docker commands with make commands. By default the `Makefile` assumes you are using `mmrl/dl` but any image may be selected by setting the `TAG` variable (e.g. `make lab TAG=mmrl/dl-tensorflow`).
 
 Build the container and run the Jupyter lab interface
 

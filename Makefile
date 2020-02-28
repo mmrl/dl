@@ -27,9 +27,9 @@ NOTEBOOKS_PATH?="/work/notebooks"
 RESULTS_PATH?="/work/results"
 TEST=tests/
 
-all: base build keras pytorch
+all: base build tensorflow pytorch
 
-.PHONY: help all base build keras pytorch prune nuke clean bash ipython lab notebook test tensorboard tabs push release info verbose
+.PHONY: help all base build tensorflow pytorch prune nuke clean bash ipython lab notebook test tensorboard tabs push release info verbose
 
 build:
 	echo "Building $(TAG) image..."
@@ -48,7 +48,7 @@ base:
 					--build-arg NB_UID=$(UID) \
 					-f base/$(DOCKER_FILE) .
 
-keras pytorch: base
+tensorflow pytorch: base
 	echo "Building $@ image..."
 	$(DOCKER) build -t mmrl/dl-$@ -f $@/$(DOCKER_FILE) .
 
