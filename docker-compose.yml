@@ -1,0 +1,21 @@
+version: '3.7'
+services:
+  lab:
+    build: .
+    volumes:
+      - ../../notebooks:/work/notebooks
+      - data:/work
+    ports:
+      - 8888:8888
+  
+  tensorboard:
+    build: .
+    volumes:
+      - data:/work
+    ports:
+      - 6006:6006
+    command: tensorboard --logdir=/work/logs 
+
+volumes:
+  data:
+    external: true
