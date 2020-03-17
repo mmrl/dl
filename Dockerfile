@@ -203,8 +203,8 @@ RUN conda install --quiet --yes \
       nodejs \
       'notebook=6.0.*' \
       'jupyterhub=1.1.*' \
-      # 'jupyterlab=2.0.*' \
-      'jupyterlab=1.2.*' \
+      'jupyterlab=2.0.*' \
+      # 'jupyterlab=1.2.*' \
       ipywidgets \
       widgetsnbextension \
       nbdime \
@@ -218,14 +218,14 @@ RUN conda install --quiet --yes \
       jupyter nbextension enable --py widgetsnbextension --sys-prefix && \
       # Also activate ipywidgets extension for JupyterLab
       jupyter labextension install @jupyter-widgets/jupyterlab-manager --no-build && \
-      jupyter labextension install @jupyterlab/google-drive --no-build && \
-      jupyter labextension install @jupyterlab/git --no-build && \
-      jupyter serverextension enable --py jupyterlab_git && \
+      # jupyter labextension install @jupyterlab/google-drive --no-build && \
+      # jupyter labextension install @jupyterlab/git --no-build && \
+      # jupyter serverextension enable --py jupyterlab_git && \
       jupyter labextension install @jupyterlab/github --no-build && \
-      jupyter labextension install jupyterlab-drawio --no-build && \
+      # jupyter labextension install jupyterlab-drawio --no-build && \
       jupyter labextension install jupyterlab_bokeh --no-build && \
       jupyter labextension install jupyter-matplotlib --no-build && \
-      jupyter labextension install jupyterlab_toastify jupyterlab_conda --no-build && \
+      # jupyter labextension install jupyterlab_toastify jupyterlab_conda --no-build && \
       jupyter labextension install jupyterlab-jupytext --no-build && \
       jupyter lab build && \
       npm cache clean --force && \
