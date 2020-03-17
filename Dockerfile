@@ -223,7 +223,7 @@ RUN conda install --quiet --yes \
       # jupyter serverextension enable --py jupyterlab_git && \
       jupyter labextension install @jupyterlab/github --no-build && \
       # jupyter labextension install jupyterlab-drawio --no-build && \
-      jupyter labextension install jupyterlab_bokeh --no-build && \
+      # jupyter labextension install jupyterlab_bokeh --no-build && \
       jupyter labextension install jupyter-matplotlib --no-build && \
       # jupyter labextension install jupyterlab_toastify jupyterlab_conda --no-build && \
       jupyter labextension install jupyterlab-jupytext --no-build && \
