@@ -203,6 +203,7 @@ RUN conda install --quiet --yes \
       nodejs \
       'notebook=6.0.*' \
       'jupyterhub=1.1.*' \
+      # 'jupyterlab=2.0.*' \
       'jupyterlab=1.2.*' \
       ipywidgets \
       widgetsnbextension \
