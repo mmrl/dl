@@ -2,6 +2,7 @@ FROM mmrl/dl-base
 # https://github.com/keras-team/keras/blob/master/docker/Dockerfile
 # https://github.com/tensorflow/tensorflow/blob/master/tensorflow/tools/dockerfiles/dockerfiles/gpu.Dockerfile
 
+ARG TENSORFLOW_VERSION=2.1
 RUN conda install --quiet --yes \
       # mkl \
       # git \
@@ -9,7 +10,9 @@ RUN conda install --quiet --yes \
       # cudatoolkit=${CUDA_VERSION} \
       wheel \
       mock \
-      'tensorflow-gpu=2.1.*' && \
+      tensorflow-gpu=${TENSORFLOW_VERSION} && \
+      # 'tensorflow-gpu=2.0.*' && \
+      # 'tensorflow=2.1.*' && \
       # tensorboard && \
       # pip install tensorflow-gpu && \
       conda clean --all -f -y && \

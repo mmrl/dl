@@ -6,6 +6,9 @@ TAG?=mmrl/dl
 PYTHON_VERSION?=3.7
 CUDA_VERSION?=10.1
 CUDNN_VERSION?=7
+TENSORFLOW_VERSION?=2.1
+TF_MODELS_VERSION?=master
+PYTORCH_VERSION?=1.4
 UID?=1000
 DOCKER_FILE=Dockerfile
 
@@ -37,6 +40,8 @@ build:
 							  --build-arg CUDA_VERSION=$(CUDA_VERSION) \
 							  --build-arg CUDNN_VERSION=$(CUDNN_VERSION) \
 							  --build-arg NB_UID=$(UID) \
+							  --build-arg TENSORFLOW_VERSION=$(TENSORFLOW_VERSION) \
+							  --build-arg PYTORCH_VERSION=$(PYTORCH_VERSION) \
 							  -f $(DOCKER_FILE) .
 
 base:

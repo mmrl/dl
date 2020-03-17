@@ -1,5 +1,6 @@
 FROM mmrl/dl-base
 
+ARG PYTORCH_VERSION=1.4
 # https://github.com/pytorch/pytorch/blob/master/docker/pytorch/Dockerfile
 RUN conda config --prepend channels pytorch
 RUN conda install --quiet --yes \
@@ -16,9 +17,11 @@ RUN conda install --quiet --yes \
       ninja \
       typing \
       cffi \
-      'pytorch=1.4.*' \
+      # 'pytorch=1.4.*' \
+      pytorch=${PYTORCH_VERSION} \
       ignite \
       torchvision \
+      # magma-cuda100 && \
       magma-cuda101 && \
       conda clean --all -f -y && \
       npm cache clean --force && \
