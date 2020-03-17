@@ -106,7 +106,7 @@ RUN conda install --quiet --yes \
       bcolz \
       h5py \
       joblib \
-      matplotlib \
+      matplotlib-base \
       bokeh \
       selenium \
       phantomjs \
