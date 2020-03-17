@@ -44,18 +44,36 @@ build:
 							  --build-arg PYTORCH_VERSION=$(PYTORCH_VERSION) \
 							  -f $(DOCKER_FILE) .
 
-base:
-	echo "Building $@ image..."
-	$(DOCKER) build -t mmrl/dl-base \
-					--build-arg PYTHON_VERSION=$(PYTHON_VERSION) \
-					--build-arg CUDA_VERSION=$(CUDA_VERSION) \
-					--build-arg CUDNN_VERSION=$(CUDNN_VERSION) \
-					--build-arg NB_UID=$(UID) \
-					-f base/$(DOCKER_FILE) .
+# base:
+# 	echo "Building $@ image..."
+# 	$(DOCKER) build -t mmrl/dl-base \
+# 					--build-arg PYTHON_VERSION=$(PYTHON_VERSION) \
+# 					--build-arg CUDA_VERSION=$(CUDA_VERSION) \
+# 					--build-arg CUDNN_VERSION=$(CUDNN_VERSION) \
+# 					--build-arg NB_UID=$(UID) \
+# 					-f base/$(DOCKER_FILE) $@
 
+# tensorflow pytorch: base
+# 	echo "Building $@ image..."
+# 	$(DOCKER) build -t mmrl/dl-$@ -f $@/$(DOCKER_FILE) $@
+
+base: BUILD_ARGS := --build-arg PYTHON_VERSION=$(PYTHON_VERSION) --build-arg CUDA_VERSION=$(CUDA_VERSION) --build-arg CUDNN_VERSION=$(CUDNN_VERSION) --build-arg NB_UID=$(UID)
+base: IMAGE := $(TAG)-base:$(CUDA_VERSION)
+tensorflow: BUILD_ARGS := --build-arg TENSORFLOW_VERSION=$(TENSORFLOW_VERSION) --build-arg TF_MODELS_VERSION=$(TF_MODELS_VERSION)
+tensorflow: IMAGE := $(TAG)-tensorflow:$(TENSORFLOW_VERSION)
+pytorch: BUILD_ARGS := --build-arg PYTORCH_VERSION=$(PYTORCH_VERSION)
+pytorch: IMAGE := $(TAG)-pytorch:$(PYTORCH_VERSION)
 tensorflow pytorch: base
+base tensorflow pytorch:
 	echo "Building $@ image..."
-	$(DOCKER) build -t mmrl/dl-$@ -f $@/$(DOCKER_FILE) .
+	$(DOCKER) build -t $(IMAGE) $(BUILD_ARGS) -f $@/$(DOCKER_FILE) $@
+	# $(DOCKER) build -t mmrl/dl-$@ $(BUILD_ARGS) -f $@/$(DOCKER_FILE) $@
+	# $(DOCKER) build -t mmrl/dl-$@ \
+	# 				--build-arg PYTHON_VERSION=$(PYTHON_VERSION) \
+	# 				--build-arg CUDA_VERSION=$(CUDA_VERSION) \
+	# 				--build-arg CUDNN_VERSION=$(CUDNN_VERSION) \
+	# 				--build-arg NB_UID=$(UID) \
+	# 				-f $@/$(DOCKER_FILE) $@
 
 prune:
 	$(DOCKER) system prune -f
