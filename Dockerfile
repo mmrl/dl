@@ -224,7 +224,8 @@ RUN conda install --quiet --yes \
       npm cache clean --force && \
       jupyter notebook --generate-config && \
       rm -rf $CONDA_DIR/share/jupyter/lab/staging && \
-      rm -rf /home/$NB_USER/.cache/yarn
+      rm -rf /home/$NB_USER/.cache/yarn && \
+      rm -rf /home/$NB_USER/.node-gyp
 RUN nbdime config-git --enable --global
 
 # Clone Official Tensorflow models
