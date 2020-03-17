@@ -72,13 +72,20 @@ RUN useradd -m -s /bin/bash -N -u $NB_UID -g $NB_GID $NB_USER && \
     chown -R $NB_USER:$NB_GID $CONDA_DIR && \
     mkdir -p /src && \
     chown $NB_USER /src && \
-    mkdir -p /work/{code,data,logs,models,notebooks,results} && \
+    mkdir -p /work/{code,data,logs,models,notebooks,results,scripts/entrypoint.d} && \
     chown -R $NB_USER /work
 USER $NB_USER
 
-ENV PATH="/work/code:$CONDA_DIR/bin:$PATH" \
-    PYTHONPATH="/work/code:$PYTHONPATH:/src" \
+ENV PATH="/work/scripts:/work/code:$CONDA_DIR/bin:$PATH" \
+    PYTHONPATH="/work/scripts:/work/code:$PYTHONPATH:/src:/src/models" \
     HOME="/home/$NB_USER"
+
+# Set entrypoint to run any executable scripts in /work/scripts
+USER root
+COPY entrypoint.sh /usr/local/bin
+RUN chown $NB_USER:$NB_GID /usr/local/bin/entrypoint.sh
+RUN chmod a+x /usr/local/bin/entrypoint.sh
+USER $NB_USER
 
 # Install Python packages
 ARG PYTHON_VERSION=3.7
@@ -156,4 +163,6 @@ RUN nbdime config-git --enable --global
 WORKDIR /work
 VOLUME /work
 EXPOSE 8888
-CMD ["jupyter", "lab", "--port=8888", "--ip=0.0.0.0", "--no-browser", "--allow-root"]
+# ENTRYPOINT ["entrypoint.sh"]
+# CMD ["jupyter", "lab", "--port=8888", "--ip=0.0.0.0", "--no-browser", "--allow-root"]
+CMD ["entrypoint.sh", "jupyter", "lab", "--port=8888", "--ip=0.0.0.0", "--no-browser", "--allow-root"]
