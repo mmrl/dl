@@ -182,7 +182,8 @@ RUN conda install --quiet --yes \
       tqdm \
       xlrd \
       xlwt \
-      'tensorflow-gpu=2.1.*' \
+      # 'tensorflow-gpu=2.0.*' \
+      'tensorflow=2.1.*' \
       # tensorboard \
       # keras-gpu \
       setuptools \
@@ -196,9 +197,9 @@ RUN conda install --quiet --yes \
       cudatoolkit \
       # 'cudatoolkit>=10.0' \
       # magma-cuda${CUDA_VERSION//.} \
-    #   magma-cuda100 \
+      # magma-cuda100 \
       magma-cuda101 \
-    #   magma-cuda102 \
+      # magma-cuda102 \
       nodejs \
       'notebook=6.0.*' \
       'jupyterhub=1.1.*' \
