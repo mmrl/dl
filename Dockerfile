@@ -213,15 +213,20 @@ RUN conda install --quiet --yes \
       jupyterlab-git && \
       # pip install tensorflow-gpu && \
       conda clean --all -f -y && \
-      jupyter labextension install @jupyterlab/google-drive && \
-      jupyter labextension install jupyterlab_toastify jupyterlab_conda && \
-      jupyter labextension install @jupyterlab/git && \
+      # Activate ipywidgets extension in the environment that runs the notebook server
+      jupyter nbextension enable --py widgetsnbextension --sys-prefix && \
+      # Also activate ipywidgets extension for JupyterLab
+      jupyter labextension install @jupyter-widgets/jupyterlab-manager --no-build && \
+      jupyter labextension install @jupyterlab/google-drive --no-build && \
+      jupyter labextension install @jupyterlab/git --no-build && \
       jupyter serverextension enable --py jupyterlab_git && \
-      jupyter labextension install @jupyterlab/github && \
-      jupyter labextension install jupyterlab-drawio && \
-      jupyter labextension install jupyterlab_bokeh && \
-      jupyter labextension install jupyterlab-jupytext && \
-      jupyter labextension install @jupyter-widgets/jupyterlab-manager && \
+      jupyter labextension install @jupyterlab/github --no-build && \
+      jupyter labextension install jupyterlab-drawio --no-build && \
+      jupyter labextension install jupyterlab_bokeh --no-build && \
+      jupyter labextension install jupyter-matplotlib --no-build && \
+      jupyter labextension install jupyterlab_toastify jupyterlab_conda --no-build && \
+      jupyter labextension install jupyterlab-jupytext --no-build && \
+      jupyter lab build && \
       npm cache clean --force && \
       jupyter notebook --generate-config && \
       rm -rf $CONDA_DIR/share/jupyter/lab/staging && \
