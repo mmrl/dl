@@ -55,6 +55,7 @@ build:
 					--build-arg TF_MODELS_VERSION=$(TF_MODELS_VERSION) \
 							   --build-arg PYTORCH_VERSION=$(PYTORCH_VERSION) \
 							   -f $(DOCKER_FILE) .
+	$(DOCKER) tag $(STEM) $(STEM):latest
 
 # base:
 # 	echo "Building $@ image..."
