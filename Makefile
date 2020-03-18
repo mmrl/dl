@@ -28,6 +28,7 @@ LOGS_PATH?="/work/logs"
 MODELS_PATH?="/work/models"
 NOTEBOOKS_PATH?="/work/notebooks"
 RESULTS_PATH?="/work/results"
+SCRIPTS_PATH?="/work/scripts"
 TEST=tests/
 
 all: base build tensorflow pytorch
@@ -110,6 +111,9 @@ MOUNTS += -v $(NOTEBOOKS):$(NOTEBOOKS_PATH)
 endif
 ifdef RESULTS
 MOUNTS += -v $(RESULTS):$(RESULTS_PATH)
+endif
+ifdef SCRIPTS
+MOUNTS += -v $(SCRIPTS):$(SCRIPTS_PATH)
 endif
 
 # Define Jupyter port
