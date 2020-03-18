@@ -67,7 +67,8 @@ pytorch: IMAGE := $(TAG)-pytorch:$(PYTORCH_VERSION)
 tensorflow pytorch: base
 base tensorflow pytorch:
 	echo "Building $@ image..."
-	$(DOCKER) build -t $(IMAGE) $(BUILD_ARGS) -f $@/$(DOCKER_FILE) $@
+	$(DOCKER) build -t $(IMAGE) $(BUILD_ARGS) -f $@/$(DOCKER_FILE) .
+	# $(DOCKER) build -t $(IMAGE) $(BUILD_ARGS) -f $@/$(DOCKER_FILE) $@
 	# $(DOCKER) build -t mmrl/dl-$@ $(BUILD_ARGS) -f $@/$(DOCKER_FILE) $@
 	# $(DOCKER) build -t mmrl/dl-$@ \
 	# 				--build-arg PYTHON_VERSION=$(PYTHON_VERSION) \
