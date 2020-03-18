@@ -3,6 +3,7 @@ help:
 
 # Define build variables
 STEM?=mmrl/dl
+TAG?=latest
 PYTHON_VERSION?=3.7
 CUDA_VERSION?=10.1
 CUDNN_VERSION?=7
@@ -35,13 +36,23 @@ all: base build tensorflow pytorch
 
 .PHONY: help all base build tensorflow pytorch prune nuke clean bash ipython lab notebook test tensorboard tabs push release info verbose
 
+# build: IMAGE := $(STEM):$(TAG)
+ifndef IMAGE
+ifdef TAG
+IMAGE := $(STEM):$(TAG)
+else
+IMAGE := $(STEM)
+endif
+endif
 build:
-	echo "Building $(STEM) image..."
-	$(DOCKER) build -t $(STEM) --build-arg PYTHON_VERSION=$(PYTHON_VERSION) \
+	echo "Building $(IMAGE) image..."
+	$(DOCKER) build -t $(IMAGE) \
+					--build-arg PYTHON_VERSION=$(PYTHON_VERSION) \
 							   --build-arg CUDA_VERSION=$(CUDA_VERSION) \
 							   --build-arg CUDNN_VERSION=$(CUDNN_VERSION) \
 							   --build-arg NB_UID=$(UID) \
 							   --build-arg TENSORFLOW_VERSION=$(TENSORFLOW_VERSION) \
+					--build-arg TF_MODELS_VERSION=$(TF_MODELS_VERSION) \
 							   --build-arg PYTORCH_VERSION=$(PYTORCH_VERSION) \
 							   -f $(DOCKER_FILE) .
 
@@ -85,7 +96,7 @@ nuke:
 
 clean: prune
 	git pull
-	$(DOCKER) build -t $(STEM) \
+	$(DOCKER) build -t $(IMAGE) \
 					--no-cache \
 					--build-arg PYTHON_VERSION=$(PYTHON_VERSION) \
 					--build-arg CUDA_VERSION=$(CUDA_VERSION) \
@@ -125,15 +136,15 @@ run:
 
 bash ipython: PORTS += -p 0.0.0.0:$(TB_HOST_PORTS):$(TB_PORTS)
 bash ipython: build
-	$(DOCKER) run -it --init --name $(notdir $(STEM))-$@ $(MOUNTS) $(PORTS) $(STEM) $@
+	$(DOCKER) run -it --init --name $(notdir $(STEM))-$@ $(MOUNTS) $(PORTS) $(IMAGE) $@
 
 lab: PORTS += -p 0.0.0.0:$(TB_HOST_PORTS):$(TB_PORTS)
 lab: build
-	$(DOCKER) run -it --init --rm --name $(subst /,_,$(STEM))-lab $(MOUNTS) $(PORTS) $(STEM)
+	$(DOCKER) run -it --init --rm --name $(subst /,_,$(STEM))-lab $(MOUNTS) $(PORTS) $(IMAGE)
 
 notebook: PORTS += -p 0.0.0.0:$(TB_HOST_PORTS):$(TB_PORTS)
 notebook: build
-	$(DOCKER) run -it --init --name $(subst /,_,$(STEM))-nb $(MOUNTS) $(PORTS) $(STEM) \
+	$(DOCKER) run -it --init --name $(subst /,_,$(STEM))-nb $(MOUNTS) $(PORTS) $(IMAGE) \
 			jupyter notebook --port=8888 --ip=0.0.0.0 --notebook-dir=$(NOTEBOOKS_PATH)
 
 test: build
@@ -141,17 +152,17 @@ test: build
 				  -v $(SRC):/work/code \
 				  -v $(DATA):/work/data \
 				  -v $(RESULTS):/work/results \
-				  $(STEM) py.test $(TEST)
+				  $(IMAGE) py.test $(TEST)
 
 tensorboard: build
-	$(DOCKER) run -it --init $(MOUNTS) -p 0.0.0.0:$(TB_HOST_PORTS):$(TB_PORTS) $(STEM) tensorboard --logdir=$(LOGS_PATH)
+	$(DOCKER) run -it --init $(MOUNTS) -p 0.0.0.0:$(TB_HOST_PORTS):$(TB_PORTS) $(IMAGE) tensorboard --logdir=$(LOGS_PATH)
 
 tabs: build
-	# $(DOCKER) run -d --name $(subst /,_,$(STEM))-tbd $(MOUNTS) -p 0.0.0.0:6006:6006 $(STEM) tensorboard --logdir=$(LOGS_PATH)
+	# $(DOCKER) run -d --name $(subst /,_,$(STEM))-tbd $(MOUNTS) -p 0.0.0.0:6006:6006 $(IMAGE) tensorboard --logdir=$(LOGS_PATH)
 	$(DOCKER) run -d --name $(subst /,_,$(STEM))-tbd \
 				  -v $(LOGS):$(LOGS_PATH) \
 				  -p 0.0.0.0:6006:6006 \
-				  $(STEM) tensorboard --logdir=$(LOGS_PATH)
+				  $(IMAGE) tensorboard --logdir=$(LOGS_PATH)
 	# $(LOGS) may need to be a volume to share between containers
 	$(DOCKER) run -it --init --name $(subst /,_,$(STEM))-lab \
 				  -v $(LOGS):$(LOGS_PATH) \
@@ -159,11 +170,11 @@ tabs: build
 				  -v $(DATA):/work/data \
 				  -v $(RESULTS):/work/results \
 				  -p $(HOST_PORT):8888 \
-				  $(STEM)
+				  $(IMAGE)
 
 push: # build
 	# $(DOCKER) tag $(TAG) $(NEWTAG)
-	$(DOCKER) push $(STEM)
+	$(DOCKER) push $(IMAGE)
 
 release: build push
 
@@ -172,7 +183,7 @@ info:
 	@echo "Ports: $(PORTS)"
 	lsb_release -a
 	$(DOCKER) -v
-	$(DOCKER) run -it --rm $(STEM) nvidia-smi
+	$(DOCKER) run -it --rm $(IMAGE) nvidia-smi
 
 verbose: info
 	$(DOCKER) system info
