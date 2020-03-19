@@ -12,7 +12,7 @@ RUN conda install --quiet --yes \
       mock \
       tensorflow-gpu=${TENSORFLOW_VERSION} && \
       # 'tensorflow-gpu=2.0.*' && \
-      # 'tensorflow=2.1.*' && \
+      # 'tensorflow-gpu=2.1.*' && \
       # tensorboard && \
       # pip install tensorflow-gpu && \
       conda clean --all -f -y && \

@@ -183,7 +183,9 @@ RUN conda install --quiet --yes \
       xlrd \
       xlwt \
       # 'tensorflow-gpu=2.0.*' \
-      'tensorflow=2.1.*' \
+      'tensorflow-gpu=2.1.*' \
+      # 'tensorflow=2.1.*' \ THIS ONLY HAS GPU SUPPORT IN PIP
+      # tensorflow=${TENSORFLOW_VERSION} \
       # tensorboard \
       # keras-gpu \
       setuptools \
