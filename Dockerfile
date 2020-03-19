@@ -195,8 +195,8 @@ RUN conda install --quiet --yes \
       'pytorch=1.4.*' \
       ignite \
       torchvision \
-      # cudatoolkit=${CUDA_VERSION} \
-      cudatoolkit \
+      cudatoolkit=${CUDA_VERSION} \
+      # cudatoolkit \
       # 'cudatoolkit>=10.0' \
       # magma-cuda${CUDA_VERSION//.} \
       # magma-cuda100 \

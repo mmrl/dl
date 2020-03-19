@@ -93,8 +93,8 @@ RUN conda config --prepend channels conda-forge
 RUN conda install --quiet --yes \
       python=${PYTHON_VERSION} \
       pip \
-      # cudatoolkit=${CUDA_VERSION} \
-      cudatoolkit \
+      cudatoolkit=${CUDA_VERSION} \
+      # cudatoolkit \
       setuptools \
       numpy \
       scipy \
