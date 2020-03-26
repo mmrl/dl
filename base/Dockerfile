@@ -55,8 +55,6 @@ ENV CONDA_DIR=/opt/conda \
 # Install conda
 ARG MINICONDA_VERSION=py37_4.8.2
 ARG MINCONDA_MD5=87e77f097f6ebb5127c77662dfc3165e
-# ARG MINICONDA_VERSION=4.7.12.1
-# ARG MINCONDA_MD5=81c773ff87af5cfac79ab862942ab6b3
 ENV MINICONDA_VERSION=$MINICONDA_VERSION \
     MINCONDA_MD5=$MINCONDA_MD5
 RUN wget --quiet https://repo.continuum.io/miniconda/Miniconda3-${MINICONDA_VERSION}-Linux-x86_64.sh && \
@@ -128,7 +126,6 @@ RUN conda install --quiet --yes \
       scikit-learn \
       scikit-image \
       opencv \
-      # six \
       mkdocs \
       tqdm \
       xlrd \

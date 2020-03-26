@@ -12,29 +12,29 @@ SHELL ["/bin/bash", "-c"]
 # Install system packages
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
-      bzip2 \
-      build-essential \
-      ca-certificates \
-      cmake \
-      curl \
-      git \
-      graphviz \
-      libfreetype6-dev \
-      libgl1-mesa-glx \
-      libhdf5-serial-dev \
-      libhdf5-dev \
-      libjpeg-dev \
-      libpng-dev \
-      libzmq3-dev \
-      locales \
-      openmpi-bin \
-      pkg-config \
-      rsync \
-      software-properties-common \
-      tmux \
-      tree \
-      unzip \
-      wget && \
+        bzip2 \
+        build-essential \
+        ca-certificates \
+        cmake \
+        curl \
+        git \
+        graphviz \
+        libfreetype6-dev \
+        libgl1-mesa-glx \
+        libhdf5-serial-dev \
+        libhdf5-dev \
+        libjpeg-dev \
+        libpng-dev \
+        libzmq3-dev \
+        locales \
+        openmpi-bin \
+        pkg-config \
+        rsync \
+        software-properties-common \
+        tmux \
+        tree \
+        unzip \
+        wget && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
@@ -177,7 +177,6 @@ RUN conda install --quiet --yes \
       scikit-learn \
       scikit-image \
       opencv \
-      # six \
       mkdocs \
       tqdm \
       xlrd \
@@ -240,6 +239,7 @@ RUN conda install --quiet --yes \
 RUN nbdime config-git --enable --global
 
 # Clone Official Tensorflow models
+# TODO: Move to /work
 ARG TF_MODELS_VERSION=master
 ENV TF_MODELS_VERSION=${TF_MODELS_VERSION}
 RUN git clone -b ${TF_MODELS_VERSION} https://github.com/tensorflow/models.git /src/models
