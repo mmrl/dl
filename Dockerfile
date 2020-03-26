@@ -149,7 +149,7 @@ RUN conda install --quiet --yes \
       scipy \
       cython \
       sympy \
-      jax \
+      # jax \
       numba \
       imagemagick \
       bcolz \
@@ -227,6 +227,7 @@ RUN conda install --quiet --yes \
       jupyter labextension install @jupyterlab/github --no-build && \
       # jupyter labextension install jupyterlab-drawio --no-build && \
       # jupyter labextension install jupyterlab_bokeh --no-build && \
+      jupyter labextension install @bokeh/jupyter_bokeh --no-build && \
       jupyter labextension install jupyter-matplotlib --no-build && \
       # jupyter labextension install jupyterlab_toastify jupyterlab_conda --no-build && \
       jupyter labextension install jupyterlab-jupytext --no-build && \
