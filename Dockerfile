@@ -183,16 +183,17 @@ RUN conda install --quiet --yes \
       xlrd \
       xlwt \
       # 'tensorflow-gpu=2.0.*' \
-      'tensorflow-gpu=2.1.*' \
+      # 'tensorflow-gpu=2.1.*' \
       # 'tensorflow=2.1.*' \ THIS ONLY HAS GPU SUPPORT IN PIP
-      # tensorflow=${TENSORFLOW_VERSION} \
+      tensorflow-gpu=${TENSORFLOW_VERSION} \
       # tensorboard \
       # keras-gpu \
       setuptools \
       cmake \
       cffi \
       typing \
-      'pytorch=1.4.*' \
+      # 'pytorch=1.4.*' \
+      pytorch=${PYTORCH_VERSION} \
       ignite \
       torchvision \
       cudatoolkit=${CUDA_VERSION} \
