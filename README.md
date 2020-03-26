@@ -41,7 +41,21 @@ For example with Ubuntu to install driver version 430:
     $ sudo apt install nvidia-430
     $ sudo reboot
 
-If you have multiple GPUs, you can run `nvidia-smi -pm 1` to enable persistent mode, which will save some time from loading the driver. It will have a significant effect on machines with more than 4 GPUs.
+Note, if the `nvidia-drm` module is in use, it may be necessary to dropping into a text console as root to disable the graphical target:
+    
+    $ systemctl isolate multi-user.target
+
+Next unload the module:
+
+    $ modprobe -r nvidia-drm
+
+Install/upgrade the drive, then re-enable the graphical environment and finally reboot:
+
+    $ systemctl start graphical.target
+
+If you have multiple GPUs, you can run `nvidia-smi -pm 1` to enable persistent mode, which will save some time from loading the driver. It will have a significant effect on machines with more than 4 GPUs. Alternatively install the [Persistence Daemon](https://docs.nvidia.com/cuda/cuda-installation-guide-linux/index.html#install-persistenced) by running the following command at boot:
+
+    $ /usr/bin/nvidia-persistenced --verbose
 
 ### [Optional] Install CUDA and cuDNN on the host
 
