@@ -73,7 +73,7 @@ N.B. Although the CUDA version installed above is 10.1 which is incompatible wit
 ##### Post-installation
 If you installed CUDA/cuDNN on the host, there are a few [additional steps](https://docs.nvidia.com/cuda/cuda-installation-guide-linux/index.html#post-installation-actions) which need to be performed manually e.g.:
 
-Set the following environment variables e.g. by editing `~/.bashrc`:
+Set the following environment variables e.g. by editing `~/.bashrc`, `/etc/environment`, `/etc/profile` or adding a `.sh` script to `/etc/profile.d/`:
 
     $ export PATH=/usr/local/cuda-10.1/bin${PATH:+:${PATH}}
     $ export LD_LIBRARY_PATH=/usr/local/cuda-10.1/lib64\
