@@ -1,4 +1,5 @@
-FROM mmrl/dl-base
+ARG TAG=latest
+FROM mmrl/dl-base:${TAG}
 # https://github.com/keras-team/keras/blob/master/docker/Dockerfile
 # https://github.com/tensorflow/tensorflow/blob/master/tensorflow/tools/dockerfiles/dockerfiles/gpu.Dockerfile
 
