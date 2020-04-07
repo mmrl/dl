@@ -134,6 +134,7 @@ ARG PYTHON_VERSION=3.7
 # RUN conda config --set channel_priority false
 # Strict channel_priority ensures all packages come from the top priority channel unless they only exist in another
 # RUN conda config --set channel_priority strict
+RUN conda config --prepend channels bokeh
 RUN conda config --prepend channels conda-forge
 RUN conda config --prepend channels pytorch
 # RUN conda update -n base conda
@@ -206,15 +207,16 @@ RUN conda install --quiet --yes \
       nodejs \
       'notebook=6.0.*' \
       'jupyterhub=1.1.*' \
-      'jupyterlab=2.0.*' \
+      'jupyterlab=2.1.*' \
       # 'jupyterlab=1.2.*' \
       ipywidgets \
       widgetsnbextension \
       nbdime \
       jupytext \
       jupyternotify \
-      jupyter_conda \
-      jupyterlab-git && \
+      # jupyterlab_bokeh \
+    #   jupyterlab-git \
+      jupyter_conda && \
       # pip install tensorflow-gpu && \
       conda clean --all -f -y && \
       # Activate ipywidgets extension in the environment that runs the notebook server
@@ -222,14 +224,14 @@ RUN conda install --quiet --yes \
       # Also activate ipywidgets extension for JupyterLab
       jupyter labextension install @jupyter-widgets/jupyterlab-manager --no-build && \
       # jupyter labextension install @jupyterlab/google-drive --no-build && \
-      # jupyter labextension install @jupyterlab/git --no-build && \
-      # jupyter serverextension enable --py jupyterlab_git && \
+    #   jupyter labextension install @jupyterlab/git --no-build && \
+    #   jupyter serverextension enable --py jupyterlab_git && \
       jupyter labextension install @jupyterlab/github --no-build && \
-      # jupyter labextension install jupyterlab-drawio --no-build && \
-      # jupyter labextension install jupyterlab_bokeh --no-build && \
-      jupyter labextension install @bokeh/jupyter_bokeh --no-build && \
+    #   jupyter labextension install jupyterlab-drawio --no-build && \
+    #   jupyter labextension install jupyterlab_bokeh --no-build && \
+    #   jupyter labextension install @bokeh/jupyter_bokeh --no-build && \
       jupyter labextension install jupyter-matplotlib --no-build && \
-      # jupyter labextension install jupyterlab_toastify jupyterlab_conda --no-build && \
+      jupyter labextension install jupyterlab_toastify jupyterlab_conda --no-build && \
       jupyter labextension install jupyterlab-jupytext --no-build && \
       jupyter lab build && \
       npm cache clean --force && \
