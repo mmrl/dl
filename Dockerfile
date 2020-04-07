@@ -194,15 +194,15 @@ RUN conda install --quiet --yes \
       typing \
       # 'pytorch=1.4.*' \
       pytorch=${PYTORCH_VERSION} \
+      # magma-cuda${CUDA_VERSION//.} \
+      # magma-cuda100 \
+      magma-cuda101 \
+      # magma-cuda102 \
       ignite \
       torchvision \
       cudatoolkit=${CUDA_VERSION} \
       # cudatoolkit \
       # 'cudatoolkit>=10.0' \
-      # magma-cuda${CUDA_VERSION//.} \
-      # magma-cuda100 \
-      magma-cuda101 \
-      # magma-cuda102 \
       nodejs \
       'notebook=6.0.*' \
       'jupyterhub=1.1.*' \
