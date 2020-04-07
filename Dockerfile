@@ -149,7 +149,7 @@ RUN conda install --quiet --yes \
       scipy \
       cython \
       sympy \
-      # jax \
+      jax \
       numba \
       imagemagick \
       bcolz \
