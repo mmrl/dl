@@ -227,7 +227,7 @@ RUN conda install --quiet --yes \
     #   jupyter labextension install @jupyterlab/git --no-build && \
     #   jupyter serverextension enable --py jupyterlab_git && \
       jupyter labextension install @jupyterlab/github --no-build && \
-    #   jupyter labextension install jupyterlab-drawio --no-build && \
+      jupyter labextension install jupyterlab-drawio --no-build && \
     #   jupyter labextension install jupyterlab_bokeh --no-build && \
     #   jupyter labextension install @bokeh/jupyter_bokeh --no-build && \
       jupyter labextension install jupyter-matplotlib --no-build && \
