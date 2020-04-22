@@ -1,6 +1,6 @@
 FROM mmrl/dl-base
 
-ARG PYTORCH_VERSION=1.4
+ARG PYTORCH_VERSION=1.5
 # https://github.com/pytorch/pytorch/blob/master/docker/pytorch/Dockerfile
 RUN conda config --prepend channels pytorch
 RUN conda install --quiet --yes \
