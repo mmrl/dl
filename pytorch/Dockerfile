@@ -1,4 +1,7 @@
-FROM mmrl/dl-base
+ARG TAG=latest
+FROM mmrl/dl-base:${TAG}
+# ARG BASE_TAG=latest
+# FROM mmrl/dl-base:${BASE_TAG}
 
 ARG PYTORCH_VERSION=1.5
 # https://github.com/pytorch/pytorch/blob/master/docker/pytorch/Dockerfile
