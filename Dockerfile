@@ -190,7 +190,7 @@ RUN conda install --quiet --yes \
       # 'tensorflow-gpu=2.1.*' \
       # 'tensorflow=2.1.*' \ THIS ONLY HAS GPU SUPPORT IN PIP
       tensorflow-gpu=${TENSORFLOW_VERSION} \
-      # tensorboard \
+      tensorboard \
       # keras-gpu \
       setuptools \
       cmake \
@@ -237,6 +237,7 @@ RUN conda install --quiet --yes \
       jupyter labextension install jupyter-matplotlib --no-build && \
       jupyter labextension install jupyterlab_toastify jupyterlab_conda --no-build && \
       jupyter labextension install jupyterlab-jupytext --no-build && \
+      jupyter labextension install jupyterlab_tensorboard --no-build && \
       jupyter lab build && \
       npm cache clean --force && \
       jupyter notebook --generate-config && \
