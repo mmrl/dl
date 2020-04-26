@@ -10,29 +10,29 @@ SHELL ["/bin/bash", "-c"]
 # Install system packages
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
-      bzip2 \
-      build-essential \
-      ca-certificates \
-      cmake \
-      curl \
-      git \
-      graphviz \
-      libfreetype6-dev \
-      libgl1-mesa-glx \
-      libhdf5-serial-dev \
-      libhdf5-dev \
-      libjpeg-dev \
-      libpng-dev \
-      libzmq3-dev \
-      locales \
-      openmpi-bin \
-      pkg-config \
-      rsync \
-      software-properties-common \
-      tmux \
-      tree \
-      unzip \
-      wget && \
+    bzip2 \
+    build-essential \
+    ca-certificates \
+    cmake \
+    curl \
+    git \
+    graphviz \
+    libfreetype6-dev \
+    libgl1-mesa-glx \
+    libhdf5-serial-dev \
+    libhdf5-dev \
+    libjpeg-dev \
+    libpng-dev \
+    libzmq3-dev \
+    locales \
+    openmpi-bin \
+    pkg-config \
+    rsync \
+    software-properties-common \
+    tmux \
+    tree \
+    unzip \
+    wget && \
     rm -rf /var/lib/apt/lists/*
 
 RUN echo "en_GB.UTF-8 UTF-8" > /etc/locale.gen && \
@@ -80,7 +80,7 @@ ENV PATH="/work/scripts:/work/code:$CONDA_DIR/bin:$PATH" \
 
 # Set entrypoint to run any executable scripts in /work/scripts
 USER root
-COPY entrypoint.sh /usr/local/bin
+COPY base/entrypoint.sh /usr/local/bin
 RUN chown $NB_USER:$NB_GID /usr/local/bin/entrypoint.sh
 RUN chmod a+x /usr/local/bin/entrypoint.sh
 USER $NB_USER
