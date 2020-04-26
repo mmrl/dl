@@ -89,23 +89,8 @@ quick links here:
 * [macOS](https://docs.docker.com/docker-for-mac/install/)
 * [Windows](https://docs.docker.com/docker-for-windows/install/)
 
-### 3. Installing nvidia-docker
+Note: Starting from version `19.03`, Docker supports the `--gpus` option for making GPUs available at runtime (and [buildtime](https://github.com/NVIDIA/nvidia-docker/wiki#can-i-use-the-gpu-during-a-container-build-ie-docker-build)). Consequently, the previously required [`nvidia-container-toolkit`](https://nvidia.github.io/nvidia-docker/) is deprecated and no longer necessary.  
 
-* [Add the NVIDIA repository](https://nvidia.github.io/nvidia-docker/)
-
-These instructions are for Ubuntu. For other distributions, see [here](https://nvidia.github.io/nvidia-docker/).
-
-    $ curl -s -L https://nvidia.github.io/nvidia-docker/gpgkey | \
-        sudo apt-key add -
-    $ distribution=$(. /etc/os-release;echo $ID$VERSION_ID)
-    $ curl -s -L https://nvidia.github.io/nvidia-docker/$distribution/nvidia-docker.list | \
-        sudo tee /etc/apt/sources.list.d/nvidia-docker.list
-
-* Install the `nvidia-container-toolkit` package
-```
-$ sudo apt-get update && sudo apt-get install -y nvidia-container-toolkit
-$ sudo systemctl restart docker
-```
 * Verify the installation
 ```
 $ docker run --gpus all --rm nvidia/cuda nvidia-smi
