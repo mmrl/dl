@@ -226,6 +226,7 @@ RUN conda install --quiet --yes \
       jupyter nbextension enable --py widgetsnbextension --sys-prefix && \
       # Also activate ipywidgets extension for JupyterLab
       jupyter labextension install @jupyter-widgets/jupyterlab-manager --no-build && \
+      jupyter labextension install @jupyterlab/toc --no-build && \
       # jupyter labextension install @jupyterlab/google-drive --no-build && \
     #   jupyter labextension install @jupyterlab/git --no-build && \
     #   jupyter serverextension enable --py jupyterlab_git && \
