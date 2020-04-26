@@ -76,11 +76,17 @@ build:
 # 	echo "Building $@ image..."
 # 	$(DOCKER) build -t mmrl/dl-$@ -f $@/$(DOCKER_FILE) $@
 
-base: BUILD_ARGS := --build-arg PYTHON_VERSION=$(PYTHON_VERSION) --build-arg CUDA_VERSION=$(CUDA_VERSION) --build-arg CUDNN_VERSION=$(CUDNN_VERSION) --build-arg NB_UID=$(UID)
+base: BUILD_ARGS := --build-arg PYTHON_VERSION=$(PYTHON_VERSION) \
+					--build-arg CUDA_VERSION=$(CUDA_VERSION) \
+					--build-arg CUDNN_VERSION=$(CUDNN_VERSION) \
+					--build-arg NB_UID=$(UID)
 base: IMAGE := $(STEM)-base:$(CUDA_VERSION)
-tensorflow: BUILD_ARGS := --build-arg TAG=$(BASE_TAG) --build-arg TENSORFLOW_VERSION=$(TENSORFLOW_VERSION) --build-arg TF_MODELS_VERSION=$(TF_MODELS_VERSION)
+tensorflow: BUILD_ARGS := --build-arg TAG=$(BASE_TAG) \
+						--build-arg TENSORFLOW_VERSION=$(TENSORFLOW_VERSION) \
+						--build-arg TF_MODELS_VERSION=$(TF_MODELS_VERSION)
 tensorflow: IMAGE := $(STEM)-tensorflow:$(TENSORFLOW_VERSION)
-pytorch: BUILD_ARGS := --build-arg TAG=$(BASE_TAG) --build-arg PYTORCH_VERSION=$(PYTORCH_VERSION)
+pytorch: BUILD_ARGS := --build-arg TAG=$(BASE_TAG) \
+						--build-arg PYTORCH_VERSION=$(PYTORCH_VERSION)
 pytorch: IMAGE := $(STEM)-pytorch:$(PYTORCH_VERSION)
 tensorflow pytorch: base
 base tensorflow pytorch:
