@@ -156,6 +156,29 @@ The `/work` directory is set as a [Docker Volume](https://docs.docker.com/storag
 
 Alternatively, directories from the host computer can be mounted over as many of these individual subdirectories as required e.g. `-v $(pwd)/ImageNet:/work/data -v $(pwd)/repo:/work/code` or an entire project directory (which should contain the same layout) can be mounted over the whole working directory e.g. `-v $(pwd):/work`. These [bind mounts](https://docs.docker.com/storage/bind-mounts/) directly share the files between the container and the host, giving full access to the container processes (e.g. writing and deleting) so care should be taken when using this method. For more information, see the [Docker storage](https://docs.docker.com/storage/) pages.
 
+## Tensorboard
+
+Tensorboard is provided in order to track the training of your model and explore its various properties (see [this overview](https://www.tensorflow.org/tensorboard/get_started) for how to use it). 
+
+When staring the Docker container, it is necessary to [publish](https://docs.docker.com/engine/reference/commandline/run/#publish-or-expose-port--p---expose) (forward) the Tensorboard port(s) by including the following argument in the `docker run` command: `-p 0.0.0.0:6006:6006`, in the format `ip:hostPort:containerPort`. To use multiple instances of Tensorboard in the same container, a range of ports can be forwarded instead e.g.: `-p 0.0.0.0:6006-6015:6006-6015`. 
+
+To launch an instance of Tensorboard within a notebook, run the following commands:
+
+```
+%load_ext tensorboard
+%tensorboard --logdir /work/logs --port 6006 --bind_all
+```
+
+If an instance is alreay using the assigned port, find the process id (`pid`):
+
+$ ps -ef | grep 6006
+
+This process can then be killed:
+
+$ kill -9 <pid>
+
+This frees the port and should allow you to successfully launch Tensorboard. 
+
 ## Permissions
 
 The images are built by default with user `thedude` which has `UID 1000` and `GID 100` (`users`). In Docker, UIDs are shared by the linux kernel (but not usernames) so if you mount host folders in the container, files created by the container will therefore be owned by this UID/GID (the username does not matter). You may then need to change the permissions on the host if the UIDs/GIDs do not match for the host user to read and edit them. Similarly, the owner of data mounted within the container may not match the UID/GID of the user within the container, potentially causing you to be unable to read, modify or execute files in the mounted folder from within the running container.
