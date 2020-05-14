@@ -147,9 +147,10 @@ PORTS := -p $(HOST_PORT):8888
 run:
 	@echo $(MOUNTS)
 
-bash ipython: PORTS += -p 0.0.0.0:$(TB_HOST_PORTS):$(TB_PORTS)
+# bash ipython: PORTS += -p 0.0.0.0:$(TB_HOST_PORTS):$(TB_PORTS)
+# $(PORTS)
 bash ipython: build
-	$(DOCKER) run -it --init --name $(notdir $(STEM))-$@ $(MOUNTS) $(PORTS) $(IMAGE) $@
+	$(DOCKER) run -it --init --name $(notdir $(STEM))-$@ $(MOUNTS) $(IMAGE) $@
 
 lab: PORTS += -p 0.0.0.0:$(TB_HOST_PORTS):$(TB_PORTS)
 lab: build
