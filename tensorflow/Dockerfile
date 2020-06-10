@@ -5,7 +5,7 @@ FROM mmrl/dl-base:${TAG}
 # https://github.com/keras-team/keras/blob/master/docker/Dockerfile
 # https://github.com/tensorflow/tensorflow/blob/master/tensorflow/tools/dockerfiles/dockerfiles/gpu.Dockerfile
 
-ARG TENSORFLOW_VERSION=2.1
+ARG TENSORFLOW_VERSION=2.2
 RUN conda install --quiet --yes \
       # mkl \
       # git \
