@@ -222,6 +222,10 @@ RUN conda install --quiet --yes \
       jupyter_conda && \
       # pip install tensorflow-gpu && \
       conda clean --all -f -y && \
+      pip install --upgrade pip && \
+      pip install \
+        tf-explain \
+        jupyterlab-git && \
       # Activate ipywidgets extension in the environment that runs the notebook server
       jupyter nbextension enable --py widgetsnbextension --sys-prefix && \
       # Also activate ipywidgets extension for JupyterLab
