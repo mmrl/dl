@@ -140,6 +140,7 @@ ARG PYTHON_VERSION=1.5
 RUN conda config --prepend channels bokeh
 RUN conda config --prepend channels conda-forge
 RUN conda config --prepend channels pytorch
+# RUN conda config --add channels conda-forge
 # RUN conda update -n base conda
 # RUN conda install -y python=${PYTHON_VERSION}
 # RUN pip install --upgrade pip

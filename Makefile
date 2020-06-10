@@ -156,6 +156,7 @@ run:
 bash ipython: build
 	$(DOCKER) run -it --init --name $(notdir $(STEM))-$@ $(MOUNTS) $(IMAGE) $@
 
+# To disable the build dependency use `make lab -o build ...`
 lab: PORTS += -p 0.0.0.0:$(TB_HOST_PORTS):$(TB_PORTS)
 lab: build
 	$(DOCKER) run -it --init --rm --name $(subst /,_,$(STEM))-lab $(MOUNTS) $(PORTS) $(IMAGE)
