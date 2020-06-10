@@ -186,6 +186,7 @@ The images are built by default with user `thedude` which has `UID 1000` and `GI
 There are currently several solutions:
 
 * Change the group of your host folders to `GID 100` and give `r+w` permissions to this group.
+* Add the arguments: `-u root -e CHOWN_HOME=yes -e CHOWN_HOME_OPTS='-R'` to `docker run` (See: https://jupyter-docker-stacks.readthedocs.io/en/latest/using/common.html). You may also need to start `jupter lab` with `--allow-root`. 
 * Change the `UID`/`GID` of the container user with the following commands:
     ```
     $ usermod -u 1000 thedude
