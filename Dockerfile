@@ -5,7 +5,6 @@ FROM nvidia/cuda:${CUDA_VERSION}-cudnn${CUDNN_VERSION}-devel
 # https://github.com/jupyter/docker-stacks/blob/master/base-notebook/Dockerfile
 LABEL maintainer="Ben Evans <ben.d.evans@gmail.com>"
 
-# ENTRYPOINT [ "/bin/bash", "-c" ]
 # Needed for string substitution
 SHELL ["/bin/bash", "-c"]
 
@@ -72,8 +71,6 @@ ENV CONDA_DIR=/opt/conda \
 # Install conda
 ARG MINICONDA_VERSION=py37_4.8.2
 ARG MINCONDA_MD5=87e77f097f6ebb5127c77662dfc3165e
-# ARG MINICONDA_VERSION=4.7.12.1
-# ARG MINCONDA_MD5=81c773ff87af5cfac79ab862942ab6b3
 # Last version to include Python 3.6: 4.5.4
 # ARG MINICONDA_VERSION=4.5.4
 # ARG MINCONDA_MD5=a946ea1d0c4a642ddf0c3a26a18bb16d
@@ -187,12 +184,10 @@ RUN conda install --quiet --yes \
       tqdm \
       xlrd \
       xlwt \
-      # 'tensorflow-gpu=2.0.*' \
       # 'tensorflow-gpu=2.1.*' \
       # 'tensorflow=2.1.*' \ THIS ONLY HAS GPU SUPPORT IN PIP
       tensorflow-gpu=${TENSORFLOW_VERSION} \
       tensorboard \
-      # keras-gpu \
       setuptools \
       cmake \
       cffi \
@@ -212,7 +207,7 @@ RUN conda install --quiet --yes \
       'notebook=6.0.*' \
       'jupyterhub=1.1.*' \
       'jupyterlab=2.1.*' \
-      # 'jupyterlab=1.2.*' \
+      # 'jupyterlab=2.2.*' \
       ipywidgets \
       widgetsnbextension \
       nbdime \
@@ -221,7 +216,6 @@ RUN conda install --quiet --yes \
       # jupyterlab_bokeh \
     #   jupyterlab-git \
       jupyter_conda && \
-      # pip install tensorflow-gpu && \
       conda clean --all -f -y && \
       pip install --upgrade pip && \
       pip install \
@@ -271,5 +265,4 @@ RUN python -c 'import torch; print(f"PyTorch: {torch.__version__}")'
 EXPOSE 6006 8888
 
 ENTRYPOINT ["entrypoint.sh"]
-# CMD ["jupyter", "lab", "--port=8888", "--ip=0.0.0.0", "--no-browser", "--allow-root"]
 CMD ["jupyter", "lab", "--port=8888", "--ip=0.0.0.0", "--no-browser", "--allow-root"]
