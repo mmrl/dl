@@ -114,6 +114,8 @@ ARG CUDA_VERSION
 RUN echo "CUDA: ${CUDA_VERSION}"
 ARG CUDNN_VERSION
 RUN echo "cuDNN: ${CUDNN_VERSION}"
+ENV OMPI_MCA_opal_cuda_support=true
+RUN echo "Open MPI CUDA support: ${OMPI_MCA_opal_cuda_support}"
 
 # Succeeds
 # RUN echo ${CUDA_VERSION//.}
@@ -202,9 +204,13 @@ RUN conda install --quiet --yes \
       # magma-cuda102 \
       ignite \
       torchvision \
+      mpi4py \
       cudatoolkit=${CUDA_VERSION} \
       # cudatoolkit \
       # 'cudatoolkit>=10.0' \
+      cudnn \
+      # cudnn=${CUDNN_VERSION} \
+      nccl \
       nodejs \
       'notebook=6.0.*' \
       'jupyterhub=1.1.*' \
