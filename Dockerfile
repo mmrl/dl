@@ -1,5 +1,7 @@
 ARG CUDA_VERSION=10.1
 ARG CUDNN_VERSION=7
+# TODO: Try the miniconda base image since cudatoolkit should be enough for GPU use
+# FROM ubuntu:20.10
 FROM nvidia/cuda:${CUDA_VERSION}-cudnn${CUDNN_VERSION}-devel
 # https://gitlab.com/nvidia/cuda/blob/ubuntu18.04/10.0/devel/cudnn7/Dockerfile
 # https://github.com/jupyter/docker-stacks/blob/master/base-notebook/Dockerfile
