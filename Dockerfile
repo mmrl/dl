@@ -69,8 +69,10 @@ ENV CONDA_DIR=/opt/conda \
 # ENV LANG=C.UTF-8
 
 # Install conda
-ARG MINICONDA_VERSION=py37_4.8.2
-ARG MINCONDA_MD5=87e77f097f6ebb5127c77662dfc3165e
+ARG MINICONDA_VERSION=py38_4.8.2
+ARG MINCONDA_MD5=cbda751e713b5a95f187ae70b509403f
+# ARG MINICONDA_VERSION=py37_4.8.2
+# ARG MINCONDA_MD5=87e77f097f6ebb5127c77662dfc3165e
 # Last version to include Python 3.6: 4.5.4
 # ARG MINICONDA_VERSION=4.5.4
 # ARG MINCONDA_MD5=a946ea1d0c4a642ddf0c3a26a18bb16d
@@ -124,7 +126,7 @@ RUN echo "cuDNN: ${CUDNN_VERSION}"
 # Not supported by docker build: 
 # https://github.com/docker/cli/blob/master/docs/reference/builder.md#environment-replacement
 
-ARG PYTHON_VERSION=3.7
+ARG PYTHON_VERSION=3.8
 # RUN echo "python ${PYTHON_VERSION}.*" > $CONDA_DIR/conda-meta/pinned
 
 ARG TENSORFLOW_VERSION=2.2
