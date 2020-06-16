@@ -9,8 +9,8 @@ LABEL maintainer="Ben Evans <ben.d.evans@gmail.com>"
 SHELL ["/bin/bash", "-c"]
 
 # Install system packages
-RUN apt-get update && \
-    apt-get install -y --no-install-recommends \
+RUN apt update && \
+    apt install -y --no-install-recommends \
         bzip2 \
         build-essential \
         ca-certificates \
@@ -34,7 +34,7 @@ RUN apt-get update && \
         tree \
         unzip \
         wget && \
-    apt-get clean && \
+    apt clean && \
     rm -rf /var/lib/apt/lists/*
 
 # Dependencies from https://github.com/tensorflow/tensorflow/blob/master/tensorflow/tools/dockerfiles/dockerfiles/gpu-jupyter.Dockerfile
