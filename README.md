@@ -19,6 +19,8 @@ If you already have a working Docker/nvidia-docker installation, skip to [Runnin
 ## Installation
 <details><summary>Click here to see installation instructions.</summary><p>
 
+The following instructions are for setting up Docker with GPU support on Linux (in particular Ubuntu although the commands may be adapted for other distributions). Windows 10 users should also now be able to set up Docker with GPU support using WSL2 by following [this guide](https://ubuntu.com/blog/getting-started-with-cuda-on-ubuntu-on-wsl-2).
+
 ### 1. Installing NVIDIA drivers
 
 #### 1. a) Run file
