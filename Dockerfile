@@ -199,6 +199,7 @@ RUN conda install --quiet --yes \
       setuptools \
       cmake \
       cffi \
+      cupti \
       typing \
       # 'pytorch=1.4.*' \
       pytorch=${PYTORCH_VERSION} \
