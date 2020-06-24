@@ -194,7 +194,7 @@ RUN conda install --quiet --yes \
       xlwt \
       # 'tensorflow-gpu=2.1.*' \
       # 'tensorflow=2.1.*' \ THIS ONLY HAS GPU SUPPORT IN PIP
-      tensorflow-gpu=${TENSORFLOW_VERSION} \
+      # tensorflow-gpu=${TENSORFLOW_VERSION} \
       tensorboard \
       setuptools \
       cmake \
@@ -232,6 +232,7 @@ RUN conda install --quiet --yes \
       conda clean --all -f -y && \
       pip install --upgrade pip && \
       pip install \
+        tensorflow==${TENSORFLOW_VERSION}.* \
         tf-explain \
         jupyterlab-git && \
       # Activate ipywidgets extension in the environment that runs the notebook server
