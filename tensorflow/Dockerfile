@@ -13,6 +13,7 @@ RUN conda install --quiet --yes \
       # cudatoolkit=${CUDA_VERSION} \
       wheel \
       mock \
+      cupti \
       tensorflow-gpu=${TENSORFLOW_VERSION} \
       # 'tensorflow-gpu=2.0.*' && \
       # 'tensorflow-gpu=2.1.*' && \
