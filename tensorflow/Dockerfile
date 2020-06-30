@@ -35,4 +35,10 @@ ENV PYTHONPATH="$PYTHONPATH:/src/models"
 RUN python -c 'import tensorflow as tf; print(f"TensorFlow: {tf.__version__}")'
 # tf.config.list_physical_devices('GPU')
 
+LABEL maintainer="ben.d.evans@gmail.com" \
+    name="Deep learning tensorflow image" \
+    description="A Python based GPU-accelerated Jupyter image for deep learning." \
+    org.opencontainers.image.authors="Ben Evans" \
+    org.opencontainers.image.url="https://github.com/mmrl/dl"
+
 EXPOSE 6006

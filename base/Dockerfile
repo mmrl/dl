@@ -2,7 +2,7 @@ ARG CUDA_VERSION=10.1
 ARG CUDNN_VERSION=7
 FROM nvidia/cuda:${CUDA_VERSION}-cudnn${CUDNN_VERSION}-devel
 
-LABEL maintainer="Ben Evans <ben.d.evans@gmail.com>"
+# LABEL maintainer="Ben Evans <ben.d.evans@gmail.com>"
 
 # Needed for string substitution
 SHELL ["/bin/bash", "-c"]
@@ -168,7 +168,22 @@ RUN nbdime config-git --enable --global
 
 WORKDIR /work
 VOLUME /work
+
+LABEL maintainer="ben.d.evans@gmail.com" \
+    name="Deep learning base image" \
+    description="A Python based GPU-accelerated Jupyter image for deep learning." \
+    org.opencontainers.image.authors="Ben Evans" \
+    org.opencontainers.image.url="https://github.com/mmrl/dl"
+
 EXPOSE 8888
 ENTRYPOINT ["entrypoint.sh"]
 # CMD ["jupyter", "lab", "--port=8888", "--ip=0.0.0.0", "--no-browser", "--allow-root"]
 CMD ["jupyter", "lab", "--port=8888", "--ip=0.0.0.0", "--no-browser", "--allow-root"]
+
+# Build mmrl/dl-base image
+# CUDA_VERSION=10.1
+# CUDNN_VERSION=7
+# docker build -t mmrl/dl-base:CUDA${CUDA_VERSION}-cudnn${CUDNN_VERSION} \
+# --build-arg CUDA_VERSION=$(CUDA_VERSION) \
+# --build-arg CUDNN_VERSION=$(CUDNN_VERSION) \
+# -f base/Dockerfile .

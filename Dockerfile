@@ -5,7 +5,8 @@ ARG CUDNN_VERSION=7
 FROM nvidia/cuda:${CUDA_VERSION}-cudnn${CUDNN_VERSION}-devel
 # https://gitlab.com/nvidia/cuda/blob/ubuntu18.04/10.0/devel/cudnn7/Dockerfile
 # https://github.com/jupyter/docker-stacks/blob/master/base-notebook/Dockerfile
-LABEL maintainer="Ben Evans <ben.d.evans@gmail.com>"
+# LABEL maintainer="Ben Evans <ben.d.evans@gmail.com>"
+
 
 # Needed for string substitution
 SHELL ["/bin/bash", "-c"]
@@ -274,6 +275,12 @@ RUN python -c 'import tensorflow as tf; print(f"TensorFlow: {tf.__version__}")'
 # tf.config.list_physical_devices('GPU')
 RUN python -c 'import torch; print(f"PyTorch: {torch.__version__}")'
 # torch.cuda.is_available()
+
+LABEL maintainer="ben.d.evans@gmail.com" \
+    name="Deep learning image" \
+    description="A Python based GPU-accelerated Jupyter image for deep learning." \
+    org.opencontainers.image.authors="Ben Evans" \
+    org.opencontainers.image.url="https://github.com/mmrl/dl"
 
 # https://docs.docker.com/engine/reference/builder/#expose
 EXPOSE 6006 8888

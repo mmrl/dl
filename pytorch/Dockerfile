@@ -37,3 +37,9 @@ RUN conda install --quiet --yes \
 # Print version 
 RUN python -c 'import torch; print(f"PyTorch: {torch.__version__}")'
 # torch.cuda.is_available()
+
+LABEL maintainer="ben.d.evans@gmail.com" \
+    name="Deep learning pytorch image" \
+    description="A Python based GPU-accelerated Jupyter image for deep learning." \
+    org.opencontainers.image.authors="Ben Evans" \
+    org.opencontainers.image.url="https://github.com/mmrl/dl"
