@@ -20,6 +20,10 @@ RUN conda install --quiet --yes \
       tensorboard && \
       # pip install tensorflow-gpu && \
       conda clean --all -f -y && \
+      pip install --upgrade pip && \
+      pip install \
+      #   tensorflow==${TENSORFLOW_VERSION}.* \
+        tf-explain && \
       jupyter labextension install jupyterlab_tensorboard --no-build && \
       jupyter lab build && \
       npm cache clean --force && \
