@@ -136,7 +136,7 @@ RUN conda install --quiet --yes \
       xlrd \
       xlwt \
       mpi4py \
-      nodejs \
+      nccl \
       'notebook=6.0.*' \
       'jupyterhub=1.1.*' \
       'jupyterlab=2.1.*' \
