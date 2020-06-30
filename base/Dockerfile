@@ -90,6 +90,7 @@ ENV OMPI_MCA_opal_cuda_support=true
 
 # Install Python packages
 ARG PYTHON_VERSION=3.8
+RUN conda config --prepend channels bokeh
 RUN conda config --prepend channels conda-forge
 RUN conda install --quiet --yes \
       python=${PYTHON_VERSION} \
@@ -158,7 +159,7 @@ RUN conda install --quiet --yes \
       jupyter labextension install @jupyterlab/github --no-build && \
       jupyter labextension install jupyterlab-drawio --no-build && \
       # jupyter labextension install jupyterlab_bokeh --no-build && \
-      # jupyter labextension install @bokeh/jupyter_bokeh --no-build && \
+      jupyter labextension install @bokeh/jupyter_bokeh --no-build && \
       jupyter labextension install jupyter-matplotlib --no-build && \
       jupyter labextension install jupyterlab_toastify jupyterlab_conda --no-build && \
       jupyter labextension install jupyterlab-jupytext --no-build && \
