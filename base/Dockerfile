@@ -85,6 +85,9 @@ RUN chown $NB_USER:$NB_GID /usr/local/bin/entrypoint.sh
 RUN chmod a+x /usr/local/bin/entrypoint.sh
 USER $NB_USER
 
+# Set Open MPI CUDA support
+ENV OMPI_MCA_opal_cuda_support=true
+
 # Install Python packages
 ARG PYTHON_VERSION=3.7
 RUN conda config --prepend channels conda-forge
@@ -130,6 +133,7 @@ RUN conda install --quiet --yes \
       tqdm \
       xlrd \
       xlwt \
+      mpi4py \
       nodejs \
       'notebook=6.0.*' \
       'jupyterhub=1.1.*' \
