@@ -104,6 +104,7 @@ RUN conda install --quiet --yes \
       jax \
       numba \
       imagemagick \
+      pytest \
       bcolz \
       h5py \
       joblib \
