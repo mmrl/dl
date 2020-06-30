@@ -89,7 +89,7 @@ USER $NB_USER
 ENV OMPI_MCA_opal_cuda_support=true
 
 # Install Python packages
-ARG PYTHON_VERSION=3.7
+ARG PYTHON_VERSION=3.8
 RUN conda config --prepend channels conda-forge
 RUN conda install --quiet --yes \
       python=${PYTHON_VERSION} \
