@@ -49,3 +49,8 @@ LABEL maintainer="ben.d.evans@gmail.com" \
     org.opencontainers.image.url="https://github.com/mmrl/dl"
 
 EXPOSE 6006
+
+# Build mmrl/dl-tensorflow image
+# TAG=latest
+# TENSORFLOW_VERSION=2.2
+# docker build -t mmrl/dl-tensorflow:${TENSORFLOW_VERSION} --build-arg TAG=$(TAG) --build-arg TENSORFLOW_VERSION=$(TENSORFLOW_VERSION) -f tensorflow/Dockerfile .

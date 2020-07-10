@@ -43,3 +43,8 @@ LABEL maintainer="ben.d.evans@gmail.com" \
     description="A Python based GPU-accelerated Jupyter image for deep learning." \
     org.opencontainers.image.authors="Ben Evans" \
     org.opencontainers.image.url="https://github.com/mmrl/dl"
+
+# Build mmrl/dl-pytorch image
+# TAG=latest
+# PYTORCH_VERSION=1.5
+# docker build -t mmrl/dl-pytorch:${PYTORCH_VERSION} --build-arg TAG=$(TAG) --build-arg PYTORCH_VERSION=$(PYTORCH_VERSION) -f pytorch/Dockerfile .
