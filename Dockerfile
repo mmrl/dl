@@ -224,7 +224,11 @@ RUN conda install --quiet --yes \
       cudnn \
       # cudnn=${CUDNN_VERSION} \
       nccl \
-      nodejs \
+      # nodejs \
+      # JupyterLab requires nodejs>=12 (>=10 since 2.1):
+      # https://github.com/jupyterlab/jupyterlab/blob/master/dev_mode/package.json
+      # 'nodejs>=10' \
+      'nodejs>=12' \
       'notebook=6.0.*' \
       'jupyterhub=1.1.*' \
       'jupyterlab=2.1.*' \
