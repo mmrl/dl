@@ -156,14 +156,21 @@ run:
 bash ipython: build
 	$(DOCKER) run -it --init --name $(notdir $(STEM))-$@ $(MOUNTS) $(IMAGE) $@
 
+# The flag --cap-add=CAP_SYS_ADMIN is needed to avoid CUPTI_ERROR_INSUFFICIENT_PRIVILEGES
+# when using the profiler (through tensorboard). This should be resolved in CUDA 11 / TF 2.4
+# See: https://github.com/tensorflow/profiler/issues/63
+# If that fails, try `--privileged=true`: https://github.com/tensorflow/tensorflow/issues/35860
+# https://developer.nvidia.com/nvidia-development-tools-solutions-err-nvgpuctrperm-cupti
+# This will likely be fixed in TF 2.4 / CUDA 11
+
 # To disable the build dependency use `make lab -o build ...`
 lab: PORTS += -p 0.0.0.0:$(TB_HOST_PORTS):$(TB_PORTS)
 lab: build
-	$(DOCKER) run -it --init --rm --name $(subst /,_,$(STEM))-lab $(MOUNTS) $(PORTS) $(IMAGE)
+	$(DOCKER) run -it --init --rm --cap-add=CAP_SYS_ADMIN --name $(subst /,_,$(STEM))-lab $(MOUNTS) $(PORTS) $(IMAGE)
 
 notebook: PORTS += -p 0.0.0.0:$(TB_HOST_PORTS):$(TB_PORTS)
 notebook: build
-	$(DOCKER) run -it --init --name $(subst /,_,$(STEM))-nb $(MOUNTS) $(PORTS) $(IMAGE) \
+	$(DOCKER) run -it --init --cap-add=CAP_SYS_ADMIN --name $(subst /,_,$(STEM))-nb $(MOUNTS) $(PORTS) $(IMAGE) \
 			jupyter notebook --port=8888 --ip=0.0.0.0 --notebook-dir=$(NOTEBOOKS_PATH)
 
 test: build
@@ -183,7 +190,7 @@ tabs: build
 				  -p 0.0.0.0:6006:6006 \
 				  $(IMAGE) tensorboard --logdir=$(LOGS_PATH)
 	# $(LOGS) may need to be a volume to share between containers
-	$(DOCKER) run -it --init --name $(subst /,_,$(STEM))-lab \
+	$(DOCKER) run -it --init --cap-add=CAP_SYS_ADMIN --name $(subst /,_,$(STEM))-lab \
 				  -v $(LOGS):$(LOGS_PATH) \
 				  -v $(SRC):/work/code \
 				  -v $(DATA):/work/data \
