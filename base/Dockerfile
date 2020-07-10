@@ -200,7 +200,6 @@ LABEL maintainer="ben.d.evans@gmail.com" \
 
 EXPOSE 8888
 ENTRYPOINT ["entrypoint.sh"]
-# CMD ["jupyter", "lab", "--port=8888", "--ip=0.0.0.0", "--no-browser", "--allow-root"]
 CMD ["jupyter", "lab", "--port=8888", "--ip=0.0.0.0", "--no-browser", "--allow-root"]
 
 # Build mmrl/dl-base image
