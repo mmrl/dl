@@ -158,8 +158,8 @@ RUN conda install --quiet --yes \
       nbdime \
       jupytext \
       jupyternotify \
-      jupyter_conda \
-      jupyterlab-git && \
+      jupyterlab-git \
+      jupyter_conda && \
       conda clean --all -f -y && \
       # Activate ipywidgets extension in the environment that runs the notebook server
       jupyter nbextension enable --py widgetsnbextension --sys-prefix && \
