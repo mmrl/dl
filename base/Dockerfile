@@ -87,7 +87,7 @@ ENV PATH="/work/scripts:/work/code:$CONDA_DIR/bin:$PATH" \
 
 # Set entrypoint to run any executable scripts in /work/scripts
 USER root
-COPY base/entrypoint.sh /usr/local/bin
+COPY ./entrypoint.sh /usr/local/bin
 RUN chown $NB_USER:$NB_GID /usr/local/bin/entrypoint.sh
 RUN chmod a+x /usr/local/bin/entrypoint.sh
 USER $NB_USER
