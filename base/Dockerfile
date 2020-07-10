@@ -102,9 +102,6 @@ RUN conda config --prepend channels conda-forge
 RUN conda install --quiet --yes \
       python=${PYTHON_VERSION} \
       pip \
-      cudatoolkit=${CUDA_VERSION} \
-      # cudatoolkit \
-      setuptools \
       numpy \
       scipy \
       cython \
@@ -142,7 +139,10 @@ RUN conda install --quiet --yes \
       tqdm \
       xlrd \
       xlwt \
+      setuptools \
       mpi4py \
+      cudatoolkit=${CUDA_VERSION} \
+      # cudatoolkit \
       nccl \
       # JupyterLab requires nodejs>=12 (>=10 since 2.1):
       # https://github.com/jupyterlab/jupyterlab/blob/master/dev_mode/package.json
