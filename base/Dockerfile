@@ -143,6 +143,8 @@ RUN conda install --quiet --yes \
       mpi4py \
       cudatoolkit=${CUDA_VERSION} \
       # cudatoolkit \
+      cudnn \
+      # cudnn=${CUDNN_VERSION} \
       nccl \
       # JupyterLab requires nodejs>=12 (>=10 since 2.1):
       # https://github.com/jupyterlab/jupyterlab/blob/master/dev_mode/package.json
