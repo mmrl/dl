@@ -246,6 +246,8 @@ RUN conda install --quiet --yes \
       pip install \
         tensorflow==${TENSORFLOW_VERSION}.* \
         tf-explain \
+        # Needed as the backend for jupyterlab_tensorboard
+        jupyter-tensorboard \
         jupyterlab-git && \
       # Activate ipywidgets extension in the environment that runs the notebook server
       jupyter nbextension enable --py widgetsnbextension --sys-prefix && \

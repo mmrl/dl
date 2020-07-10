@@ -23,6 +23,8 @@ RUN conda install --quiet --yes \
       pip install --upgrade pip && \
       pip install \
       #   tensorflow==${TENSORFLOW_VERSION}.* \
+        # Needed as the backend for jupyterlab_tensorboard
+        jupyter-tensorboard \
         tf-explain && \
       jupyter labextension install jupyterlab_tensorboard --no-build && \
       jupyter lab build && \
