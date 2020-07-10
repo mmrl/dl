@@ -239,6 +239,7 @@ RUN conda install --quiet --yes \
       jupytext \
       jupyternotify \
       # jupyterlab_bokeh \
+      jupyterlab-nvdashboard \
     #   jupyterlab-git \
       jupyter_conda && \
       conda clean --all -f -y && \
@@ -264,6 +265,7 @@ RUN conda install --quiet --yes \
       jupyter labextension install jupyter-matplotlib --no-build && \
       jupyter labextension install jupyterlab_toastify jupyterlab_conda --no-build && \
       jupyter labextension install jupyterlab-jupytext --no-build && \
+      jupyter labextension install jupyterlab-nvdashboard --no-build && \
       jupyter labextension install jupyterlab_tensorboard --no-build && \
       jupyter lab build && \
       npm cache clean --force && \
