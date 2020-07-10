@@ -10,6 +10,13 @@ SHELL ["/bin/bash", "-c"]
 # Install system packages
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
+    # ---- nbconvert dependencies ----
+    texlive-xetex \
+    texlive-fonts-recommended \
+    texlive-plain-generic \
+    # Optional dependency
+    texlive-fonts-extra \
+    # ----
     bzip2 \
     build-essential \
     ca-certificates \
