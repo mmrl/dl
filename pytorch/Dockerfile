@@ -3,7 +3,7 @@ FROM mmrl/dl-base:${TAG}
 # ARG BASE_TAG=latest
 # FROM mmrl/dl-base:${BASE_TAG}
 
-ARG PYTORCH_VERSION=1.5
+ARG PYTORCH_VERSION=1.6
 # https://github.com/pytorch/pytorch/blob/master/docker/pytorch/Dockerfile
 RUN conda config --prepend channels pytorch
 RUN conda install --quiet --yes \

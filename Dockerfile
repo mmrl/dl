@@ -143,8 +143,8 @@ RUN echo "Open MPI CUDA support: ${OMPI_MCA_opal_cuda_support}"
 ARG PYTHON_VERSION=3.8
 # RUN echo "python ${PYTHON_VERSION}.*" > $CONDA_DIR/conda-meta/pinned
 
-ARG TENSORFLOW_VERSION=2.2
-ARG PYTORCH_VERSION=1.5
+ARG TENSORFLOW_VERSION=2.3
+ARG PYTORCH_VERSION=1.6
 
 # Disabling channel_priority installs the highest version then sorts ties by channel priority
 # RUN conda config --set channel_priority false
@@ -231,8 +231,7 @@ RUN conda install --quiet --yes \
       'nodejs>=12' \
       'notebook=6.0.*' \
       'jupyterhub=1.1.*' \
-      'jupyterlab=2.1.*' \
-      # 'jupyterlab=2.2.*' \
+      'jupyterlab=2.2.*' \
       ipywidgets \
       widgetsnbextension \
       nbdime \
