@@ -14,7 +14,7 @@ RUN conda install --quiet --yes \
       wheel \
       mock \
       cupti \
-      tensorflow-gpu=${TENSORFLOW_VERSION} \
+      # tensorflow-gpu=${TENSORFLOW_VERSION} \
       # 'tensorflow-gpu=2.0.*' && \
       # 'tensorflow-gpu=2.1.*' && \
       tensorboard && \
@@ -25,6 +25,7 @@ RUN conda install --quiet --yes \
       #   tensorflow==${TENSORFLOW_VERSION}.* \
         # Needed as the backend for jupyterlab_tensorboard
         jupyter-tensorboard \
+        tensorflow==${TENSORFLOW_VERSION}.* \
         tf-explain && \
       jupyter labextension install jupyterlab_tensorboard --no-build && \
       jupyter lab build && \
