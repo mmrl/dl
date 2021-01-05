@@ -230,7 +230,8 @@ RUN conda install --quiet --yes \
       # https://github.com/jupyterlab/jupyterlab/blob/master/dev_mode/package.json
       # 'nodejs>=10' \
       'nodejs>=12' \
-      'notebook=6.0.*' \
+      # 'nodejs>=14' \
+      'notebook=6.1.*' \
       'jupyterhub=1.1.*' \
       'jupyterlab=2.2.*' \
       ipywidgets \
