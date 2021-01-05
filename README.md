@@ -43,7 +43,7 @@ For example with Ubuntu to install driver version 430:
     $ sudo apt install nvidia-430
     $ sudo reboot
 
-Note, if the `nvidia-drm` module is in use, it may be necessary to dropping into a text console as root to disable the graphical target:
+Note, if the `nvidia-drm` module is in use, it may be necessary to drop into a text console as root to disable the graphical target:
     
     $ systemctl isolate multi-user.target
 
