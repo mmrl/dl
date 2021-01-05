@@ -20,8 +20,8 @@ HOST_PORT?=8888
 TB_HOST_PORTS?=6006-6015
 TB_PORTS?=$(TB_HOST_PORTS)
 GPU?=all
-DOCKER=GPU=$(GPU) nvidia-docker
-# DOCKER=docker run --gpus=$(GPU)
+# DOCKER=GPU=$(GPU) nvidia-docker
+# DOCKER=docker --gpus=$(GPU)
 
 # Define directories within the image
 CODE_PATH?="/work/code"
@@ -33,6 +33,12 @@ RESULTS_PATH?="/work/results"
 SCRIPTS_PATH?="/work/scripts"
 TEMP_PATH?="/work/temp"
 TEST=tests/
+# build-time variable with a default, set it in ‘docker build‘ as follows:
+# --build-arg BUILD_DATE=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
+
+# Add ORCID and DOI as labels
+
+# ARG BUILD_DATE unspecified
 
 all: base build tensorflow pytorch
 
@@ -53,7 +59,7 @@ build:
 	echo "CUDNN_VERSION=$(CUDNN_VERSION)"
 	echo "TENSORFLOW_VERSION=$(TENSORFLOW_VERSION)"
 	echo "PYTORCH_VERSION=$(PYTORCH_VERSION)"
-	$(DOCKER) build -t $(IMAGE) \
+	docker build -t $(IMAGE) \
 					--build-arg PYTHON_VERSION=$(PYTHON_VERSION) \
 					--build-arg CUDA_VERSION=$(CUDA_VERSION) \
 					--build-arg CUDNN_VERSION=$(CUDNN_VERSION) \
@@ -62,7 +68,7 @@ build:
 					--build-arg TF_MODELS_VERSION=$(TF_MODELS_VERSION) \
 					--build-arg PYTORCH_VERSION=$(PYTORCH_VERSION) \
 					-f $(DOCKER_FILE) .
-	$(DOCKER) tag $(IMAGE) $(STEM):latest
+	docker tag $(IMAGE) $(STEM):latest
 
 # base:
 # 	echo "Building $@ image..."
@@ -92,7 +98,7 @@ pytorch: IMAGE := $(STEM)-pytorch:$(PYTORCH_VERSION)
 tensorflow pytorch: base
 base tensorflow pytorch:
 	echo "Building $@ image..."
-	$(DOCKER) build -t $(IMAGE) $(BUILD_ARGS) -f $@/$(DOCKER_FILE) .
+	docker build -t $(IMAGE) $(BUILD_ARGS) -f $@/$(DOCKER_FILE) .
 	# $(DOCKER) build -t $(IMAGE) $(BUILD_ARGS) -f $@/$(DOCKER_FILE) $@
 	# $(DOCKER) build -t mmrl/dl-$@ $(BUILD_ARGS) -f $@/$(DOCKER_FILE) $@
 	# $(DOCKER) build -t mmrl/dl-$@ \
@@ -103,14 +109,14 @@ base tensorflow pytorch:
 	# 				-f $@/$(DOCKER_FILE) $@
 
 prune:
-	$(DOCKER) system prune -f
+	docker system prune -f
 
 nuke:
-	$(DOCKER) system prune --volumes
+	docker system prune --volumes
 
 clean: prune
 	git pull
-	$(DOCKER) build -t $(IMAGE) \
+	docker build -t $(IMAGE) \
 					--no-cache \
 					--build-arg PYTHON_VERSION=$(PYTHON_VERSION) \
 					--build-arg CUDA_VERSION=$(CUDA_VERSION) \
@@ -154,7 +160,7 @@ run:
 # bash ipython: PORTS += -p 0.0.0.0:$(TB_HOST_PORTS):$(TB_PORTS)
 # $(PORTS)
 bash ipython: build
-	$(DOCKER) run -it --init --name $(notdir $(STEM))-$@ $(MOUNTS) $(IMAGE) $@
+	docker run -it --init --gpus=$(GPU) --name $(notdir $(STEM))-$@ $(MOUNTS) $(IMAGE) $@
 
 # The flag --cap-add=CAP_SYS_ADMIN is needed to avoid CUPTI_ERROR_INSUFFICIENT_PRIVILEGES
 # when using the profiler (through tensorboard). This should be resolved in CUDA 11 / TF 2.4
@@ -162,35 +168,36 @@ bash ipython: build
 # If that fails, try `--privileged=true`: https://github.com/tensorflow/tensorflow/issues/35860
 # https://developer.nvidia.com/nvidia-development-tools-solutions-err-nvgpuctrperm-cupti
 # This will likely be fixed in TF 2.4 / CUDA 11
+# See: https://www.tensorflow.org/guide/profiler
 
 # To disable the build dependency use `make lab -o build ...`
 lab: PORTS += -p 0.0.0.0:$(TB_HOST_PORTS):$(TB_PORTS)
 lab: build
-	$(DOCKER) run -it --init --rm --cap-add=CAP_SYS_ADMIN --name $(subst /,_,$(STEM))-lab $(MOUNTS) $(PORTS) $(IMAGE)
+	docker run -it --init --gpus=$(GPU) --rm --cap-add=CAP_SYS_ADMIN --privileged=true --name $(subst /,_,$(STEM))-lab $(MOUNTS) $(PORTS) $(IMAGE)
 
 notebook: PORTS += -p 0.0.0.0:$(TB_HOST_PORTS):$(TB_PORTS)
 notebook: build
-	$(DOCKER) run -it --init --cap-add=CAP_SYS_ADMIN --name $(subst /,_,$(STEM))-nb $(MOUNTS) $(PORTS) $(IMAGE) \
+	docker run -it --init --gpus=$(GPU) --cap-add=CAP_SYS_ADMIN --name $(subst /,_,$(STEM))-nb $(MOUNTS) $(PORTS) $(IMAGE) \
 			jupyter notebook --port=8888 --ip=0.0.0.0 --notebook-dir=$(NOTEBOOKS_PATH)
 
 test: build
-	$(DOCKER) run -it --init \
+	docker run -it --init --gpus=$(GPU) \
 				  -v $(SRC):/work/code \
 				  -v $(DATA):/work/data \
 				  -v $(RESULTS):/work/results \
 				  $(IMAGE) py.test $(TEST)
 
 tensorboard: build
-	$(DOCKER) run -it --init $(MOUNTS) -p 0.0.0.0:$(TB_HOST_PORTS):$(TB_PORTS) $(IMAGE) tensorboard --logdir=$(LOGS_PATH)
+	docker run -it --init --gpus=$(GPU) $(MOUNTS) -p 0.0.0.0:$(TB_HOST_PORTS):$(TB_PORTS) $(IMAGE) tensorboard --logdir=$(LOGS_PATH)
 
 tabs: build
 	# $(DOCKER) run -d --name $(subst /,_,$(STEM))-tbd $(MOUNTS) -p 0.0.0.0:6006:6006 $(IMAGE) tensorboard --logdir=$(LOGS_PATH)
-	$(DOCKER) run -d --name $(subst /,_,$(STEM))-tbd \
+	docker run -d --gpus=$(GPU) --name $(subst /,_,$(STEM))-tbd \
 				  -v $(LOGS):$(LOGS_PATH) \
 				  -p 0.0.0.0:6006:6006 \
 				  $(IMAGE) tensorboard --logdir=$(LOGS_PATH)
 	# $(LOGS) may need to be a volume to share between containers
-	$(DOCKER) run -it --init --cap-add=CAP_SYS_ADMIN --name $(subst /,_,$(STEM))-lab \
+	docker run -it --init --gpus=$(GPU) --cap-add=CAP_SYS_ADMIN --name $(subst /,_,$(STEM))-lab \
 				  -v $(LOGS):$(LOGS_PATH) \
 				  -v $(SRC):/work/code \
 				  -v $(DATA):/work/data \
@@ -200,7 +207,7 @@ tabs: build
 
 push: # build
 	# $(DOCKER) tag $(TAG) $(NEWTAG)
-	$(DOCKER) push $(IMAGE)
+	docker push $(IMAGE)
 
 release: build push
 
@@ -208,8 +215,8 @@ info:
 	@echo "Mounts: $(MOUNTS)"
 	@echo "Ports: $(PORTS)"
 	lsb_release -a
-	$(DOCKER) -v
-	$(DOCKER) run -it --rm $(IMAGE) nvidia-smi
+	docker -v
+	docker run -it --rm $(IMAGE) nvidia-smi
 
 verbose: info
-	$(DOCKER) system info
+	docker system info
