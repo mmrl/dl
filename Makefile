@@ -60,14 +60,14 @@ build:
 	echo "TENSORFLOW_VERSION=$(TENSORFLOW_VERSION)"
 	echo "PYTORCH_VERSION=$(PYTORCH_VERSION)"
 	docker build -t $(IMAGE) \
-					--build-arg PYTHON_VERSION=$(PYTHON_VERSION) \
-					--build-arg CUDA_VERSION=$(CUDA_VERSION) \
-					--build-arg CUDNN_VERSION=$(CUDNN_VERSION) \
-					--build-arg NB_UID=$(UID) \
-					--build-arg TENSORFLOW_VERSION=$(TENSORFLOW_VERSION) \
-					--build-arg TF_MODELS_VERSION=$(TF_MODELS_VERSION) \
-					--build-arg PYTORCH_VERSION=$(PYTORCH_VERSION) \
-					-f $(DOCKER_FILE) .
+				--build-arg PYTHON_VERSION=$(PYTHON_VERSION) \
+				--build-arg CUDA_VERSION=$(CUDA_VERSION) \
+				--build-arg CUDNN_VERSION=$(CUDNN_VERSION) \
+				--build-arg NB_UID=$(UID) \
+				--build-arg TENSORFLOW_VERSION=$(TENSORFLOW_VERSION) \
+				--build-arg TF_MODELS_VERSION=$(TF_MODELS_VERSION) \
+				--build-arg PYTORCH_VERSION=$(PYTORCH_VERSION) \
+				-f $(DOCKER_FILE) .
 	docker tag $(IMAGE) $(STEM):latest
 
 # base:
@@ -117,12 +117,12 @@ nuke:
 clean: prune
 	git pull
 	docker build -t $(IMAGE) \
-					--no-cache \
-					--build-arg PYTHON_VERSION=$(PYTHON_VERSION) \
-					--build-arg CUDA_VERSION=$(CUDA_VERSION) \
-					--build-arg CUDNN_VERSION=$(CUDNN_VERSION) \
-					--build-arg NB_UID=$(UID) \
-					-f $(DOCKER_FILE) .
+				--no-cache \
+				--build-arg PYTHON_VERSION=$(PYTHON_VERSION) \
+				--build-arg CUDA_VERSION=$(CUDA_VERSION) \
+				--build-arg CUDNN_VERSION=$(CUDNN_VERSION) \
+				--build-arg NB_UID=$(UID) \
+				-f $(DOCKER_FILE) .
 
 # Make /work a volume and mount any defined subdirectories
 MOUNTS := -v $(VOLUME):/work
@@ -182,10 +182,10 @@ notebook: build
 
 test: build
 	docker run -it --init --gpus=$(GPU) \
-				  -v $(SRC):/work/code \
-				  -v $(DATA):/work/data \
-				  -v $(RESULTS):/work/results \
-				  $(IMAGE) py.test $(TEST)
+				-v $(SRC):/work/code \
+				-v $(DATA):/work/data \
+				-v $(RESULTS):/work/results \
+				$(IMAGE) py.test $(TEST)
 
 tensorboard: build
 	docker run -it --init --gpus=$(GPU) $(MOUNTS) -p 0.0.0.0:$(TB_HOST_PORTS):$(TB_PORTS) $(IMAGE) tensorboard --logdir=$(LOGS_PATH)
@@ -198,12 +198,12 @@ tabs: build
 				  $(IMAGE) tensorboard --logdir=$(LOGS_PATH)
 	# $(LOGS) may need to be a volume to share between containers
 	docker run -it --init --gpus=$(GPU) --cap-add=CAP_SYS_ADMIN --name $(subst /,_,$(STEM))-lab \
-				  -v $(LOGS):$(LOGS_PATH) \
-				  -v $(SRC):/work/code \
-				  -v $(DATA):/work/data \
-				  -v $(RESULTS):/work/results \
-				  -p $(HOST_PORT):8888 \
-				  $(IMAGE)
+				-v $(LOGS):$(LOGS_PATH) \
+				-v $(SRC):/work/code \
+				-v $(DATA):/work/data \
+				-v $(RESULTS):/work/results \
+				-p $(HOST_PORT):8888 \
+				$(IMAGE)
 
 push: # build
 	# $(DOCKER) tag $(TAG) $(NEWTAG)
