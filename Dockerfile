@@ -152,6 +152,7 @@ ARG PYTORCH_VERSION=1.6
 # RUN conda config --set channel_priority strict
 RUN conda config --prepend channels bokeh
 RUN conda config --prepend channels conda-forge
+# RUN conda config --prepend channels nvidia
 RUN conda config --prepend channels pytorch
 # RUN conda config --add channels conda-forge
 # RUN conda update -n base conda
