@@ -277,7 +277,8 @@ RUN nbdime config-git --enable --global
 
 # Clone Official Tensorflow models
 # TODO: Move to /work
-ARG TF_MODELS_VERSION=master
+# ARG TF_MODELS_VERSION=master
+ARG TF_MODELS_VERSION=${TENSORFLOW_VERSION}
 ENV TF_MODELS_VERSION=${TF_MODELS_VERSION}
 RUN git clone -b ${TF_MODELS_VERSION} https://github.com/tensorflow/models.git /src/models
 
