@@ -219,6 +219,7 @@ RUN conda install --quiet --yes \
       ignite \
       torchvision \
       mpi4py \
+      openmpi \
       cudatoolkit=${CUDA_VERSION} \
       # cudatoolkit \
       # 'cudatoolkit>=10.0' \
