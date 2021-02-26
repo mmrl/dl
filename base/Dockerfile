@@ -99,6 +99,7 @@ ENV OMPI_MCA_opal_cuda_support=true
 ARG PYTHON_VERSION=3.8
 RUN conda config --prepend channels bokeh
 RUN conda config --prepend channels conda-forge
+# RUN conda config --prepend channels nvidia
 RUN conda install --quiet --yes \
       python=${PYTHON_VERSION} \
       pip \
@@ -164,6 +165,7 @@ RUN conda install --quiet --yes \
       conda clean --all -f -y && \
       pip install --upgrade pip && \
       pip install \
+        # jupyterlab_latex \
         jupyterlab-git && \
       # Activate ipywidgets extension in the environment that runs the notebook server
       jupyter nbextension enable --py widgetsnbextension --sys-prefix && \
@@ -181,6 +183,7 @@ RUN conda install --quiet --yes \
       jupyter labextension install jupyterlab_toastify jupyterlab_conda --no-build && \
       jupyter labextension install jupyterlab-jupytext --no-build && \
       jupyter labextension install jupyterlab-nvdashboard --no-build && \
+    #   jupyter labextension install @jupyterlab/latex --no-build && \
       jupyter lab build && \
       npm cache clean --force && \
       jupyter notebook --generate-config && \
