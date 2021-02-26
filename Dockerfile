@@ -1,4 +1,4 @@
-ARG CUDA_VERSION=11.0
+ARG CUDA_VERSION=11.0.3
 ARG CUDNN_VERSION=8
 ARG OS=ubuntu20.04
 # TODO: Try the miniconda base image since cudatoolkit should be enough for GPU use
