@@ -5,12 +5,14 @@ help:
 STEM?=mmrl/dl
 TAG?=latest
 BASE_TAG?=latest
+OS=ubuntu20.04
+CUDA_VERSION?=11.0.3
+CUDNN_VERSION?=8
 PYTHON_VERSION?=3.8
-CUDA_VERSION?=10.1
-CUDNN_VERSION?=7
-TENSORFLOW_VERSION?=2.3
-TF_MODELS_VERSION?=master
-PYTORCH_VERSION?=1.6
+TENSORFLOW_VERSION?=2.4
+# 20/10/20: >2.2,<=2.3.1 has a bug which crashes perturbation testing. 2.2.1 is fine.
+TF_MODELS_VERSION?=v2.4.0
+PYTORCH_VERSION?=1.7.1
 UID?=1000
 DOCKER_FILE=Dockerfile
 
@@ -20,8 +22,6 @@ HOST_PORT?=8888
 TB_HOST_PORTS?=6006-6015
 TB_PORTS?=$(TB_HOST_PORTS)
 GPU?=all
-# DOCKER=GPU=$(GPU) nvidia-docker
-# DOCKER=docker --gpus=$(GPU)
 
 # Define directories within the image
 CODE_PATH?="/work/code"
@@ -33,11 +33,10 @@ RESULTS_PATH?="/work/results"
 SCRIPTS_PATH?="/work/scripts"
 TEMP_PATH?="/work/temp"
 TEST=tests/
+
 # build-time variable with a default, set it in ‘docker build‘ as follows:
 # --build-arg BUILD_DATE=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
-
 # Add ORCID and DOI as labels
-
 # ARG BUILD_DATE unspecified
 
 all: base build tensorflow pytorch
@@ -60,9 +59,10 @@ build:
 	echo "TENSORFLOW_VERSION=$(TENSORFLOW_VERSION)"
 	echo "PYTORCH_VERSION=$(PYTORCH_VERSION)"
 	docker build -t $(IMAGE) \
-				--build-arg PYTHON_VERSION=$(PYTHON_VERSION) \
+				--build-arg OS=$(OS) \
 				--build-arg CUDA_VERSION=$(CUDA_VERSION) \
 				--build-arg CUDNN_VERSION=$(CUDNN_VERSION) \
+				--build-arg PYTHON_VERSION=$(PYTHON_VERSION) \
 				--build-arg NB_UID=$(UID) \
 				--build-arg TENSORFLOW_VERSION=$(TENSORFLOW_VERSION) \
 				--build-arg TF_MODELS_VERSION=$(TF_MODELS_VERSION) \
@@ -83,9 +83,10 @@ build:
 # 	echo "Building $@ image..."
 # 	$(DOCKER) build -t mmrl/dl-$@ -f $@/$(DOCKER_FILE) $@
 
-base: BUILD_ARGS := --build-arg PYTHON_VERSION=$(PYTHON_VERSION) \
+base: BUILD_ARGS := --build-arg OS=$(OS) \
 					--build-arg CUDA_VERSION=$(CUDA_VERSION) \
 					--build-arg CUDNN_VERSION=$(CUDNN_VERSION) \
+					--build-arg PYTHON_VERSION=$(PYTHON_VERSION) \
 					--build-arg NB_UID=$(UID)
 base: IMAGE := $(STEM)-base:$(CUDA_VERSION)
 tensorflow: BUILD_ARGS := --build-arg TAG=$(BASE_TAG) \
@@ -118,9 +119,10 @@ clean: prune
 	git pull
 	docker build -t $(IMAGE) \
 				--no-cache \
-				--build-arg PYTHON_VERSION=$(PYTHON_VERSION) \
+				--build-arg OS=$(OS) \
 				--build-arg CUDA_VERSION=$(CUDA_VERSION) \
 				--build-arg CUDNN_VERSION=$(CUDNN_VERSION) \
+				--build-arg PYTHON_VERSION=$(PYTHON_VERSION) \
 				--build-arg NB_UID=$(UID) \
 				-f $(DOCKER_FILE) .
 
@@ -173,7 +175,7 @@ bash ipython: build
 # To disable the build dependency use `make lab -o build ...`
 lab: PORTS += -p 0.0.0.0:$(TB_HOST_PORTS):$(TB_PORTS)
 lab: build
-	docker run -it --init --gpus=$(GPU) --rm --cap-add=CAP_SYS_ADMIN --privileged=true --name $(subst /,_,$(STEM))-lab $(MOUNTS) $(PORTS) $(IMAGE)
+	docker run -it --init --gpus=$(GPU) --rm --cap-add=CAP_SYS_ADMIN --name $(subst /,_,$(STEM))-lab $(MOUNTS) $(PORTS) $(IMAGE)
 
 notebook: PORTS += -p 0.0.0.0:$(TB_HOST_PORTS):$(TB_PORTS)
 notebook: build

@@ -1,19 +1,29 @@
-ARG CUDA_VERSION=10.1
-ARG CUDNN_VERSION=7
+ARG CUDA_VERSION=11.0
+ARG CUDNN_VERSION=8
+ARG OS=ubuntu20.04
 # TODO: Try the miniconda base image since cudatoolkit should be enough for GPU use
-# FROM ubuntu:20.10
-FROM nvidia/cuda:${CUDA_VERSION}-cudnn${CUDNN_VERSION}-devel
+# FROM nvidia/cuda:${CUDA_VERSION}-cudnn${CUDNN_VERSION}-devel
+FROM nvidia/cuda:${CUDA_VERSION}-cudnn${CUDNN_VERSION}-devel-${OS}
 # https://gitlab.com/nvidia/cuda/blob/ubuntu18.04/10.0/devel/cudnn7/Dockerfile
+# https://gitlab.com/nvidia/container-images/cuda/-/blob/master/dist/11.1/ubuntu20.04-x86_64/devel/Dockerfile
 # https://github.com/jupyter/docker-stacks/blob/master/base-notebook/Dockerfile
 # LABEL maintainer="Ben Evans <ben.d.evans@gmail.com>"
 
+# NOTE: An ARG declared before the FROM instruction can’t be used after the FROM. 
+# If you want to use it you need to declare it without the value as below e.g.:
+# ARG CUDA_VERSION
 
 # Needed for string substitution
 SHELL ["/bin/bash", "-c"]
 
+# Use an ARG to avoid permanently setting to noninteractive
+ARG DEBIAN_FRONTEND=noninteractive
+ENV TZ=Europe/London
+RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
+
 # Install system packages
-RUN apt update && \
-    apt install -y --no-install-recommends \
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends \
         # ---- nbconvert dependencies ----
         texlive-xetex \
         texlive-fonts-recommended \
@@ -29,6 +39,9 @@ RUN apt update && \
         git \
         graphviz \
         libfreetype6-dev \
+        # libnvinfer6=6.0.1-1+${CUDA/./-} \
+        # libnvinfer-dev=6.0.1-1+${CUDA/./-} \
+        # libnvinfer-plugin6=6.0.1-1+${CUDA/./-} \
         libgl1-mesa-glx \
         libhdf5-serial-dev \
         libhdf5-dev \
@@ -79,10 +92,10 @@ ENV CONDA_DIR=/opt/conda \
 # ENV LANG=C.UTF-8
 
 # Install conda
-ARG MINICONDA_VERSION=py38_4.8.3
-ARG MINCONDA_MD5=d63adf39f2c220950a063e0529d4ff74
-# ARG MINICONDA_VERSION=py38_4.8.2
-# ARG MINCONDA_MD5=cbda751e713b5a95f187ae70b509403f
+# ARG MINICONDA_VERSION=py39_4.9.2
+# ARG MINCONDA_MD5=b4e46fcc8029e2cfa731b788f25b1d36
+ARG MINICONDA_VERSION=py38_4.9.2
+ARG MINCONDA_MD5=122c8c9beb51e124ab32a0fa6426c656
 # ARG MINICONDA_VERSION=py37_4.8.2
 # ARG MINCONDA_MD5=87e77f097f6ebb5127c77662dfc3165e
 # Last version to include Python 3.6: 4.5.4
@@ -119,8 +132,6 @@ RUN chown $NB_USER:$NB_GID /usr/local/bin/entrypoint.sh
 RUN chmod a+x /usr/local/bin/entrypoint.sh
 USER $NB_USER
 
-# Install Python packages
-
 # Inherit CUDA_VERSION from global layer
 ARG CUDA_VERSION
 RUN echo "CUDA: ${CUDA_VERSION}"
@@ -140,11 +151,13 @@ RUN echo "Open MPI CUDA support: ${OMPI_MCA_opal_cuda_support}"
 # Not supported by docker build: 
 # https://github.com/docker/cli/blob/master/docs/reference/builder.md#environment-replacement
 
+# Install Python packages
+
 ARG PYTHON_VERSION=3.8
 # RUN echo "python ${PYTHON_VERSION}.*" > $CONDA_DIR/conda-meta/pinned
 
-ARG TENSORFLOW_VERSION=2.3
-ARG PYTORCH_VERSION=1.6
+ARG TENSORFLOW_VERSION=2.4
+ARG PYTORCH_VERSION=1.7
 
 # Disabling channel_priority installs the highest version then sorts ties by channel priority
 # RUN conda config --set channel_priority false
@@ -201,74 +214,85 @@ RUN conda install --quiet --yes \
       tqdm \
       xlrd \
       xlwt \
-      # 'tensorflow-gpu=2.1.*' \
+      # 'tensorflow-gpu=2.1.*' \ 
       # 'tensorflow=2.1.*' \ THIS ONLY HAS GPU SUPPORT IN PIP
-      # tensorflow-gpu=${TENSORFLOW_VERSION} \
+      # tensorflow-gpu=${TENSORFLOW_VERSION} \ For conda, explicitly tag with -gpu
       tensorboard \
       setuptools \
       cmake \
       cffi \
       cupti \
       typing \
-      # 'pytorch=1.4.*' \
+      # 'pytorch=1.7.*' \
       pytorch=${PYTORCH_VERSION} \
       # magma-cuda${CUDA_VERSION//.} \
       # magma-cuda100 \
-      magma-cuda101 \
+      # magma-cuda101 \
       # magma-cuda102 \
+      magma-cuda110 \
+      # magma-cuda111 \
       ignite \
       torchvision \
       mpi4py \
       openmpi \
-      cudatoolkit=${CUDA_VERSION} \
-      # cudatoolkit \
-      # 'cudatoolkit>=10.0' \
-      cudnn \
+      # cudatoolkit=${CUDA_VERSION} \
       # cudnn=${CUDNN_VERSION} \
-      nccl \
-      # nodejs \
+      # nccl \
       # JupyterLab requires nodejs>=12 (>=10 since 2.1):
       # https://github.com/jupyterlab/jupyterlab/blob/master/dev_mode/package.json
-      # 'nodejs>=10' \
-      'nodejs>=12' \
-      # 'nodejs>=14' \
-      'notebook=6.1.*' \
-      'jupyterhub=1.1.*' \
-      'jupyterlab=2.2.*' \
+      # nodejs \
+      # 'nodejs>=12' \
+      'nodejs>=15' \
+      # 'notebook=6.1.*' \
+      notebook \
+      # 'jupyterhub=1.3.*' \
+      jupyterhub \
+      'jupyterlab=3.0.*' \
       ipywidgets \
-      widgetsnbextension \
-      nbdime \
+      # widgetsnbextension \
+      ipympl \
+      # nbdime \
       jupytext \
-      jupyternotify \
+      # jupyternotify \
+      jupyterlab_autoversion \
+      watermark && \
       # jupyterlab_bokeh \
-      jupyterlab-nvdashboard \
-    #   jupyterlab-git \
-      jupyter_conda && \
+      # jupyterlab-nvdashboard && \
+    #   jupyterlab-git && \
+      # jupyter_conda && \
       conda clean --all -f -y && \
       pip install --upgrade pip && \
       pip install \
         tensorflow==${TENSORFLOW_VERSION}.* \
         tf-explain \
+        jupyterlab-drawio && \
+        # jupyterlab_latex \
+        # jupyterlab_autoversion \
+        # watermark \
         # Needed as the backend for jupyterlab_tensorboard
-        jupyter-tensorboard \
+        # jupyter-tensorboard \
+      pip install --pre \
         jupyterlab-git && \
       # Activate ipywidgets extension in the environment that runs the notebook server
-      jupyter nbextension enable --py widgetsnbextension --sys-prefix && \
+      # jupyter nbextension enable --py widgetsnbextension --sys-prefix && \
       # Also activate ipywidgets extension for JupyterLab
       jupyter labextension install @jupyter-widgets/jupyterlab-manager --no-build && \
-      jupyter labextension install @jupyterlab/toc --no-build && \
+      # jupyter labextension install @jupyterlab/toc --no-build && \
       # jupyter labextension install @jupyterlab/google-drive --no-build && \
-    #   jupyter labextension install @jupyterlab/git --no-build && \
+      # jupyter labextension install @jupyterlab/git --no-build && \
     #   jupyter serverextension enable --py jupyterlab_git && \
-      jupyter labextension install @jupyterlab/github --no-build && \
-      jupyter labextension install jupyterlab-drawio --no-build && \
-    #   jupyter labextension install jupyterlab_bokeh --no-build && \
-      jupyter labextension install @bokeh/jupyter_bokeh --no-build && \
-      jupyter labextension install jupyter-matplotlib --no-build && \
-      jupyter labextension install jupyterlab_toastify jupyterlab_conda --no-build && \
-      jupyter labextension install jupyterlab-jupytext --no-build && \
-      jupyter labextension install jupyterlab-nvdashboard --no-build && \
-      jupyter labextension install jupyterlab_tensorboard --no-build && \
+      # jupyter labextension install @jupyterlab/github --no-build && \
+      # jupyter labextension install jupyterlab-drawio --no-build && \
+    #  jupyter labextension install jupyterlab_bokeh --no-build && \
+      # jupyter labextension install @bokeh/jupyter_bokeh --no-build && \
+      # jupyter labextension install jupyter-matplotlib --no-build && \
+      jupyter labextension install jupyterlab_toastify --no-build && \
+      # jupyter labextension install jupyterlab_conda --no-build && \
+      # jupyter labextension install jupyterlab-jupytext --no-build && \
+      # jupyter labextension install jupyterlab_autoversion --no-build && \
+      # jupyter labextension install jupyterlab-nvdashboard --no-build && \
+    #   jupyter labextension install @jupyterlab/latex --no-build && \
+      # jupyter labextension install jupyterlab_tensorboard --no-build && \
       jupyter lab build && \
       npm cache clean --force && \
       jupyter notebook --generate-config && \
@@ -279,8 +303,8 @@ RUN nbdime config-git --enable --global
 
 # Clone Official Tensorflow models
 # TODO: Move to /work
-# ARG TF_MODELS_VERSION=master
-ARG TF_MODELS_VERSION=${TENSORFLOW_VERSION}
+ARG TF_MODELS_VERSION=master
+# ARG TF_MODELS_VERSION=${TENSORFLOW_VERSION}
 ENV TF_MODELS_VERSION=${TF_MODELS_VERSION}
 RUN git clone -b ${TF_MODELS_VERSION} https://github.com/tensorflow/models.git /src/models
 
@@ -299,6 +323,8 @@ LABEL maintainer="ben.d.evans@gmail.com" \
     description="A Python based GPU-accelerated Jupyter image for deep learning." \
     org.opencontainers.image.authors="Ben Evans" \
     org.opencontainers.image.url="https://github.com/mmrl/dl"
+
+RUN conda list --explicit
 
 # https://docs.docker.com/engine/reference/builder/#expose
 EXPOSE 6006 8888
